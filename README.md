@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="assets/Pudo_banner.png" alt="PUDO Code System" width="100%" />
+</p>
+
 <h3 align="center">A structured 4-phase methodology for coding with AI assistants.</h3>
 
 <p align="center">
