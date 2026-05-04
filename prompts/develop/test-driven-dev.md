@@ -1,6 +1,6 @@
 # Test-Driven Development
 
-> **Phase:** 🟢 Develop  
+> **Phase:** Develop  
 > **Tags:** `#testing` `#tdd` `#quality`  
 > **AI Model:** Any (model-agnostic)
 
