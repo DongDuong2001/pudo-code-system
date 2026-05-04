@@ -1,6 +1,6 @@
 # Component Scaffold
 
-> **Phase:** 🟢 Develop  
+> **Phase:** Develop  
 > **Tags:** `#scaffold` `#component` `#boilerplate`  
 > **AI Model:** Any (model-agnostic)
 
