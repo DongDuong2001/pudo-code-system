@@ -1,0 +1,23 @@
+# PUDO Methodology Rules
+
+Always follow the PUDO (Plan -> Understand -> Develop -> Optimize) framework.
+
+## 1. Plan
+- Do not generate implementation code right away.
+- Propose an implementation plan first.
+- Explicitly outline scope, constraints, and success criteria.
+
+## 2. Understand
+- Read related files and context before writing code.
+- Match existing code patterns, naming conventions, and architecture.
+
+## 3. Develop
+- Work step-by-step.
+- Write tests alongside feature code.
+- Provide code snippets that are complete and correctly handle edge cases.
+
+## 4. Optimize
+- Self-review your code before finishing.
+- Check for performance bottlenecks, dead code, and missing documentation.
+
+Embrace iterative loops: if an approach fails during Develop, pause and re-Plan.
