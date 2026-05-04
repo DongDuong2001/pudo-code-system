@@ -1,6 +1,6 @@
 # Example 01: Building a Product Landing Page
 
-> **Complexity:** ⭐ Beginner  
+> **Complexity:** Beginner  
 > **Time:** ~2 hours  
 > **Key Takeaway:** How Plan prevents scope creep
 
@@ -16,7 +16,7 @@ With PUDO, you ship in 2 hours with a page that exceeds expectations.
 
 ---
 
-## 🟡 Plan
+## Plan
 
 ### What You Tell the AI
 
@@ -60,7 +60,7 @@ You review the plan, adjust the color palette, and approve. **Total time: 10 min
 
 ---
 
-## 🔵 Understand
+## Understand
 
 ### What You Do
 
@@ -85,7 +85,7 @@ You update the plan to use a bento grid for features and ensure the CTA button u
 
 ---
 
-## 🟢 Develop
+## Develop
 
 ### Task Checklist
 
@@ -117,7 +117,7 @@ we can add the toggle in the next cycle.
 
 ---
 
-## 🟣 Optimize
+## Optimize
 
 ### What You Do
 
