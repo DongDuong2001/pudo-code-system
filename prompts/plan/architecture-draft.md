@@ -1,6 +1,6 @@
 # Architecture Draft
 
-> **Phase:** 🟡 Plan  
+> **Phase:** Plan  
 > **Tags:** `#architecture` `#design` `#system`  
 > **AI Model:** Any (model-agnostic)
 
