@@ -1,6 +1,6 @@
 # Feature Implementation
 
-> **Phase:** 🟢 Develop  
+> **Phase:** Develop  
 > **Tags:** `#implementation` `#coding` `#feature`  
 > **AI Model:** Any (model-agnostic)
 
