@@ -1,6 +1,6 @@
 # Risk Assessment
 
-> **Phase:** 🟡 Plan  
+> **Phase:** Plan  
 > **Tags:** `#risk` `#planning` `#premortem`  
 > **AI Model:** Any (model-agnostic)
 
