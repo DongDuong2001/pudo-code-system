@@ -1,6 +1,6 @@
 # Dependency Audit
 
-> **Phase:** 🔵 Understand  
+> **Phase:** Understand  
 > **Tags:** `#dependencies` `#security` `#audit`  
 > **AI Model:** Any (model-agnostic)
 
