@@ -1,6 +1,6 @@
 # Performance Review
 
-> **Phase:** 🟣 Optimize  
+> **Phase:** Optimize  
 > **Tags:** `#performance` `#profiling` `#speed`  
 > **AI Model:** Any (model-agnostic)
 
