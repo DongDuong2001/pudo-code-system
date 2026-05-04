@@ -1,6 +1,6 @@
 # Codebase Analysis
 
-> **Phase:** 🔵 Understand  
+> **Phase:** Understand  
 > **Tags:** `#analysis` `#exploration` `#onboarding`  
 > **AI Model:** Any (model-agnostic)
 
