@@ -4,7 +4,7 @@ First off, thank you for considering contributing to PUDO! Every contribution he
 
 ## How to Contribute
 
-### 🐛 Report Issues
+### Report Issues
 
 Found a typo, broken link, or confusing explanation? [Open an issue](../../issues/new) with:
 
@@ -12,7 +12,7 @@ Found a typo, broken link, or confusing explanation? [Open an issue](../../issue
 - The file path or section where you found it
 - A suggested fix (if you have one)
 
-### 📝 Add a New Prompt
+### Add a New Prompt
 
 Prompts are the heart of PUDO. To add a new one:
 
@@ -56,7 +56,7 @@ What a good response looks like.
 
 4. **Submit a Pull Request** with a clear description of the prompt and when developers should use it.
 
-### 📖 Add a New Example Walkthrough
+### Add a New Example Walkthrough
 
 Real-world examples make PUDO tangible. To add one:
 
@@ -64,7 +64,7 @@ Real-world examples make PUDO tangible. To add one:
 2. Include a `walkthrough.md` that covers all 4 PUDO phases
 3. Show real decisions, tradeoffs, and outcomes — not idealized scenarios
 
-### 💡 General Guidelines
+### General Guidelines
 
 - **Keep it practical.** PUDO is a methodology for doers, not theorists.
 - **Be model-agnostic.** Prompts should work across AI assistants (ChatGPT, Claude, Gemini, etc.).
