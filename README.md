@@ -110,6 +110,7 @@ PUDO is designed to be the default operating system for your AI coding agents. W
 
 - **[Claude Projects](claude.md)**: Paste into your Project's custom instructions.
 - **[Cursor](cursor/.cursorrules)**: Copy to `.cursorrules` in your repository root.
+- **[OpenCode](opencode/opencode.md)**: Add to your OpenCode system prompts or workspace instructions.
 - **[Antigravity](antigravity/instructions.xml)**: Copy to `.gemini/antigravity/instructions.xml` in your workspace.
 - **[Kiro](kiro/system-prompt.md)**: Set as the system prompt in your Kiro settings.
 
