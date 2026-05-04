@@ -100,6 +100,15 @@ PUDO ships with a [ready-to-use prompt library](prompts/) — **12 prompts** acr
 | **(D)** Develop | [Feature Implementation](prompts/develop/feature-implementation.md) · [Test-Driven Dev](prompts/develop/test-driven-dev.md) · [Component Scaffold](prompts/develop/component-scaffold.md) |
 | **(O)** Optimize | [Performance Review](prompts/optimize/performance-review.md) · [Code Review Checklist](prompts/optimize/code-review-checklist.md) · [Refactor Opportunities](prompts/optimize/refactor-opportunities.md) |
 
+## AI Integrations
+
+PUDO is designed to be the default operating system for your AI coding agents. We've included pre-written system instructions for the most popular tools:
+
+- **[Claude Projects](claude.md)**: Paste into your Project's custom instructions.
+- **[Cursor](cursor/.cursorrules)**: Copy to `.cursorrules` in your repository root.
+- **[Antigravity](antigravity/instructions.xml)**: Copy to `.gemini/antigravity/instructions.xml` in your workspace.
+- **[Kiro](kiro/system-prompt.md)**: Set as the system prompt in your Kiro settings.
+
 ## Philosophy
 
 PUDO isn't just a checklist — it's a mindset. Read the [full philosophy](docs/philosophy.md) to understand the principles behind the method.
