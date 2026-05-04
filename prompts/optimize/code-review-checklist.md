@@ -1,6 +1,6 @@
 # Code Review Checklist
 
-> **Phase:** 🟣 Optimize  
+> **Phase:** Optimize  
 > **Tags:** `#review` `#quality` `#checklist`  
 > **AI Model:** Any (model-agnostic)
 
