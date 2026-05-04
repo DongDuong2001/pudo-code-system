@@ -1,6 +1,6 @@
 # Scope Definition
 
-> **Phase:** 🟡 Plan  
+> **Phase:** Plan  
 > **Tags:** `#scoping` `#greenfield` `#requirements`  
 > **AI Model:** Any (model-agnostic)
 
