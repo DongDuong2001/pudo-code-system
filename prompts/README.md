@@ -14,7 +14,7 @@ A collection of **12 ready-to-use prompts** organized by PUDO phase. Copy, custo
 
 ## Prompt Index
 
-### 🟡 Plan Phase
+### Plan Phase
 
 | Prompt | Use When | Tags |
 |---|---|---|
@@ -22,7 +22,7 @@ A collection of **12 ready-to-use prompts** organized by PUDO phase. Copy, custo
 | [Architecture Draft](plan/architecture-draft.md) | Designing system structure | `#architecture` `#design` `#system` |
 | [Risk Assessment](plan/risk-assessment.md) | Identifying what could go wrong | `#risk` `#planning` `#premortem` |
 
-### 🔵 Understand Phase
+### Understand Phase
 
 | Prompt | Use When | Tags |
 |---|---|---|
@@ -30,7 +30,7 @@ A collection of **12 ready-to-use prompts** organized by PUDO phase. Copy, custo
 | [Dependency Audit](understand/dependency-audit.md) | Checking what your code depends on | `#dependencies` `#security` `#audit` |
 | [Pattern Recognition](understand/pattern-recognition.md) | Learning codebase conventions | `#patterns` `#conventions` `#consistency` |
 
-### 🟢 Develop Phase
+### Develop Phase
 
 | Prompt | Use When | Tags |
 |---|---|---|
@@ -38,7 +38,7 @@ A collection of **12 ready-to-use prompts** organized by PUDO phase. Copy, custo
 | [Test-Driven Dev](develop/test-driven-dev.md) | Writing tests alongside code | `#testing` `#tdd` `#quality` |
 | [Component Scaffold](develop/component-scaffold.md) | Creating new components/modules | `#scaffold` `#component` `#boilerplate` |
 
-### 🟣 Optimize Phase
+### Optimize Phase
 
 | Prompt | Use When | Tags |
 |---|---|---|
