@@ -31,7 +31,7 @@ A deep-dive into each phase of the PUDO cycle: what happens, who does what, and 
 
 ---
 
-## 🟡 Phase 1: Plan
+## Phase 1: Plan
 
 > **Goal:** Define *what* you're building and *why* it matters.
 
@@ -56,18 +56,18 @@ A deep-dive into each phase of the PUDO cycle: what happens, who does what, and 
 - Suggest alternative approaches
 
 ### Exit Criteria
-✅ Implementation plan exists and has been reviewed  
-✅ Success criteria are defined and measurable  
-✅ Scope boundaries are explicit  
+- Implementation plan exists and has been reviewed  
+- Success criteria are defined and measurable  
+- Scope boundaries are explicit  
 
 ### Common Pitfalls
-- ⚠️ **Over-planning** — Don't spend 2 hours planning a 20-minute task. Match planning depth to task complexity.
-- ⚠️ **Vague goals** — "Make it better" is not a plan. "Reduce page load time to under 2 seconds" is.
-- ⚠️ **Skipping constraints** — If you don't tell the AI about constraints, it will generate unconstrained solutions.
+- **Over-planning** — Don't spend 2 hours planning a 20-minute task. Match planning depth to task complexity.
+- **Vague goals** — "Make it better" is not a plan. "Reduce page load time to under 2 seconds" is.
+- **Skipping constraints** — If you don't tell the AI about constraints, it will generate unconstrained solutions.
 
 ---
 
-## 🔵 Phase 2: Understand
+## Phase 2: Understand
 
 > **Goal:** Build a confident mental model of the existing system.
 
@@ -93,18 +93,18 @@ A deep-dive into each phase of the PUDO cycle: what happens, who does what, and 
 - Flag inconsistencies or potential issues
 
 ### Exit Criteria
-✅ You can explain the relevant architecture to someone else  
-✅ You know what existing code will be affected  
-✅ You've identified the patterns you need to follow  
+- You can explain the relevant architecture to someone else  
+- You know what existing code will be affected  
+- You've identified the patterns you need to follow  
 
 ### Common Pitfalls
-- ⚠️ **Skipping this phase** — The #1 source of bugs in AI-assisted development. AI writes valid code that doesn't fit the codebase.
-- ⚠️ **Over-relying on AI analysis** — AI can miss nuance. Cross-reference with your own reading.
-- ⚠️ **Analysis paralysis** — You don't need to understand *everything*. Focus on the blast radius of your change.
+- **Skipping this phase** — The #1 source of bugs in AI-assisted development. AI writes valid code that doesn't fit the codebase.
+- **Over-relying on AI analysis** — AI can miss nuance. Cross-reference with your own reading.
+- **Analysis paralysis** — You don't need to understand *everything*. Focus on the blast radius of your change.
 
 ---
 
-## 🟢 Phase 3: Develop
+## Phase 3: Develop
 
 > **Goal:** Write the code, make it work, prove it with tests.
 
@@ -130,18 +130,18 @@ A deep-dive into each phase of the PUDO cycle: what happens, who does what, and 
 - Suggest alternatives when the original approach hits issues
 
 ### Exit Criteria
-✅ All tasks on the checklist are complete  
-✅ Tests are passing  
-✅ The feature works as specified in the plan  
+- All tasks on the checklist are complete  
+- Tests are passing  
+- The feature works as specified in the plan  
 
 ### Common Pitfalls
-- ⚠️ **Accepting code without reading it** — AI generates plausible-looking code that may have subtle bugs. Always review.
-- ⚠️ **Skipping tests** — "I'll add tests later" means "I'll never add tests."
-- ⚠️ **Scope creep** — Stick to the plan. New ideas go into the next PUDO cycle.
+- **Accepting code without reading it** — AI generates plausible-looking code that may have subtle bugs. Always review.
+- **Skipping tests** — "I'll add tests later" means "I'll never add tests."
+- **Scope creep** — Stick to the plan. New ideas go into the next PUDO cycle.
 
 ---
 
-## 🟣 Phase 4: Optimize
+## Phase 4: Optimize
 
 > **Goal:** Elevate the implementation from "works" to "good."
 
@@ -167,15 +167,15 @@ A deep-dive into each phase of the PUDO cycle: what happens, who does what, and 
 - Create the walkthrough artifact
 
 ### Exit Criteria
-✅ Code passes review (self-review or peer review)  
-✅ Documentation is updated  
-✅ Walkthrough summarizes changes for future reference  
-✅ No known performance regressions  
+- Code passes review (self-review or peer review)  
+- Documentation is updated  
+- Walkthrough summarizes changes for future reference  
+- No known performance regressions  
 
 ### Common Pitfalls
-- ⚠️ **Skipping optimization** — "It works, ship it" builds tech debt at AI speed.
-- ⚠️ **Over-optimizing** — Premature optimization is still the root of all evil. Focus on measurable improvements.
-- ⚠️ **Forgetting documentation** — Future you (and your AI) will thank present you for good docs.
+- **Skipping optimization** — "It works, ship it" builds tech debt at AI speed.
+- **Over-optimizing** — Premature optimization is still the root of all evil. Focus on measurable improvements.
+- **Forgetting documentation** — Future you (and your AI) will thank present you for good docs.
 
 ---
 
