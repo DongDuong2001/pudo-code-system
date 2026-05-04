@@ -1,6 +1,6 @@
 # Example 03: Fixing a Production Database Connection Error
 
-> **Complexity:** ⭐⭐⭐ Advanced  
+> **Complexity:** Advanced  
 > **Time:** ~3 hours  
 > **Key Takeaway:** How the full PUDO cycle prevents regressions when fixing critical bugs
 
@@ -22,7 +22,7 @@ This is a **production emergency** — and exactly where unstructured debugging 
 
 ---
 
-## 🟡 Plan
+## Plan
 
 ### What You Tell the AI
 
@@ -64,7 +64,7 @@ A structured debugging plan:
 
 ---
 
-## 🔵 Understand
+## Understand
 
 ### What You Tell the AI
 
@@ -106,7 +106,7 @@ The 500 errors and the build failure are **two different problems** with the sam
 
 ---
 
-## 🟢 Develop
+## Develop
 
 ### Task Checklist
 
@@ -198,7 +198,7 @@ env:
 
 ---
 
-## 🟣 Optimize
+## Optimize
 
 ### What You Review
 
@@ -251,16 +251,16 @@ fallback during build time.
 
 ```bash
 # 1. Local build
-npm run build  # ✅ Passes without NEON_DATABASE_URL
+npm run build  # Passes without NEON_DATABASE_URL
 
 # 2. Local build with DB
-NEON_DATABASE_URL=... npm run build  # ✅ Passes with static generation
+NEON_DATABASE_URL=... npm run build  # Passes with static generation
 
 # 3. CI build
-git push  # ✅ CI pipeline green
+git push  # CI pipeline green
 
 # 4. Production monitoring
-# → Watch for 500 errors for 30 minutes → ✅ None detected
+# -> Watch for 500 errors for 30 minutes -> None detected
 ```
 
 **Total time: 1 hour.**
