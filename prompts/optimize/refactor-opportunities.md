@@ -1,6 +1,6 @@
 # Refactor Opportunities
 
-> **Phase:** 🟣 Optimize  
+> **Phase:** Optimize  
 > **Tags:** `#refactor` `#cleanup` `#maintainability`  
 > **AI Model:** Any (model-agnostic)
 
