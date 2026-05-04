@@ -1,6 +1,6 @@
 # Pattern Recognition
 
-> **Phase:** 🔵 Understand  
+> **Phase:** Understand  
 > **Tags:** `#patterns` `#conventions` `#consistency`  
 > **AI Model:** Any (model-agnostic)
 
