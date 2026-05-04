@@ -1,6 +1,6 @@
 # Example 02: Stripe Payment Integration
 
-> **Complexity:** ⭐⭐ Intermediate  
+> **Complexity:** Intermediate  
 > **Time:** ~4 hours  
 > **Key Takeaway:** How Understand saves hours of debugging
 
@@ -14,7 +14,7 @@ This is the kind of task where developers burn entire days debugging webhook sig
 
 ---
 
-## 🟡 Plan
+## Plan
 
 ### What You Tell the AI
 
@@ -57,7 +57,7 @@ You approve the plan but add a constraint: *"Use Stripe API version 2024-12-18 s
 
 ---
 
-## 🔵 Understand
+## Understand
 
 ### What You Tell the AI
 
@@ -93,7 +93,7 @@ Without this phase, you'd have written a server action that tries to read from Z
 
 ---
 
-## 🟢 Develop
+## Develop
 
 ### Task Checklist
 
@@ -143,7 +143,7 @@ You approve. This prevents duplicate orders.
 
 ---
 
-## 🟣 Optimize
+## Optimize
 
 ### What You Review
 
