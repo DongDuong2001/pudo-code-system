@@ -1,0 +1,159 @@
+<p align="center">
+  <img src="assets/Pudo_banner.png" alt="Sistema de Código PUDO" width="100%" />
+</p>
+
+<h3 align="center">Uma metodologia estruturada de 4 fases para programar com assistentes de IA.</h3>
+
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Licença: MIT" /></a>
+  <img src="https://img.shields.io/badge/version-1.0.0-brightgreen.svg" alt="Versão 1.0.0" />
+  <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-orange.svg" alt="PRs Bem-vindos" /></a>
+  <img src="https://img.shields.io/badge/AI-agnostic-purple.svg" alt="Agnóstico de IA" />
+</p>
+
+<p align="center">
+  <b>🌍 Idiomas:</b>
+  <a href="README.md">English</a> |
+  <a href="README.vi.md">Tiếng Việt</a> |
+  <a href="README.pt.md">Português</a> |
+  <a href="README.es.md">Español</a> |
+  <a href="README.ru.md">Русский</a>
+</p>
+
+---
+
+## O Problema
+
+Você abre seu editor. Você digita uma solicitação vaga para seu assistente de IA. Ele gera algo. Você cola. Funciona pela metade. Você pede uma correção. Quebra outra coisa. Repita por 3 horas.
+
+**Isso é a programação do caos.** Parece produtivo, mas não é.
+
+O problema não é a IA — é a **falta de estrutura**. Sem uma metodologia clara, o desenvolvimento assistido por IA se torna uma caminhada aleatória pela sua base de código.
+
+## A Solução: PUDO
+
+**PUDO** oferece um ciclo repetível de 4 fases que transforma a IA de uma máquina caça-níqueis em uma ferramenta de precisão.
+
+| Fase | Objetivo | Você Faz | IA Faz |
+|:---:|---|---|---|
+| **(P) Plan (Planejar)** | Definir *o que* e *por quê* | Definir escopo, restrições, critérios de sucesso | Elaborar plano de implementação, identificar riscos |
+| **(U) Understand (Entender)** | Saber *onde* e *como* | Apontar para o código relevante, explicar o contexto | Analisar a base de código, mapear dependências, encontrar padrões |
+| **(D) Develop (Desenvolver)** | Construir *isso* | Revisar, aprovar, testar | Escrever código, executar testes, acompanhar o progresso |
+| **(O) Optimize (Otimizar)** | Tornar *melhor* | Validar melhorias, mesclar (merge) | Refatorar, benchmark, documentar alterações |
+
+> **Conceito chave:** PUDO é um **ciclo**, não um pipeline. Você revisita as fases à medida que aprende mais. Uma descoberta no Desenvolvimento pode enviá-lo de volta ao Planejamento. Isso é esperado.
+
+## Início Rápido
+
+### 1. Comece com o Planejamento (Plan)
+
+Antes de escrever qualquer código, defina o que você está construindo:
+
+```
+Eu preciso construir [RECURSO]. 
+Os critérios de sucesso são [CRITÉRIOS].
+As restrições são [RESTRIÇÕES].
+Crie um plano de implementação antes de escrever qualquer código.
+```
+
+### 2. Siga para o Entendimento (Understand)
+
+Pesquise antes de construir:
+
+```
+Antes de implementar, analise a base de código existente:
+- Quais padrões já estão estabelecidos?
+- Quais dependências estão envolvidas?
+- O que pode quebrar?
+```
+
+### 3. Execute no Desenvolvimento (Develop)
+
+Construa com estrutura:
+
+```
+Implemente o plano. Acompanhe o progresso com uma lista de tarefas (checklist).
+Escreva testes junto com a implementação.
+Sinalize quaisquer desvios do plano.
+```
+
+### 4. Encerre com Otimização (Optimize)
+
+Não envie o primeiro rascunho:
+
+```
+Revise a implementação:
+- Há melhorias de desempenho?
+- O código é consistente com os padrões existentes?
+- Escreva um resumo (walkthrough) explicando o que mudou e por quê.
+```
+
+### 5. Repita
+
+Para cada tarefa, cada recurso, cada correção de bug. **Plan → Understand → Develop → Optimize.**
+
+## Biblioteca de Prompts
+
+O PUDO vem com uma [biblioteca de prompts pronta para uso](prompts/) — **13 prompts** distribuídos por 4 fases e habilidades de domínio que você pode copiar e colar em qualquer assistente de IA. Cada diretório de fase inclui um `README.md` detalhado explicando como modificar e estender os prompts para as necessidades da sua equipe.
+
+| Fase | Prompts |
+|---|---|
+| **(P)** Plan | [Definição de Escopo](prompts/plan/scope-definition.md) · [Rascunho de Arquitetura](prompts/plan/architecture-draft.md) · [Avaliação de Risco](prompts/plan/risk-assessment.md) |
+| **(U)** Understand | [Análise da Base de Código](prompts/understand/codebase-analysis.md) · [Auditoria de Dependências](prompts/understand/dependency-audit.md) · [Reconhecimento de Padrões](prompts/understand/pattern-recognition.md) |
+| **(D)** Develop | [Implementação de Recurso](prompts/develop/feature-implementation.md) · [Test-Driven Dev (TDD)](prompts/develop/test-driven-dev.md) · [Estrutura de Componente (Scaffold)](prompts/develop/component-scaffold.md) |
+| **(O)** Optimize | [Revisão de Desempenho](prompts/optimize/performance-review.md) · [Checklist de Revisão de Código](prompts/optimize/code-review-checklist.md) · [Oportunidades de Refatoração](prompts/optimize/refactor-opportunities.md) |
+| **Skills** | [Engenharia DevOps](skills/devops/SKILL.md) |
+
+## Integrações com IA
+
+O PUDO foi projetado para ser o sistema operacional padrão dos seus agentes de codificação por IA. Incluímos instruções de sistema pré-escritas para as ferramentas mais populares:
+
+- **[Claude Projects](claude.md)**: Cole nas instruções personalizadas do seu Projeto.
+- **[Cursor](cursor/.cursorrules)**: Copie para `.cursorrules` na raiz do seu repositório.
+- **[OpenCode](opencode/opencode.md)**: Adicione aos prompts de sistema do OpenCode ou instruções do workspace.
+- **[Antigravity](antigravity/instructions.xml)**: Copie para `.gemini/antigravity/instructions.xml` no seu workspace.
+- **[Kiro](kiro/system-prompt.md)**: Defina como o system prompt nas configurações do seu Kiro.
+
+## Filosofia
+
+O PUDO não é apenas uma lista de verificação — é uma mentalidade. Leia a [filosofia completa](docs/philosophy.md) para entender os princípios por trás do método.
+
+**TL;DR:**
+- **Anti-caos** — A estrutura vence a improvisação em escala
+- **Iterativo** — É um ciclo, não um modelo cascata (waterfall)
+- **Nativo para IA** — Projetado para programação em par entre humanos e IA
+- **Integridade de fase** — Cada fase possui critérios claros de entrada e saída
+
+## Para Quem É Isso?
+
+- **Desenvolvedores usando assistentes de IA** (ChatGPT, Claude, Gemini, Copilot, etc.) que desejam resultados melhores
+- **Líderes de equipe** em busca de uma metodologia compartilhada para desenvolvimento assistido por IA
+- **Estudantes** aprendendo a programar com IA da maneira correta desde o primeiro dia
+
+## Contribuindo
+
+O PUDO cresce com a comunidade. Veja [CONTRIBUTING.md](CONTRIBUTING.md) para saber como:
+
+- Adicionar novos prompts à biblioteca
+- Enviar tutoriais (walkthroughs) de cenários reais
+- Melhorar a documentação
+
+## Apoio & Financiamento
+
+Se você achar o PUDO útil, considere apoiar o projeto:
+
+- [Ko-fi](https://ko-fi.com/dongphuduong)
+- [Buy Me a Coffee](https://buymeacoffee.com/lab68dev)
+- **PayPal:** dongduong840@gmail.com
+
+## Licença
+
+[MIT](LICENSE) — Use, faça fork, torne isso seu.
+
+---
+
+<p align="center">
+  <strong>Pare de improvisar. Comece a fazer PUDO.</strong>
+  <br /><br />
+  <em>Plan → Understand → Develop → Optimize</em>
+</p>
