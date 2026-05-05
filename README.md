@@ -20,6 +20,10 @@
   <a href="README.ru.md">Русский</a>
 </p>
 
+<p align="center">
+  <a href="assets/The_PUDO_Code_System.mp4"><strong>🎥 Watch the PUDO Code System overview video</strong></a>
+</p>
+
 ---
 
 ## The Problem
@@ -40,6 +44,10 @@ The issue isn't the AI — it's the **lack of structure**. Without a clear metho
 | **(U) Understand** | Know *where* and *how* | Point to relevant code, explain context | Analyze codebase, map dependencies, find patterns |
 | **(D) Develop** | Build *it* | Review, approve, test | Write code, run tests, track progress |
 | **(O) Optimize** | Make *it better* | Validate improvements, merge | Refactor, benchmark, document changes |
+
+<p align="center">
+  <img src="assets/pudo_4_phase.png" alt="PUDO 4-Phase Infographic" width="100%" />
+</p>
 
 > **Key insight:** PUDO is a **cycle**, not a pipeline. You revisit phases as you learn more. A discovery in Develop might send you back to Plan. That's expected.
 
