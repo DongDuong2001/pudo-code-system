@@ -55,6 +55,9 @@ Skills are specialized templates that apply domain knowledge to any phase.
 | Prompt | Use When | Tags |
 |---|---|---|
 | [DevOps Engineering](../skills/devops/SKILL.md) | Writing IaC, CI/CD, or deployment config | `#devops` `#infrastructure` `#automation` |
+| [Architecture & Planning](../skills/plan/SKILL.md) | Designing systems and breaking down features | `#planning` `#architecture` `#design` |
+| [Software Engineering](../skills/code/SKILL.md) | Writing production-ready code from a spec | `#coding` `#implementation` `#cleancode` |
+| [Troubleshooting & Debugging](../skills/debug/SKILL.md) | Diagnosing bugs, errors, and traces | `#debugging` `#sre` `#bugfixing` |
 
 ## Prompt Format
 
