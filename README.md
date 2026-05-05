@@ -104,7 +104,7 @@ See PUDO applied to real-world scenarios:
 
 ## Prompt Library
 
-PUDO ships with a [ready-to-use prompt library](prompts/) — **13 prompts** across 4 phases and domain skills that you can copy-paste into any AI assistant. Each phase directory includes a detailed `README.md` explaining how to modify and extend the prompts for your team's needs.
+PUDO ships with a [ready-to-use prompt library](prompts/) — **16 prompts** across 4 phases and domain skills that you can copy-paste into any AI assistant. Each phase directory includes a detailed `README.md` explaining how to modify and extend the prompts for your team's needs.
 
 | Phase | Prompts |
 |---|---|
@@ -112,7 +112,7 @@ PUDO ships with a [ready-to-use prompt library](prompts/) — **13 prompts** acr
 | **(U)** Understand | [Codebase Analysis](prompts/understand/codebase-analysis.md) · [Dependency Audit](prompts/understand/dependency-audit.md) · [Pattern Recognition](prompts/understand/pattern-recognition.md) |
 | **(D)** Develop | [Feature Implementation](prompts/develop/feature-implementation.md) · [Test-Driven Dev](prompts/develop/test-driven-dev.md) · [Component Scaffold](prompts/develop/component-scaffold.md) |
 | **(O)** Optimize | [Performance Review](prompts/optimize/performance-review.md) · [Code Review Checklist](prompts/optimize/code-review-checklist.md) · [Refactor Opportunities](prompts/optimize/refactor-opportunities.md) |
-| **Skills** | [DevOps Engineering](skills/devops/SKILL.md) |
+| **Skills** | [Architecture & Planning](skills/plan/SKILL.md) · [Software Engineering](skills/code/SKILL.md) · [Troubleshooting & Debugging](skills/debug/SKILL.md) · [DevOps Engineering](skills/devops/SKILL.md) |
 
 ## AI Integrations
 
