@@ -11,6 +11,15 @@
   <img src="https://img.shields.io/badge/AI-agnostic-purple.svg" alt="AI Agnostic" />
 </p>
 
+<p align="center">
+  <b>🌍 Languages:</b>
+  <a href="README.md">English</a> |
+  <a href="README.vi.md">Tiếng Việt</a> |
+  <a href="README.pt.md">Português</a> |
+  <a href="README.es.md">Español</a> |
+  <a href="README.ru.md">Русский</a>
+</p>
+
 ---
 
 ## The Problem
@@ -95,7 +104,7 @@ See PUDO applied to real-world scenarios:
 
 ## Prompt Library
 
-PUDO ships with a [ready-to-use prompt library](prompts/) — **12 prompts** across all 4 phases that you can copy-paste into any AI assistant.
+PUDO ships with a [ready-to-use prompt library](prompts/) — **13 prompts** across 4 phases and domain skills that you can copy-paste into any AI assistant. Each phase directory includes a detailed `README.md` explaining how to modify and extend the prompts for your team's needs.
 
 | Phase | Prompts |
 |---|---|
@@ -103,6 +112,7 @@ PUDO ships with a [ready-to-use prompt library](prompts/) — **12 prompts** acr
 | **(U)** Understand | [Codebase Analysis](prompts/understand/codebase-analysis.md) · [Dependency Audit](prompts/understand/dependency-audit.md) · [Pattern Recognition](prompts/understand/pattern-recognition.md) |
 | **(D)** Develop | [Feature Implementation](prompts/develop/feature-implementation.md) · [Test-Driven Dev](prompts/develop/test-driven-dev.md) · [Component Scaffold](prompts/develop/component-scaffold.md) |
 | **(O)** Optimize | [Performance Review](prompts/optimize/performance-review.md) · [Code Review Checklist](prompts/optimize/code-review-checklist.md) · [Refactor Opportunities](prompts/optimize/refactor-opportunities.md) |
+| **Skills** | [DevOps Engineering](skills/devops/SKILL.md) |
 
 ## AI Integrations
 
@@ -137,6 +147,14 @@ PUDO grows with the community. See [CONTRIBUTING.md](CONTRIBUTING.md) for how to
 - Add new prompts to the library
 - Submit real-world example walkthroughs
 - Improve the documentation
+
+## Support & Funding
+
+If you find PUDO helpful, consider supporting the project:
+
+- [Ko-fi](https://ko-fi.com/dongphuduong)
+- [Buy Me a Coffee](https://buymeacoffee.com/lab68dev)
+- **PayPal:** dongduong840@gmail.com
 
 ## License
 
