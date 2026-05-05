@@ -21,7 +21,7 @@
 </p>
 
 <p align="center">
-  <video src="assets/The_PUDO_Code_System.mp4" width="100%" controls title="The PUDO Code System Overview"></video>
+  <a href="assets/The_PUDO_Code_System.mp4"><strong>🎥 Watch the PUDO Code System overview video</strong></a>
 </p>
 
 ---
