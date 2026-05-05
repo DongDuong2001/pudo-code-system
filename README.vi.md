@@ -94,7 +94,7 @@ Mọi tác vụ, mọi tính năng, mọi lỗi cần sửa. **Plan → Understa
 
 ## Thư viện Prompt
 
-PUDO đi kèm với một [thư viện prompt sẵn sàng sử dụng](prompts/) — **13 prompts** xuyên suốt 4 giai đoạn và các kỹ năng chuyên môn mà bạn có thể sao chép-dán vào bất kỳ trợ lý AI nào. Mỗi thư mục của các giai đoạn đều bao gồm một `README.md` chi tiết giải thích cách sửa đổi và mở rộng các prompts cho phù hợp với nhu cầu của nhóm bạn.
+PUDO đi kèm với một [thư viện prompt sẵn sàng sử dụng](prompts/) — **16 prompts** xuyên suốt 4 giai đoạn và các kỹ năng chuyên môn mà bạn có thể sao chép-dán vào bất kỳ trợ lý AI nào. Mỗi thư mục của các giai đoạn đều bao gồm một `README.md` chi tiết giải thích cách sửa đổi và mở rộng các prompts cho phù hợp với nhu cầu của nhóm bạn.
 
 | Giai đoạn | Prompts |
 |---|---|
@@ -102,7 +102,7 @@ PUDO đi kèm với một [thư viện prompt sẵn sàng sử dụng](prompts/)
 | **(U)** Understand | [Phân Tích Codebase](prompts/understand/codebase-analysis.md) · [Kiểm Toán Phụ Thuộc](prompts/understand/dependency-audit.md) · [Nhận Diện Mẫu](prompts/understand/pattern-recognition.md) |
 | **(D)** Develop | [Thực Hiện Tính Năng](prompts/develop/feature-implementation.md) · [Phát Triển Hướng Kiểm Thử (TDD)](prompts/develop/test-driven-dev.md) · [Dàn Giáo Component](prompts/develop/component-scaffold.md) |
 | **(O)** Optimize | [Đánh Giá Hiệu Suất](prompts/optimize/performance-review.md) · [Danh Sách Kiểm Tra Khi Review Code](prompts/optimize/code-review-checklist.md) · [Cơ Hội Tái Cấu Trúc](prompts/optimize/refactor-opportunities.md) |
-| **Skills** | [Kỹ Sư DevOps](skills/devops/SKILL.md) |
+| **Skills** | [Kiến trúc & Kế hoạch](skills/plan/SKILL.md) · [Lập trình Phần mềm](skills/code/SKILL.md) · [Xử lý Sự cố & Gỡ lỗi](skills/debug/SKILL.md) · [Kỹ Sư DevOps](skills/devops/SKILL.md) |
 
 ## Tích hợp AI
 
