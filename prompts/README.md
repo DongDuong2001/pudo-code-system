@@ -1,6 +1,8 @@
 # PUDO Prompt Library
 
-A collection of **12 ready-to-use prompts** organized by PUDO phase. Copy, customize, and paste into any AI assistant.
+A collection of **13 ready-to-use prompts** organized by PUDO phase and domain skills. Copy, customize, and paste into any AI assistant.
+
+> **Note:** Each directory contains its own `README.md` with detailed instructions on how to modify and use the prompts for your specific needs.
 
 ---
 
@@ -45,6 +47,14 @@ A collection of **12 ready-to-use prompts** organized by PUDO phase. Copy, custo
 | [Performance Review](optimize/performance-review.md) | Profiling and improving speed | `#performance` `#profiling` `#speed` |
 | [Code Review Checklist](optimize/code-review-checklist.md) | Reviewing code quality | `#review` `#quality` `#checklist` |
 | [Refactor Opportunities](optimize/refactor-opportunities.md) | Cleaning up existing code | `#refactor` `#cleanup` `#maintainability` |
+
+### Domain Skills
+
+Skills are specialized templates that apply domain knowledge to any phase.
+
+| Prompt | Use When | Tags |
+|---|---|---|
+| [DevOps Engineering](../skills/devops/SKILL.md) | Writing IaC, CI/CD, or deployment config | `#devops` `#infrastructure` `#automation` |
 
 ## Prompt Format
 
