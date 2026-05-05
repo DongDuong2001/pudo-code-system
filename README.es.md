@@ -94,7 +94,7 @@ Para cada tarea, cada función, cada corrección de errores. **Plan → Understa
 
 ## Biblioteca de Prompts
 
-PUDO viene con una [biblioteca de prompts lista para usar](prompts/) — **13 prompts** a lo largo de 4 fases y habilidades de dominio que puedes copiar y pegar en cualquier asistente de IA. Cada directorio de fase incluye un `README.md` detallado que explica cómo modificar y extender los prompts para las necesidades de tu equipo.
+PUDO viene con una [biblioteca de prompts lista para usar](prompts/) — **16 prompts** a lo largo de 4 fases y habilidades de dominio que puedes copiar y pegar en cualquier asistente de IA. Cada directorio de fase incluye un `README.md` detallado que explica cómo modificar y extender los prompts para las necesidades de tu equipo.
 
 | Fase | Prompts |
 |---|---|
@@ -102,7 +102,7 @@ PUDO viene con una [biblioteca de prompts lista para usar](prompts/) — **13 pr
 | **(U)** Understand | [Análisis de la Base de Código](prompts/understand/codebase-analysis.md) · [Auditoría de Dependencias](prompts/understand/dependency-audit.md) · [Reconocimiento de Patrones](prompts/understand/pattern-recognition.md) |
 | **(D)** Develop | [Implementación de Función](prompts/develop/feature-implementation.md) · [Test-Driven Dev (TDD)](prompts/develop/test-driven-dev.md) · [Andamiaje de Componentes (Scaffold)](prompts/develop/component-scaffold.md) |
 | **(O)** Optimize | [Revisión de Rendimiento](prompts/optimize/performance-review.md) · [Lista de Revisión de Código](prompts/optimize/code-review-checklist.md) · [Oportunidades de Refactorización](prompts/optimize/refactor-opportunities.md) |
-| **Skills** | [Ingeniería DevOps](skills/devops/SKILL.md) |
+| **Skills** | [Arquitectura y Planificación](skills/plan/SKILL.md) · [Ingeniería de Software](skills/code/SKILL.md) · [Resolución de Problemas y Depuración](skills/debug/SKILL.md) · [Ingeniería DevOps](skills/devops/SKILL.md) |
 
 ## Integraciones con IA
 
