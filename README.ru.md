@@ -94,7 +94,7 @@
 
 ## Библиотека Промптов
 
-PUDO поставляется с [готовой к использованию библиотекой промптов](prompts/) — **13 промптов** по 4 этапам и доменным навыкам, которые вы можете скопировать и вставить в любого ИИ-ассистента. В каждом каталоге этапа есть подробный `README.md`, объясняющий, как изменять и расширять промпты под нужды вашей команды.
+PUDO поставляется с [готовой к использованию библиотекой промптов](prompts/) — **16 промптов** по 4 этапам и доменным навыкам, которые вы можете скопировать и вставить в любого ИИ-ассистента. В каждом каталоге этапа есть подробный `README.md`, объясняющий, как изменять и расширять промпты под нужды вашей команды.
 
 | Этап | Промпты |
 |---|---|
@@ -102,7 +102,7 @@ PUDO поставляется с [готовой к использованию �
 | **(U)** Understand | [Анализ Кодовой Базы](prompts/understand/codebase-analysis.md) · [Аудит Зависимостей](prompts/understand/dependency-audit.md) · [Распознавание Паттернов](prompts/understand/pattern-recognition.md) |
 | **(D)** Develop | [Реализация Функции](prompts/develop/feature-implementation.md) · [Разработка через тестирование (TDD)](prompts/develop/test-driven-dev.md) · [Скаффолдинг Компонентов](prompts/develop/component-scaffold.md) |
 | **(O)** Optimize | [Обзор Производительности](prompts/optimize/performance-review.md) · [Чек-лист для Код-Ревью](prompts/optimize/code-review-checklist.md) · [Возможности для Рефакторинга](prompts/optimize/refactor-opportunities.md) |
-| **Skills** | [DevOps Инженерия](skills/devops/SKILL.md) |
+| **Skills** | [Архитектура и Планирование](skills/plan/SKILL.md) · [Программная Инженерия](skills/code/SKILL.md) · [Устранение неполадок и Отладка](skills/debug/SKILL.md) · [DevOps Инженерия](skills/devops/SKILL.md) |
 
 ## Интеграции ИИ
 
