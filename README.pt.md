@@ -1,6 +1,11 @@
-<a href="https://forg.to/products/pudo" target="_blank" rel="noopener">
-  <img src="https://forg.to/api/badges/upvote/pudo?theme=light&shape=square" alt="Pudo - Upvote on Forg on forg." height="48" />
-</a>
+<p align="center">
+  <a href="https://forg.to/products/pudo" target="_blank" rel="noopener">
+    <img src="https://forg.to/api/badges/upvote/pudo?theme=light&shape=square" alt="Pudo - Upvote on Forg on forg." height="48" />
+  </a>
+  <a href="https://unikorn.vn/p/pudo?ref=embed-pudo" target="_blank">
+    <img src="https://unikorn.vn/api/widgets/badge/pudo?theme=light" alt="Pudo trên Unikorn.vn" style="width: 256px; height: 64px;" width="256" height="64" />
+  </a>
+</p>
 
 <p align="center">
   <img src="assets/Pudo_banner.png" alt="Sistema de Código PUDO" width="100%" />
