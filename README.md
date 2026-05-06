@@ -121,6 +121,7 @@ PUDO ships with a [ready-to-use prompt library](prompts/) — **16 prompts** acr
 | **(D)** Develop | [Feature Implementation](prompts/develop/feature-implementation.md) · [Test-Driven Dev](prompts/develop/test-driven-dev.md) · [Component Scaffold](prompts/develop/component-scaffold.md) |
 | **(O)** Optimize | [Performance Review](prompts/optimize/performance-review.md) · [Code Review Checklist](prompts/optimize/code-review-checklist.md) · [Refactor Opportunities](prompts/optimize/refactor-opportunities.md) |
 | **Skills** | [Architecture & Planning](skills/plan/SKILL.md) · [Software Engineering](skills/code/SKILL.md) · [Troubleshooting & Debugging](skills/debug/SKILL.md) · [DevOps Engineering](skills/devops/SKILL.md) |
+| **DevOps Tools** | [GitHub Actions](skills/devops/github-actions/SKILL.md) · [GitLab CI](skills/devops/gitlab-ci/SKILL.md) · [Argo CD](skills/devops/argo-cd/SKILL.md) · [Jenkins](skills/devops/jenkins/SKILL.md) · [Terraform](skills/devops/terraform/SKILL.md) · [Docker](skills/devops/docker/SKILL.md) · [Kubernetes](skills/devops/kubernetes/SKILL.md) |
 
 ## AI Integrations
 
