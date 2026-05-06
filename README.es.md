@@ -94,15 +94,16 @@ Para cada tarea, cada función, cada corrección de errores. **Plan → Understa
 
 ## Biblioteca de Prompts
 
-PUDO viene con una [biblioteca de prompts lista para usar](prompts/) — **16 prompts** a lo largo de 4 fases y habilidades de dominio que puedes copiar y pegar en cualquier asistente de IA. Cada directorio de fase incluye un `README.md` detallado que explica cómo modificar y extender los prompts para las necesidades de tu equipo.
+PUDO viene con una [biblioteca de prompts lista para usar](prompts/) — **21 prompts** a lo largo de 4 fases y habilidades de dominio que puedes copiar y pegar en cualquier asistente de IA. Cada directorio de fase incluye un `README.md` detallado que explica cómo modificar y extender los prompts para las necesidades de tu equipo.
 
 | Fase | Prompts |
 |---|---|
-| **(P)** Plan | [Definición de Alcance](prompts/plan/scope-definition.md) · [Borrador de Arquitectura](prompts/plan/architecture-draft.md) · [Evaluación de Riesgos](prompts/plan/risk-assessment.md) |
-| **(U)** Understand | [Análisis de la Base de Código](prompts/understand/codebase-analysis.md) · [Auditoría de Dependencias](prompts/understand/dependency-audit.md) · [Reconocimiento de Patrones](prompts/understand/pattern-recognition.md) |
-| **(D)** Develop | [Implementación de Función](prompts/develop/feature-implementation.md) · [Test-Driven Dev (TDD)](prompts/develop/test-driven-dev.md) · [Andamiaje de Componentes (Scaffold)](prompts/develop/component-scaffold.md) |
-| **(O)** Optimize | [Revisión de Rendimiento](prompts/optimize/performance-review.md) · [Lista de Revisión de Código](prompts/optimize/code-review-checklist.md) · [Oportunidades de Refactorización](prompts/optimize/refactor-opportunities.md) |
-| **Skills** | [Arquitectura y Planificación](skills/plan/SKILL.md) · [Ingeniería de Software](skills/code/SKILL.md) · [Resolución de Problemas y Depuración](skills/debug/SKILL.md) · [Ingeniería DevOps](skills/devops/SKILL.md) |
+| **(P)** Plan | [Definición de Alcance](prompts/plan/scope-definition.md) · [Borrador de Arquitectura](prompts/plan/architecture-draft.md) · [Evaluación de Riesgos](prompts/plan/risk-assessment.md) · [Esquema de Base de Datos](prompts/plan/database-schema-design.md) · [Contrato de API](prompts/plan/api-contract-design.md) · [Modelo de Amenazas de Seguridad](prompts/plan/security-threat-model.md) |
+| **(U)** Understand | [Análisis de Banco de Código](prompts/understand/codebase-analysis.md) · [Auditoría de Dependencias](prompts/understand/dependency-audit.md) · [Reconocimiento de Patrones](prompts/understand/pattern-recognition.md) · [Análisis de Registros de Fallos](prompts/understand/crash-log-analysis.md) |
+| **(D)** Develop | [Implementación de Función](prompts/develop/feature-implementation.md) · [Test-Driven Dev (TDD)](prompts/develop/test-driven-dev.md) · [Andamiaje de Componentes](prompts/develop/component-scaffold.md) · [Suite de Pruebas de Integración](prompts/develop/integration-test-suite.md) · [Suite de Pruebas E2E](prompts/develop/e2e-test-suite.md) |
+| **(O)** Optimize | [Revisión de Rendimiento](prompts/optimize/performance-review.md) · [Lista de Revisión de Código](prompts/optimize/code-review-checklist.md) · [Oportunidades de Refactorización](prompts/optimize/refactor-opportunities.md) · [Análisis de Perfil de Memoria](prompts/optimize/memory-profiling.md) · [Solución de Problemas de Red](prompts/optimize/network-troubleshooting.md) |
+| **Skills** | [Arquitectura y Planificación](skills/plan/SKILL.md) · [Ingeniería de Software](skills/code/SKILL.md) · [Resolución de Problemas y Diagnóstico](skills/debug/SKILL.md) · [Ingeniería DevOps](skills/devops/SKILL.md) · [Ingeniería de Pruebas (Test)](skills/test/SKILL.md) |
+| **Herramientas DevOps** | [GitHub Actions](skills/devops/github-actions/SKILL.md) · [GitLab CI](skills/devops/gitlab-ci/SKILL.md) · [Argo CD](skills/devops/argo-cd/SKILL.md) · [Jenkins](skills/devops/jenkins/SKILL.md) · [Terraform](skills/devops/terraform/SKILL.md) · [Docker](skills/devops/docker/SKILL.md) · [Kubernetes](skills/devops/kubernetes/SKILL.md) |
 
 ## Integraciones con IA
 

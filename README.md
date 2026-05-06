@@ -112,15 +112,15 @@ See PUDO applied to real-world scenarios:
 
 ## Prompt Library
 
-PUDO ships with a [ready-to-use prompt library](prompts/) — **16 prompts** across 4 phases and domain skills that you can copy-paste into any AI assistant. Each phase directory includes a detailed `README.md` explaining how to modify and extend the prompts for your team's needs.
+PUDO ships with a [ready-to-use prompt library](prompts/) — **21 prompts** across 4 phases and domain skills that you can copy-paste into any AI assistant. Each phase directory includes a detailed `README.md` explaining how to modify and extend the prompts for your team's needs.
 
 | Phase | Prompts |
 |---|---|
-| **(P)** Plan | [Scope Definition](prompts/plan/scope-definition.md) · [Architecture Draft](prompts/plan/architecture-draft.md) · [Risk Assessment](prompts/plan/risk-assessment.md) |
-| **(U)** Understand | [Codebase Analysis](prompts/understand/codebase-analysis.md) · [Dependency Audit](prompts/understand/dependency-audit.md) · [Pattern Recognition](prompts/understand/pattern-recognition.md) |
-| **(D)** Develop | [Feature Implementation](prompts/develop/feature-implementation.md) · [Test-Driven Dev](prompts/develop/test-driven-dev.md) · [Component Scaffold](prompts/develop/component-scaffold.md) |
-| **(O)** Optimize | [Performance Review](prompts/optimize/performance-review.md) · [Code Review Checklist](prompts/optimize/code-review-checklist.md) · [Refactor Opportunities](prompts/optimize/refactor-opportunities.md) |
-| **Skills** | [Architecture & Planning](skills/plan/SKILL.md) · [Software Engineering](skills/code/SKILL.md) · [Troubleshooting & Debugging](skills/debug/SKILL.md) · [DevOps Engineering](skills/devops/SKILL.md) |
+| **(P)** Plan | [Scope Definition](prompts/plan/scope-definition.md) · [Architecture Draft](prompts/plan/architecture-draft.md) · [Risk Assessment](prompts/plan/risk-assessment.md) · [Database Schema](prompts/plan/database-schema-design.md) · [API Contract](prompts/plan/api-contract-design.md) · [Security Threat Model](prompts/plan/security-threat-model.md) |
+| **(U)** Understand | [Codebase Analysis](prompts/understand/codebase-analysis.md) · [Dependency Audit](prompts/understand/dependency-audit.md) · [Pattern Recognition](prompts/understand/pattern-recognition.md) · [Crash Log Analysis](prompts/understand/crash-log-analysis.md) |
+| **(D)** Develop | [Feature Implementation](prompts/develop/feature-implementation.md) · [Test-Driven Dev](prompts/develop/test-driven-dev.md) · [Component Scaffold](prompts/develop/component-scaffold.md) · [Integration Test Suite](prompts/develop/integration-test-suite.md) · [E2E Test Suite](prompts/develop/e2e-test-suite.md) |
+| **(O)** Optimize | [Performance Review](prompts/optimize/performance-review.md) · [Code Review Checklist](prompts/optimize/code-review-checklist.md) · [Refactor Opportunities](prompts/optimize/refactor-opportunities.md) · [Memory Profiling](prompts/optimize/memory-profiling.md) · [Network Troubleshooting](prompts/optimize/network-troubleshooting.md) |
+| **Skills** | [Architecture & Planning](skills/plan/SKILL.md) · [Software Engineering](skills/code/SKILL.md) · [Troubleshooting & Debugging](skills/debug/SKILL.md) · [DevOps Engineering](skills/devops/SKILL.md) · [Test Engineering](skills/test/SKILL.md) |
 | **DevOps Tools** | [GitHub Actions](skills/devops/github-actions/SKILL.md) · [GitLab CI](skills/devops/gitlab-ci/SKILL.md) · [Argo CD](skills/devops/argo-cd/SKILL.md) · [Jenkins](skills/devops/jenkins/SKILL.md) · [Terraform](skills/devops/terraform/SKILL.md) · [Docker](skills/devops/docker/SKILL.md) · [Kubernetes](skills/devops/kubernetes/SKILL.md) |
 
 ## AI Integrations

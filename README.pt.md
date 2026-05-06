@@ -94,15 +94,16 @@ Para cada tarefa, cada recurso, cada correção de bug. **Plan → Understand �
 
 ## Biblioteca de Prompts
 
-O PUDO vem com uma [biblioteca de prompts pronta para uso](prompts/) — **16 prompts** distribuídos por 4 fases e habilidades de domínio que você pode copiar e colar em qualquer assistente de IA. Cada diretório de fase inclui um `README.md` detalhado explicando como modificar e estender os prompts para as necessidades da sua equipe.
+O PUDO vem com uma [biblioteca de prompts pronta para uso](prompts/) — **21 prompts** distribuídos por 4 fases e habilidades de domínio que você pode copiar e colar em qualquer assistente de IA. Cada diretório de fase inclui um `README.md` detalhado explicando como modificar e estender os prompts para as necessidades da sua equipe.
 
 | Fase | Prompts |
 |---|---|
-| **(P)** Plan | [Definição de Escopo](prompts/plan/scope-definition.md) · [Rascunho de Arquitetura](prompts/plan/architecture-draft.md) · [Avaliação de Risco](prompts/plan/risk-assessment.md) |
-| **(U)** Understand | [Análise da Base de Código](prompts/understand/codebase-analysis.md) · [Auditoria de Dependências](prompts/understand/dependency-audit.md) · [Reconhecimento de Padrões](prompts/understand/pattern-recognition.md) |
-| **(D)** Develop | [Implementação de Recurso](prompts/develop/feature-implementation.md) · [Test-Driven Dev (TDD)](prompts/develop/test-driven-dev.md) · [Estrutura de Componente (Scaffold)](prompts/develop/component-scaffold.md) |
-| **(O)** Optimize | [Revisão de Desempenho](prompts/optimize/performance-review.md) · [Checklist de Revisão de Código](prompts/optimize/code-review-checklist.md) · [Oportunidades de Refatoração](prompts/optimize/refactor-opportunities.md) |
-| **Skills** | [Arquitetura e Planejamento](skills/plan/SKILL.md) · [Engenharia de Software](skills/code/SKILL.md) · [Solução de Problemas e Depuração](skills/debug/SKILL.md) · [Engenharia DevOps](skills/devops/SKILL.md) |
+| **(P)** Plan | [Definição de Escopo](prompts/plan/scope-definition.md) · [Rascunho de Arquitetura](prompts/plan/architecture-draft.md) · [Avaliação de Risco](prompts/plan/risk-assessment.md) · [Esquema de Banco de Dados](prompts/plan/database-schema-design.md) · [Contrato de API](prompts/plan/api-contract-design.md) · [Modelo de Ameaça de Segurança](prompts/plan/security-threat-model.md) |
+| **(U)** Understand | [Análise da Base de Código](prompts/understand/codebase-analysis.md) · [Auditoria de Dependências](prompts/understand/dependency-audit.md) · [Reconhecimento de Padrões](prompts/understand/pattern-recognition.md) · [Análise de Log de Falhas](prompts/understand/crash-log-analysis.md) |
+| **(D)** Develop | [Implementação de Recurso](prompts/develop/feature-implementation.md) · [Test-Driven Dev (TDD)](prompts/develop/test-driven-dev.md) · [Estrutura de Componente](prompts/develop/component-scaffold.md) · [Suite de Teste de Integração](prompts/develop/integration-test-suite.md) · [Suite de Teste E2E](prompts/develop/e2e-test-suite.md) |
+| **(O)** Optimize | [Revisão de Desempenho](prompts/optimize/performance-review.md) · [Checklist de Revisão de Código](prompts/optimize/code-review-checklist.md) · [Oportunidades de Refatoração](prompts/optimize/refactor-opportunities.md) · [Análise de Perfil de Memória](prompts/optimize/memory-profiling.md) · [Solução de Problemas de Rede](prompts/optimize/network-troubleshooting.md) |
+| **Skills** | [Arquitetura e Planejamento](skills/plan/SKILL.md) · [Engenharia de Software](skills/code/SKILL.md) · [Solução de Problemas e Depuração](skills/debug/SKILL.md) · [Engenharia DevOps](skills/devops/SKILL.md) · [Engenharia de Teste (Test)](skills/test/SKILL.md) |
+| **Ferramentas DevOps** | [GitHub Actions](skills/devops/github-actions/SKILL.md) · [GitLab CI](skills/devops/gitlab-ci/SKILL.md) · [Argo CD](skills/devops/argo-cd/SKILL.md) · [Jenkins](skills/devops/jenkins/SKILL.md) · [Terraform](skills/devops/terraform/SKILL.md) · [Docker](skills/devops/docker/SKILL.md) · [Kubernetes](skills/devops/kubernetes/SKILL.md) |
 
 ## Integrações com IA
 

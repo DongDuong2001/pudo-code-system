@@ -94,15 +94,16 @@
 
 ## Библиотека Промптов
 
-PUDO поставляется с [готовой к использованию библиотекой промптов](prompts/) — **16 промптов** по 4 этапам и доменным навыкам, которые вы можете скопировать и вставить в любого ИИ-ассистента. В каждом каталоге этапа есть подробный `README.md`, объясняющий, как изменять и расширять промпты под нужды вашей команды.
+PUDO поставляется с [готовой к использованию библиотекой промптов](prompts/) — **21 промпт** по 4 этапам и доменным навыкам, которые вы можете скопировать и вставить в любого ИИ-ассистента. В каждом каталоге этапа есть подробный `README.md`, объясняющий, как изменять и расширять промпты под нужды вашей команды.
 
 | Этап | Промпты |
 |---|---|
-| **(P)** Plan | [Определение Области](prompts/plan/scope-definition.md) · [Черновик Архитектуры](prompts/plan/architecture-draft.md) · [Оценка Рисков](prompts/plan/risk-assessment.md) |
-| **(U)** Understand | [Анализ Кодовой Базы](prompts/understand/codebase-analysis.md) · [Аудит Зависимостей](prompts/understand/dependency-audit.md) · [Распознавание Паттернов](prompts/understand/pattern-recognition.md) |
-| **(D)** Develop | [Реализация Функции](prompts/develop/feature-implementation.md) · [Разработка через тестирование (TDD)](prompts/develop/test-driven-dev.md) · [Скаффолдинг Компонентов](prompts/develop/component-scaffold.md) |
-| **(O)** Optimize | [Обзор Производительности](prompts/optimize/performance-review.md) · [Чек-лист для Код-Ревью](prompts/optimize/code-review-checklist.md) · [Возможности для Рефакторинга](prompts/optimize/refactor-opportunities.md) |
-| **Skills** | [Архитектура и Планирование](skills/plan/SKILL.md) · [Программная Инженерия](skills/code/SKILL.md) · [Устранение неполадок и Отладка](skills/debug/SKILL.md) · [DevOps Инженерия](skills/devops/SKILL.md) |
+| **(P)** Plan | [Определение Области](prompts/plan/scope-definition.md) · [Черновик Архитектуры](prompts/plan/architecture-draft.md) · [Оценка Рисков](prompts/plan/risk-assessment.md) · [Схема Базы Данных](prompts/plan/database-schema-design.md) · [Контракт API](prompts/plan/api-contract-design.md) · [Модель Угроз Безопасности](prompts/plan/security-threat-model.md) |
+| **(U)** Understand | [Анализ Кодовой Базы](prompts/understand/codebase-analysis.md) · [Аудит Зависимостей](prompts/understand/dependency-audit.md) · [Распознавание Паттернов](prompts/understand/pattern-recognition.md) · [Анализ Журналов Сбоев](prompts/understand/crash-log-analysis.md) |
+| **(D)** Develop | [Реализация Функции](prompts/develop/feature-implementation.md) · [Разработка через тестирование (TDD)](prompts/develop/test-driven-dev.md) · [Скаффолдинг Компонентов](prompts/develop/component-scaffold.md) · [Набор Интеграционных Тестов](prompts/develop/integration-test-suite.md) · [Набор E2E Тестов](prompts/develop/e2e-test-suite.md) |
+| **(O)** Optimize | [Обзор Производительности](prompts/optimize/performance-review.md) · [Чек-лист для Код-Ревью](prompts/optimize/code-review-checklist.md) · [Возможности для Рефакторинга](prompts/optimize/refactor-opportunities.md) · [Профилирование Памяти](prompts/optimize/memory-profiling.md) · [Анализ Сетевых Проблем](prompts/optimize/network-troubleshooting.md) |
+| **Skills** | [Архитектура и Планирование](skills/plan/SKILL.md) · [Программная Инженерия](skills/code/SKILL.md) · [Устранение неполадок и Отладка](skills/debug/SKILL.md) · [DevOps Инженерия](skills/devops/SKILL.md) · [Тестирование (Test Engineering)](skills/test/SKILL.md) |
+| **DevOps Инструменты** | [GitHub Actions](skills/devops/github-actions/SKILL.md) · [GitLab CI](skills/devops/gitlab-ci/SKILL.md) · [Argo CD](skills/devops/argo-cd/SKILL.md) · [Jenkins](skills/devops/jenkins/SKILL.md) · [Terraform](skills/devops/terraform/SKILL.md) · [Docker](skills/devops/docker/SKILL.md) · [Kubernetes](skills/devops/kubernetes/SKILL.md) |
 
 ## Интеграции ИИ
 

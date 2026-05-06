@@ -94,15 +94,16 @@ Mọi tác vụ, mọi tính năng, mọi lỗi cần sửa. **Plan → Understa
 
 ## Thư viện Prompt
 
-PUDO đi kèm với một [thư viện prompt sẵn sàng sử dụng](prompts/) — **16 prompts** xuyên suốt 4 giai đoạn và các kỹ năng chuyên môn mà bạn có thể sao chép-dán vào bất kỳ trợ lý AI nào. Mỗi thư mục của các giai đoạn đều bao gồm một `README.md` chi tiết giải thích cách sửa đổi và mở rộng các prompts cho phù hợp với nhu cầu của nhóm bạn.
+PUDO đi kèm với một [thư viện prompt sẵn sàng sử dụng](prompts/) — **21 prompts** xuyên suốt 4 giai đoạn và các kỹ năng chuyên môn mà bạn có thể sao chép-dán vào bất kỳ trợ lý AI nào. Mỗi thư mục của các giai đoạn đều bao gồm một `README.md` chi tiết giải thích cách sửa đổi và mở rộng các prompts cho phù hợp với nhu cầu của nhóm bạn.
 
 | Giai đoạn | Prompts |
 |---|---|
-| **(P)** Plan | [Định Nghĩa Phạm Vi](prompts/plan/scope-definition.md) · [Bản Nháp Kiến Trúc](prompts/plan/architecture-draft.md) · [Đánh Giá Rủi Ro](prompts/plan/risk-assessment.md) |
-| **(U)** Understand | [Phân Tích Codebase](prompts/understand/codebase-analysis.md) · [Kiểm Toán Phụ Thuộc](prompts/understand/dependency-audit.md) · [Nhận Diện Mẫu](prompts/understand/pattern-recognition.md) |
-| **(D)** Develop | [Thực Hiện Tính Năng](prompts/develop/feature-implementation.md) · [Phát Triển Hướng Kiểm Thử (TDD)](prompts/develop/test-driven-dev.md) · [Dàn Giáo Component](prompts/develop/component-scaffold.md) |
-| **(O)** Optimize | [Đánh Giá Hiệu Suất](prompts/optimize/performance-review.md) · [Danh Sách Kiểm Tra Khi Review Code](prompts/optimize/code-review-checklist.md) · [Cơ Hội Tái Cấu Trúc](prompts/optimize/refactor-opportunities.md) |
-| **Skills** | [Kiến trúc & Kế hoạch](skills/plan/SKILL.md) · [Lập trình Phần mềm](skills/code/SKILL.md) · [Xử lý Sự cố & Gỡ lỗi](skills/debug/SKILL.md) · [Kỹ Sư DevOps](skills/devops/SKILL.md) |
+| **(P)** Plan | [Định Nghĩa Phạm Vi](prompts/plan/scope-definition.md) · [Bản Nháp Kiến Trúc](prompts/plan/architecture-draft.md) · [Đánh Giá Rủi Ro](prompts/plan/risk-assessment.md) · [Lược Đồ Cơ Sở Dữ Liệu](prompts/plan/database-schema-design.md) · [Hợp Đồng API](prompts/plan/api-contract-design.md) · [Mô Hình Mối Đe Dọa An Ninh](prompts/plan/security-threat-model.md) |
+| **(U)** Understand | [Phân Tích Codebase](prompts/understand/codebase-analysis.md) · [Kiểm Toán Phụ Thuộc](prompts/understand/dependency-audit.md) · [Nhận Diện Mẫu](prompts/understand/pattern-recognition.md) · [Phân Tích Nhật Ký Lỗi (Crash Log)](prompts/understand/crash-log-analysis.md) |
+| **(D)** Develop | [Thực Hiện Tính Năng](prompts/develop/feature-implementation.md) · [Phát Triển Hướng Kiểm Thử (TDD)](prompts/develop/test-driven-dev.md) · [Dàn Giáo Component](prompts/develop/component-scaffold.md) · [Bộ Kiểm Thử Tích Hợp](prompts/develop/integration-test-suite.md) · [Bộ Kiểm Thử E2E](prompts/develop/e2e-test-suite.md) |
+| **(O)** Optimize | [Đánh Giá Hiệu Suất](prompts/optimize/performance-review.md) · [Danh Sách Kiểm Tra Khi Review Code](prompts/optimize/code-review-checklist.md) · [Cơ Hội Tái Cấu Trúc](prompts/optimize/refactor-opportunities.md) · [Cấu Hình Bộ Nhớ](prompts/optimize/memory-profiling.md) · [Khắc Phục Sự Cố Mạng](prompts/optimize/network-troubleshooting.md) |
+| **Skills** | [Kiến trúc & Kế hoạch](skills/plan/SKILL.md) · [Kỹ Thuật Phần mềm](skills/code/SKILL.md) · [Xử lý Sự Cố & Gỡ Lỗi](skills/debug/SKILL.md) · [Kỹ Sư DevOps](skills/devops/SKILL.md) · [Kỹ Sư Kiểm Thử (Test)](skills/test/SKILL.md) |
+| **Công cụ DevOps** | [GitHub Actions](skills/devops/github-actions/SKILL.md) · [GitLab CI](skills/devops/gitlab-ci/SKILL.md) · [Argo CD](skills/devops/argo-cd/SKILL.md) · [Jenkins](skills/devops/jenkins/SKILL.md) · [Terraform](skills/devops/terraform/SKILL.md) · [Docker](skills/devops/docker/SKILL.md) · [Kubernetes](skills/devops/kubernetes/SKILL.md) |
 
 ## Tích hợp AI
 
