@@ -32,6 +32,14 @@
   <a href="README.ru.md">Русский</a>
 </p>
 
+<p align="center">
+  <a href="https://www.youtube.com/watch?v=yjRRjrx6Ews" target="_blank">
+    <img src="https://img.youtube.com/vi/yjRRjrx6Ews/maxresdefault.jpg" alt="Watch the PUDO Code System overview video" width="80%" />
+    <br />
+    <strong>🎥 Watch the PUDO Code System overview video</strong>
+  </a>
+</p>
+
 ---
 
 ## Проблема
