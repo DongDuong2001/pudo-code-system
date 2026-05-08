@@ -33,7 +33,11 @@
 </p>
 
 <p align="center">
-  <a href="assets/The_PUDO_Code_System.mp4"><strong>🎥 Watch the PUDO Code System overview video</strong></a>
+  <a href="https://www.youtube.com/watch?v=yjRRjrx6Ews" target="_blank">
+    <img src="https://img.youtube.com/vi/yjRRjrx6Ews/maxresdefault.jpg" alt="Watch the PUDO Code System overview video" width="80%" />
+    <br />
+    <strong>🎥 Watch the PUDO Code System overview video</strong>
+  </a>
 </p>
 
 ---
