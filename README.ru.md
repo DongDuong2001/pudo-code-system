@@ -163,6 +163,8 @@ PUDO растет вместе с сообществом. Посмотрите [
 
 Если вы находите PUDO полезным, рассмотрите возможность поддержки проекта:
 
+- [GitHub Sponsors](https://github.com/sponsors/DongDuong2001)
+- [Patreon](https://patreon.com/DongDuong2001)
 - [Ko-fi](https://ko-fi.com/dongphuduong)
 - [Buy Me a Coffee](https://buymeacoffee.com/lab68dev)
 - **PayPal:** dongduong840@gmail.com
