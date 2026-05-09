@@ -163,6 +163,8 @@ PUDO crece con la comunidad. Mira [CONTRIBUTING.md](CONTRIBUTING.md) para saber 
 
 Si encuentras útil a PUDO, considera apoyar el proyecto:
 
+<iframe src="https://github.com/sponsors/DongDuong2001/button" title="Sponsor DongDuong2001" height="32" width="114" style="border: 0; border-radius: 6px;"></iframe>
+
 - [GitHub Sponsors](https://github.com/sponsors/DongDuong2001)
 - [Patreon](https://patreon.com/DongDuong2001)
 - [Ko-fi](https://ko-fi.com/dongphuduong)
