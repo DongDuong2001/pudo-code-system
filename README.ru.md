@@ -163,6 +163,8 @@ PUDO растет вместе с сообществом. Посмотрите [
 
 Если вы находите PUDO полезным, рассмотрите возможность поддержки проекта:
 
+<iframe src="https://github.com/sponsors/DongDuong2001/button" title="Sponsor DongDuong2001" height="32" width="114" style="border: 0; border-radius: 6px;"></iframe>
+
 - [GitHub Sponsors](https://github.com/sponsors/DongDuong2001)
 - [Patreon](https://patreon.com/DongDuong2001)
 - [Ko-fi](https://ko-fi.com/dongphuduong)
