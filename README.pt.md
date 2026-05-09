@@ -163,6 +163,8 @@ O PUDO cresce com a comunidade. Veja [CONTRIBUTING.md](CONTRIBUTING.md) para sab
 
 Se você achar o PUDO útil, considere apoiar o projeto:
 
+- [GitHub Sponsors](https://github.com/sponsors/DongDuong2001)
+- [Patreon](https://patreon.com/DongDuong2001)
 - [Ko-fi](https://ko-fi.com/dongphuduong)
 - [Buy Me a Coffee](https://buymeacoffee.com/lab68dev)
 - **PayPal:** dongduong840@gmail.com
