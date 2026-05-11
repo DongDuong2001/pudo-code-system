@@ -1,14 +1,16 @@
 # React Native / Expo PUDO Checklist
 
 ## 1. PLAN (Architecture & Strategy)
+- [ ] **Failure Modes & Store Review:** Identify App Store / Play Store review edge cases, account deletion rules, and blocker policies BEFORE polishing the UI.
+- [ ] **Native Build Config:** Establish EAS Build profiles or Bare RN configs early as they are silent killers. Identify constraints with third-party SDKs.
 - [ ] **Framework Base:** Decide between Expo Managed Workflow vs. Bare React Native based on native module requirements.
 - [ ] **Navigation:** Plan navigation structure using React Navigation or Expo Router (file-based).
 - [ ] **Offline & Storage:** Plan offline-first capabilities using AsyncStorage, MMKV, or SQLite.
 - [ ] **UI Library:** Select a styling strategy (Tailwind via NativeWind, Tamagui, or StyleSheet).
 
 ## 2. UNDERSTAND (Context & Auditing)
+- [ ] **Native Dependencies & Plugins:** Audit `package.json` for libraries requiring auto-linking or custom native code (EAS Plugins). Prioritize diagnosing native dependency crashes.
 - [ ] **Platform Differences:** Identify features that require diverging logic between iOS (`.ios.tsx`) and Android (`.android.tsx`).
-- [ ] **Native Dependencies:** Audit `package.json` for libraries requiring auto-linking or custom native code (EAS Plugins).
 - [ ] **State Management:** Review global state for performance impacts on re-renders (context vs. atomic state like Jotai).
 
 ## 3. DEVELOP (Implementation)
