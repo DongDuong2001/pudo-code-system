@@ -6,7 +6,7 @@
     <img src="https://unikorn.vn/api/widgets/badge/pudo?theme=light" alt="Pudo trên Unikorn.vn" height="48" />
   </a>
   <a href="https://unikorn.vn/p/pudo?ref=embed-pudo" target="_blank">
-    <img src="https://unikorn.vn/api/widgets/badge/pudo/rank?theme=light&type=daily" alt="Pudo - Hàng ngày" height="48" />
+    <img src="https://unikorn.vn/api/widgets/badge/pudo/rank?theme=light&type=weekly" alt="Pudo - Hàng tuần" height="48" />
   </a>
 </p>
 
