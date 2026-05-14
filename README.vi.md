@@ -129,7 +129,8 @@ PUDO đi kèm với một [thư viện prompt sẵn sàng sử dụng](prompts/)
 
 PUDO được thiết kế để trở thành hệ điều hành mặc định cho các trợ lý lập trình AI của bạn. Chúng tôi đã bao gồm các hướng dẫn hệ thống được viết sẵn cho các công cụ phổ biến nhất:
 
-- **[Claude Projects](claude.md)**: Dán vào hướng dẫn tùy chỉnh của Dự án.
+- **[Claude Projects](CLAUDE.md)**: Dán vào hướng dẫn tùy chỉnh của Dự án.
+- **[Codex](codex/AGENTS.md)**: Sao chép thành `AGENTS.md` trong thư mục gốc của kho lưu trữ.
 - **[Cursor](cursor/.cursorrules)**: Sao chép vào `.cursorrules` trong thư mục gốc của kho lưu trữ.
 - **[OpenCode](opencode/opencode.md)**: Thêm vào prompts hệ thống OpenCode hoặc hướng dẫn của workspace.
 - **[Antigravity](antigravity/instructions.xml)**: Sao chép vào `.gemini/antigravity/instructions.xml` trong workspace của bạn.
