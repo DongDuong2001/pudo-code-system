@@ -129,7 +129,8 @@ PUDO viene con una [biblioteca de prompts lista para usar](prompts/) — **21 pr
 
 PUDO está diseñado para ser el sistema operativo por defecto de tus agentes de IA. Hemos incluido instrucciones de sistema preescritas para las herramientas más populares:
 
-- **[Claude Projects](claude.md)**: Pégalo en las instrucciones personalizadas de tu Proyecto.
+- **[Claude Projects](CLAUDE.md)**: Pégalo en las instrucciones personalizadas de tu Proyecto.
+- **[Codex](codex/AGENTS.md)**: Cópialo como `AGENTS.md` en la raíz de tu repositorio.
 - **[Cursor](cursor/.cursorrules)**: Cópialo en `.cursorrules` en la raíz de tu repositorio.
 - **[OpenCode](opencode/opencode.md)**: Añádelo a los prompts del sistema de OpenCode o las instrucciones del workspace.
 - **[Antigravity](antigravity/instructions.xml)**: Cópialo en `.gemini/antigravity/instructions.xml` en tu workspace.
