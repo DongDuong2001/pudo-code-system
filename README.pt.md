@@ -129,7 +129,8 @@ O PUDO vem com uma [biblioteca de prompts pronta para uso](prompts/) — **21 pr
 
 O PUDO foi projetado para ser o sistema operacional padrão dos seus agentes de codificação por IA. Incluímos instruções de sistema pré-escritas para as ferramentas mais populares:
 
-- **[Claude Projects](claude.md)**: Cole nas instruções personalizadas do seu Projeto.
+- **[Claude Projects](CLAUDE.md)**: Cole nas instruções personalizadas do seu Projeto.
+- **[Codex](codex/AGENTS.md)**: Copie para `AGENTS.md` na raiz do seu repositório.
 - **[Cursor](cursor/.cursorrules)**: Copie para `.cursorrules` na raiz do seu repositório.
 - **[OpenCode](opencode/opencode.md)**: Adicione aos prompts de sistema do OpenCode ou instruções do workspace.
 - **[Antigravity](antigravity/instructions.xml)**: Copie para `.gemini/antigravity/instructions.xml` no seu workspace.
