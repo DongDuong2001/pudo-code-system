@@ -143,7 +143,8 @@ PUDO ships with a [ready-to-use prompt library](prompts/) — **21 prompts** acr
 
 PUDO is designed to be the default operating system for your AI coding agents. We've included pre-written system instructions for the most popular tools:
 
-- **[Claude Projects](claude.md)**: Paste into your Project's custom instructions.
+- **[Claude Projects](CLAUDE.md)**: Paste into your Project's custom instructions.
+- **[Codex](codex/AGENTS.md)**: Copy to `AGENTS.md` in your repository root.
 - **[Cursor](cursor/.cursorrules)**: Copy to `.cursorrules` in your repository root.
 - **[OpenCode](opencode/opencode.md)**: Add to your OpenCode system prompts or workspace instructions.
 - **[Antigravity](antigravity/instructions.xml)**: Copy to `.gemini/antigravity/instructions.xml` in your workspace.
