@@ -1,7 +1,7 @@
 # Feature Implementation
 
 > **Phase:** Develop  
-> **Tags:** `#implementation` `#coding` `#feature`  
+> **Tags:** `#implementation` `#coding` `#feature` `#quality`
 > **AI Model:** Any (model-agnostic)
 
 ## Context
@@ -15,6 +15,8 @@ Use this prompt **after Plan and Understand are complete** to execute the actual
 | `{{IMPLEMENTATION_PLAN}}` | The plan from the Plan phase | (paste your plan) |
 | `{{CONVENTIONS}}` | Patterns from the Understand phase | "PascalCase components, Zustand stores, CSS modules" |
 | `{{CURRENT_TASK}}` | Which specific sub-task to work on | "Task 3: Build the checkout form component" |
+| `{{QUALITY_GATES}}` | Checks that must pass before completion | "Tests pass, auth checked server-side, no secret logging" |
+| `{{EDGE_CASES}}` | Edge cases or failure modes to handle | "Empty cart, expired session, payment API timeout" |
 
 ## Prompt
 
@@ -29,6 +31,12 @@ Full plan for reference:
 Codebase conventions to follow:
 {{CONVENTIONS}}
 
+Quality gates to preserve:
+{{QUALITY_GATES}}
+
+Edge cases and failure modes to handle:
+{{EDGE_CASES}}
+
 Requirements:
 1. Follow the plan exactly. If you think the plan needs changes, 
    say so BEFORE writing code — don't silently deviate.
@@ -37,6 +45,9 @@ Requirements:
 4. Write the code in logical chunks — don't dump everything at once.
 5. After each chunk, explain what it does and why.
 6. Flag any assumptions you're making.
+7. Handle the listed edge cases or explain why a specific case does not apply.
+8. Keep a quality gate status and stop if a required gate fails.
+9. Run or name the most relevant checks before marking the task complete.
 
 Track progress by marking completed items:
 - [ ] = not started
@@ -63,8 +74,21 @@ Codebase conventions to follow:
 - Error handling with toast notifications (react-hot-toast)
 - Form validation with Zod schemas
 
+Quality gates to preserve:
+- Checkout cannot submit an invalid cart
+- Payment errors show a recoverable user-facing state
+- No Stripe secret keys are exposed to the client
+- Relevant component and integration tests pass
+
+Edge cases and failure modes to handle:
+- Empty cart
+- Expired user session
+- Stripe Elements load failure
+- Duplicate submit while payment is processing
+
 [rest of prompt...]
 ```
 
 ### Expected Output
+The output should update quality gate status and explain how listed edge cases were handled or deferred.
 Step-by-step implementation: Zod validation schema → component skeleton → Stripe Elements integration → error handling → styling. Each chunk explained before the code, assumptions flagged, and progress checklist updated.
