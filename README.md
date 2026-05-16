@@ -67,6 +67,20 @@ The issue isn't the AI — it's the **lack of structure**. Without a clear metho
 
 > **Key insight:** PUDO is a **cycle**, not a pipeline. You revisit phases as you learn more. A discovery in Develop might send you back to Plan. That's expected.
 
+## Quality Gates
+
+Each phase ends with a gate. Do not move forward until the gate passes, or until the risk is explicitly accepted.
+
+| Gate | Run Before | Must Prove |
+|---|---|---|
+| **Plan Gate** | Understand | Scope, success criteria, constraints, and out-of-scope items are clear |
+| **Understand Gate** | Develop | Relevant files, architecture, APIs, and patterns were verified |
+| **Develop Gate** | Optimize | Implementation stays in scope, has tests, and handles key edge cases |
+| **Optimize Gate** | Release | Refactors preserve behavior; performance, security, docs, and risks were reviewed |
+| **Release Gate** | Merge/deploy | Changelog, migration, rollback, monitoring, and owner approval are handled |
+
+Start with [Quality Gates](quality/quality-gates.md), use the [QC checklists](quality/qc-checklists.md), review AI-generated changes with [AI Output Review](quality/ai-output-review.md), and pull failure modes from the [general edge case catalogue](quality/edge-cases/general.md).
+
 ## Quick Start
 
 ### 1. Start with Plan
@@ -125,6 +139,7 @@ See PUDO applied to real-world scenarios:
 | [01](examples/01-landing-page/walkthrough.md) | Building a landing page | Beginner | How Plan prevents scope creep |
 | [02](examples/02-api-integration/walkthrough.md) | Stripe API integration | Intermediate | How Understand saves debugging time |
 | [03](examples/03-debug-production/walkthrough.md) | Fixing a production bug | Advanced | How the full cycle prevents regressions |
+| [04](examples/04-quality-gate-failure/walkthrough.md) | Quality gate failure case | Intermediate | How a failed gate prevents bad releases |
 
 ## Prompt Library
 
@@ -159,6 +174,18 @@ PUDO isn't just a checklist — it's a mindset. Read the [full philosophy](docs/
 - **Iterative** — It's a cycle, not a waterfall
 - **AI-native** — Designed for human+AI pair programming
 - **Phase integrity** — Each phase has clear entry and exit criteria
+
+## When Not To Use PUDO
+
+PUDO may be overkill for one-line fixes, throwaway prototypes, pure exploration, and non-critical scripts. Use the full cycle when correctness, maintainability, security, or team handoff matters.
+
+## Current Limitations
+
+- PUDO does not guarantee AI output is correct.
+- Human review is still required.
+- Security-sensitive changes still need dedicated security review.
+- Examples are illustrative, not universal.
+- The method requires discipline; skipping gates turns it back into ad hoc prompting.
 
 ## Who Is This For?
 
