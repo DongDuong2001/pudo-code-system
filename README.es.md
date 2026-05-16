@@ -18,7 +18,7 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Licencia: MIT" /></a>
-  <img src="https://img.shields.io/badge/version-1.0.0-brightgreen.svg" alt="Versión 1.0.0" />
+  <img src="https://img.shields.io/badge/version-1.0.1-brightgreen.svg" alt="Versión 1.0.1" />
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-orange.svg" alt="PRs Bienvenidos" /></a>
   <img src="https://img.shields.io/badge/AI-agnostic-purple.svg" alt="Agnóstico a la IA" />
 </p>
