@@ -1,7 +1,7 @@
 # Scope Definition
 
 > **Phase:** Plan  
-> **Tags:** `#scoping` `#greenfield` `#requirements`  
+> **Tags:** `#scoping` `#greenfield` `#requirements` `#quality`
 > **AI Model:** Any (model-agnostic)
 
 ## Context
@@ -16,6 +16,8 @@ Use this prompt at the **very start of a new task or feature** — before writin
 | `{{SUCCESS_CRITERIA}}` | Measurable definition of "done" | "Users can update name, email, and avatar" |
 | `{{CONSTRAINTS}}` | Technical or time limitations | "Must use existing Supabase auth, ship by Friday" |
 | `{{OUT_OF_SCOPE}}` | What you're explicitly NOT doing | "Password change, account deletion" |
+| `{{QUALITY_GATES}}` | Required checks before moving phases or shipping | "Auth verified server-side, tests pass, rollback documented" |
+| `{{EDGE_CASES}}` | Known risky cases to plan for | "Expired session, duplicate submit, empty avatar upload" |
 
 ## Prompt
 
@@ -35,12 +37,20 @@ Constraints:
 Explicitly out of scope:
 {{OUT_OF_SCOPE}}
 
+Quality gates that must pass:
+{{QUALITY_GATES}}
+
+Known or suspected edge cases:
+{{EDGE_CASES}}
+
 The implementation plan should include:
 1. A breakdown of the task into concrete sub-tasks
 2. The files that will need to be created or modified
 3. Key technical decisions and their rationale
 4. Potential risks or unknowns
-5. Estimated complexity (simple / moderate / complex)
+5. Quality gates for Plan, Understand, Develop, and Ship
+6. Edge cases that must be tested, handled, or explicitly deferred
+7. Estimated complexity (simple / moderate / complex)
 
 Do not write any code yet — just the plan.
 ```
@@ -71,15 +81,28 @@ Explicitly out of scope:
 - Per-page theme settings
 - Animation on theme transition
 
+Quality gates that must pass:
+- Existing pages render correctly in both themes
+- Theme preference persists after reload
+- No contrast regressions below WCAG AA for core text
+
+Known or suspected edge cases:
+- localStorage unavailable or blocked
+- User opens app with an old saved theme value
+- Dashboard charts use hardcoded colors
+
 The implementation plan should include:
 1. A breakdown of the task into concrete sub-tasks
 2. The files that will need to be created or modified
 3. Key technical decisions and their rationale
 4. Potential risks or unknowns
-5. Estimated complexity (simple / moderate / complex)
+5. Quality gates for Plan, Understand, Develop, and Ship
+6. Edge cases that must be tested, handled, or explicitly deferred
+7. Estimated complexity (simple / moderate / complex)
 
 Do not write any code yet — just the plan.
 ```
 
 ### Expected Output
+The output should include quality gates for verification and edge cases to test, handle, or explicitly defer.
 A structured plan with 5–8 sub-tasks, file list, decision to use CSS custom properties with a `[data-theme]` attribute, risk note about third-party component libraries, and complexity rating of "moderate."
