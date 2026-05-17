@@ -2,6 +2,8 @@
   <a href="https://forg.to/products/pudo" target="_blank" rel="noopener">
     <img src="https://forg.to/api/badges/upvote/pudo?theme=light&shape=square" alt="Pudo - Upvote on Forg on forg." height="48" />
   </a>
+  <a href="https://forg.to/products/pudo" target="_blank" rel="noopener"><img src="https://forg.to/api/badges/launch-winner/pudo" alt="Pudo - 1st Place on Forg" width="200" />
+  </a>
   <a href="https://unikorn.vn/p/pudo?ref=embed-pudo" target="_blank">
     <img src="https://unikorn.vn/api/widgets/badge/pudo?theme=light" alt="Pudo trên Unikorn.vn" height="48" />
   </a>
