@@ -10,6 +10,60 @@ Default workflow: Plan -> Understand -> Develop -> Optimize (PUDO).
 - Avoid dumping large file contents; summarize and reference paths.
 - Prefer targeted search (`rg`) and small file slices over broad scans.
 
+## Token and Time Budget
+
+Use the smallest workflow that safely solves the task.
+
+### Task Modes
+
+- Micro: typos, one-line fixes, small docs/config edits. Skip full PUDO. Inspect only directly relevant files. Run the cheapest relevant check.
+- Standard: normal features, bugs, and refactors. Use compact PUDO: brief plan, targeted understanding, small patch, relevant verification.
+- Critical: auth, payments, database, migrations, security, public APIs, data loss risk. Use full PUDO with assumptions, edge cases, tests, rollback notes, and quality gate status.
+
+### Context Budget
+
+- Search first, read second.
+- Prefer `rg`, file tree, and targeted snippets over opening whole files.
+- Read only files needed for the current task.
+- Stop expanding context once the implementation path is clear.
+- Avoid dumping full file contents unless replacing the whole file.
+
+Default limit before first patch:
+- Inspect up to 5 relevant files.
+- Expand only when blocked by missing context.
+
+### Patch Discipline
+
+- Make the smallest patch that satisfies the task.
+- Do not rewrite unrelated files.
+- Do not reformat files unless formatting is the task.
+- Do not add dependencies without explicit justification.
+- Do not change public contracts unless required.
+- If the plan becomes wrong, stop and re-plan briefly.
+
+### Verification Tiers
+
+Use the cheapest sufficient verification.
+
+- Tier 1: format, lint, typecheck, or targeted syntax check.
+- Tier 2: targeted tests for changed modules.
+- Tier 3: full test/build only for critical, cross-cutting, release, or risky changes.
+
+If checks are skipped, state the reason briefly.
+
+### Final Response Budget
+
+Use this format by default:
+
+Changed:
+- ...
+
+Verified:
+- ...
+
+Notes:
+- Only assumptions, risks, skipped checks, or follow-ups.
+
 ## Plan
 
 - For non-trivial tasks, propose a short plan with scope, constraints, and success criteria.
