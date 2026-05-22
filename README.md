@@ -158,14 +158,17 @@ PUDO ships with a [ready-to-use prompt library](prompts/) — **21 prompts** acr
 
 ## AI Integrations
 
-PUDO is designed to be the default operating system for your AI coding agents. We've included pre-written system instructions for the most popular tools:
+PUDO is designed to be the default operating system for AI coding agents. Prefer the current config format for each tool, while keeping legacy files where they still help older workspaces.
 
-- **[Claude Projects](CLAUDE.md)**: Paste into your Project's custom instructions.
-- **[Codex](codex/AGENTS.md)**: Copy to `AGENTS.md` in your repository root.
-- **[Cursor](cursor/.cursorrules)**: Copy to `.cursorrules` in your repository root.
-- **[OpenCode](opencode/opencode.md)**: Add to your OpenCode system prompts or workspace instructions.
-- **[Antigravity](antigravity/instructions.xml)**: Copy to `.gemini/antigravity/instructions.xml` in your workspace.
-- **[Kiro](kiro/system-prompt.md)**: Set as the system prompt in your Kiro settings.
+| Tool | Current Files | Recommended Setup | Status |
+|---|---|---|---|
+| **Codex** | [AGENTS.md](AGENTS.md), [codex/AGENTS.md](codex/AGENTS.md) | Keep root `AGENTS.md`; copy `codex/AGENTS.md` into target repos that need a fuller Codex template | OK |
+| **Claude Code / Projects** | [CLAUDE.md](CLAUDE.md), [claude/CLAUDE.md](claude/CLAUDE.md), [.claude/settings.json](.claude/settings.json) | Use root `CLAUDE.md` as the bridge; keep detailed Claude workflow in `claude/CLAUDE.md` | Updated |
+| **Cursor** | [Project Rules](cursor/.cursor/rules/pudo-core.mdc), [legacy .cursorrules](cursor/.cursorrules) | Prefer `.cursor/rules/*.mdc`; keep `.cursorrules` for legacy Cursor versions | Migrated |
+| **GitHub Copilot** | [.github/copilot-instructions.md](.github/copilot-instructions.md), [.github/instructions/](.github/instructions/) | Use repo-wide instructions plus path-specific `.instructions.md` files | Added |
+| **OpenCode** | [opencode/opencode.md](opencode/opencode.md) | Add to OpenCode system prompts or workspace instructions | OK |
+| **Antigravity / Gemini-style** | [antigravity/instructions.xml](antigravity/instructions.xml) | Copy to `.gemini/antigravity/instructions.xml` in the target workspace | OK |
+| **Kiro** | [kiro/system-prompt.md](kiro/system-prompt.md) | Set as the Kiro system prompt | OK |
 
 ## Philosophy
 
