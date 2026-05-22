@@ -65,6 +65,20 @@ Vấn đề không phải là AI — mà là **sự thiếu cấu trúc**. Khôn
 
 > **Điểm cốt lõi:** PUDO là một **chu kỳ**, không phải là một quy trình một chiều (pipeline). Bạn quay lại các giai đoạn khi bạn hiểu thêm. Một phát hiện mới trong giai đoạn Develop có thể đưa bạn trở lại Plan. Điều đó là hoàn toàn bình thường.
 
+## Cổng Chất Lượng
+
+Mỗi giai đoạn kết thúc bằng một cổng kiểm tra. Không chuyển sang bước tiếp theo cho đến khi cổng đó đạt, hoặc rủi ro đã được chấp nhận một cách tường minh.
+
+| Cổng | Chạy trước khi | Phải chứng minh |
+|---|---|---|
+| **Plan Gate** | Understand | Phạm vi, tiêu chí thành công, ràng buộc và phần ngoài phạm vi đã rõ ràng |
+| **Understand Gate** | Develop | File liên quan, kiến trúc, API và pattern đã được xác minh |
+| **Develop Gate** | Optimize | Việc triển khai giữ đúng phạm vi, có test, và xử lý các edge case chính |
+| **Optimize Gate** | Release | Refactor không đổi hành vi; hiệu năng, bảo mật, tài liệu và rủi ro đã được rà soát |
+| **Release Gate** | Merge/deploy | Changelog, migration, rollback, monitoring và phê duyệt của owner đã được xử lý |
+
+Hãy bắt đầu với [Quality Gates](quality/quality-gates.md), dùng [QC checklists](quality/qc-checklists.md), rà soát thay đổi do AI tạo ra bằng [AI Output Review](quality/ai-output-review.md), và lấy failure modes từ [general edge case catalogue](quality/edge-cases/general.md).
+
 ## Bắt đầu nhanh
 
 ### 1. Bắt đầu với Plan
@@ -129,14 +143,17 @@ PUDO đi kèm với một [thư viện prompt sẵn sàng sử dụng](prompts/)
 
 ## Tích hợp AI
 
-PUDO được thiết kế để trở thành hệ điều hành mặc định cho các trợ lý lập trình AI của bạn. Chúng tôi đã bao gồm các hướng dẫn hệ thống được viết sẵn cho các công cụ phổ biến nhất:
+PUDO được thiết kế để trở thành hệ điều hành mặc định cho các agent lập trình AI. Hãy ưu tiên định dạng cấu hình hiện hành của từng công cụ, đồng thời giữ file legacy khi chúng còn hữu ích cho các workspace cũ.
 
-- **[Claude Projects](CLAUDE.md)**: Dán vào hướng dẫn tùy chỉnh của Dự án.
-- **[Codex](codex/AGENTS.md)**: Sao chép thành `AGENTS.md` trong thư mục gốc của kho lưu trữ.
-- **[Cursor](cursor/.cursorrules)**: Sao chép vào `.cursorrules` trong thư mục gốc của kho lưu trữ.
-- **[OpenCode](opencode/opencode.md)**: Thêm vào prompts hệ thống OpenCode hoặc hướng dẫn của workspace.
-- **[Antigravity](antigravity/instructions.xml)**: Sao chép vào `.gemini/antigravity/instructions.xml` trong workspace của bạn.
-- **[Kiro](kiro/system-prompt.md)**: Đặt làm system prompt trong phần cài đặt Kiro.
+| Công cụ | File hiện có | Cấu hình khuyến nghị | Trạng thái |
+|---|---|---|---|
+| **Codex** | [AGENTS.md](AGENTS.md), [codex/AGENTS.md](codex/AGENTS.md) | Giữ `AGENTS.md` ở root; sao chép `codex/AGENTS.md` vào repo đích khi cần mẫu Codex đầy đủ hơn | OK |
+| **Claude Code / Projects** | [CLAUDE.md](CLAUDE.md), [claude/CLAUDE.md](claude/CLAUDE.md), [.claude/settings.json](.claude/settings.json) | Dùng `CLAUDE.md` ở root làm file bridge; giữ workflow chi tiết cho Claude trong `claude/CLAUDE.md` | Đã cập nhật |
+| **Cursor** | [Project Rules](cursor/.cursor/rules/pudo-core.mdc), [legacy .cursorrules](cursor/.cursorrules) | Ưu tiên `.cursor/rules/*.mdc`; giữ `.cursorrules` cho các bản Cursor cũ | Đã migrate |
+| **GitHub Copilot** | [.github/copilot-instructions.md](.github/copilot-instructions.md), [.github/instructions/](.github/instructions/) | Dùng repo-wide instructions cùng các file `.instructions.md` theo path | Đã thêm |
+| **OpenCode** | [opencode/opencode.md](opencode/opencode.md) | Thêm vào system prompts hoặc workspace instructions của OpenCode | OK |
+| **Antigravity / Gemini-style** | [antigravity/instructions.xml](antigravity/instructions.xml) | Sao chép vào `.gemini/antigravity/instructions.xml` trong workspace đích | OK |
+| **Kiro** | [kiro/system-prompt.md](kiro/system-prompt.md) | Đặt làm Kiro system prompt | OK |
 
 ## Triết lý
 
@@ -147,6 +164,18 @@ PUDO không chỉ là một danh sách kiểm tra — đó là một tư duy. H�
 - **Tính lặp lại** — Nó là một chu kỳ, không phải là thác nước (waterfall)
 - **Tương thích AI** — Được thiết kế cho lập trình đôi giữa con người và AI
 - **Tính toàn vẹn của giai đoạn** — Mỗi giai đoạn đều có tiêu chí đầu vào và đầu ra rõ ràng
+
+## Khi Nào Không Nên Dùng PUDO
+
+PUDO có thể là quá mức cần thiết cho các sửa lỗi một dòng, prototype dùng rồi bỏ, giai đoạn khám phá thuần túy, hoặc các script không quan trọng. Hãy dùng đầy đủ chu kỳ khi tính đúng đắn, khả năng bảo trì, bảo mật hoặc handoff trong nhóm là quan trọng.
+
+## Giới Hạn Hiện Tại
+
+- PUDO không đảm bảo output của AI là đúng.
+- Review bởi con người vẫn là bắt buộc.
+- Các thay đổi nhạy cảm về bảo mật vẫn cần security review riêng.
+- Các ví dụ mang tính minh họa, không phải khuôn mẫu phổ quát.
+- Phương pháp này đòi hỏi kỷ luật; bỏ qua quality gates sẽ đưa bạn quay lại kiểu prompting ad hoc.
 
 ## Dành Cho Ai?
 
