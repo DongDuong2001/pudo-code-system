@@ -1,0 +1,16 @@
+---
+description: Use when inspecting an existing repo before changing files.
+alwaysApply: false
+---
+
+# PUDO Understand Rule
+
+Before editing:
+
+- Inspect the relevant files and nearby patterns.
+- Identify existing architecture, naming, tests, and tooling.
+- Verify APIs, schemas, routes, commands, and dependencies from source.
+- Note assumptions and unknowns explicitly.
+- Prefer targeted search and small file slices over broad dumps.
+
+Do not proceed if the implementation depends on unverified behavior.
