@@ -1,0 +1,25 @@
+---
+description: Core PUDO workflow rules for all Cursor agent work.
+alwaysApply: true
+---
+
+# PUDO Core
+
+Follow the PUDO loop for non-trivial work: Plan -> Understand -> Develop -> Optimize.
+
+## Invariants
+
+- Define scope, constraints, success criteria, and out-of-scope work before implementation.
+- Read relevant files before editing; do not infer APIs, paths, or architecture from memory.
+- Keep patches small, focused, and reviewable.
+- Preserve user changes and avoid unrelated rewrites.
+- Add or update tests when behavior, user workflows, security, data, or public contracts change.
+- Run the most relevant available checks, or state why they were skipped.
+- If new information invalidates the plan, stop and re-plan.
+
+## Quality Gates
+
+- Use `quality/quality-gates.md` for phase exit criteria.
+- Use `quality/qc-checklists.md` for review categories.
+- Use `quality/ai-output-review.md` for AI-generated code and docs.
+- Use `quality/edge-cases/general.md` for edge case discovery.
