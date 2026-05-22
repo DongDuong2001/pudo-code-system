@@ -1,0 +1,18 @@
+---
+description: Use when defining scope, success criteria, risks, and implementation plans.
+alwaysApply: false
+---
+
+# PUDO Plan Rule
+
+Before implementation, produce a compact plan that includes:
+
+- Goal and user/business outcome.
+- Scope and explicit non-goals.
+- Measurable success criteria.
+- Constraints, dependencies, and relevant owners.
+- Known risks, assumptions, and open questions.
+- Files or areas likely to change.
+- Verification strategy and quality gates.
+
+Do not write implementation code while the plan is still ambiguous.
