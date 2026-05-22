@@ -1,0 +1,18 @@
+---
+description: Use when implementing planned changes.
+alwaysApply: false
+---
+
+# PUDO Develop Rule
+
+During implementation:
+
+- Follow the approved plan.
+- Make the smallest patch that satisfies the task.
+- Avoid unrelated refactors and formatting churn.
+- Preserve public contracts unless the task requires changing them.
+- Handle happy paths, failure paths, and important edge cases.
+- Add or update tests for risky or user-facing behavior.
+- Keep quality gate status visible for non-trivial work.
+
+If the plan becomes wrong, stop and re-plan before continuing.
