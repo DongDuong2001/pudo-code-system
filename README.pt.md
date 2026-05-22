@@ -65,6 +65,20 @@ O problema não é a IA — é a **falta de estrutura**. Sem uma metodologia cla
 
 > **Conceito chave:** PUDO é um **ciclo**, não um pipeline. Você revisita as fases à medida que aprende mais. Uma descoberta no Desenvolvimento pode enviá-lo de volta ao Planejamento. Isso é esperado.
 
+## Portões de Qualidade
+
+Cada fase termina com um portão de controle. Não avance até que esse portão passe, ou até que o risco tenha sido explicitamente aceito.
+
+| Portão | Executado antes de | Deve provar |
+|---|---|---|
+| **Plan Gate** | Understand | Escopo, critérios de sucesso, restrições e itens fora de escopo estão claros |
+| **Understand Gate** | Develop | Os arquivos relevantes, a arquitetura, as APIs e os padrões foram verificados |
+| **Develop Gate** | Optimize | A implementação permanece no escopo, tem testes e cobre os principais edge cases |
+| **Optimize Gate** | Release | Refactors não mudam comportamento; desempenho, segurança, documentação e riscos foram revisados |
+| **Release Gate** | Merge/deploy | Changelog, migração, rollback, monitoramento e aprovação do owner foram tratados |
+
+Comece com [Quality Gates](quality/quality-gates.md), use os [QC checklists](quality/qc-checklists.md), revise alterações geradas por IA com [AI Output Review](quality/ai-output-review.md), e use failure modes do [general edge case catalogue](quality/edge-cases/general.md).
+
 ## Início Rápido
 
 ### 1. Comece com o Planejamento (Plan)
@@ -129,14 +143,17 @@ O PUDO vem com uma [biblioteca de prompts pronta para uso](prompts/) — **21 pr
 
 ## Integrações com IA
 
-O PUDO foi projetado para ser o sistema operacional padrão dos seus agentes de codificação por IA. Incluímos instruções de sistema pré-escritas para as ferramentas mais populares:
+O PUDO foi projetado para ser o sistema operacional padrão dos agentes de programação com IA. Prefira o formato de configuração atual de cada ferramenta, mantendo arquivos legacy quando ainda forem úteis para workspaces antigos.
 
-- **[Claude Projects](CLAUDE.md)**: Cole nas instruções personalizadas do seu Projeto.
-- **[Codex](codex/AGENTS.md)**: Copie para `AGENTS.md` na raiz do seu repositório.
-- **[Cursor](cursor/.cursorrules)**: Copie para `.cursorrules` na raiz do seu repositório.
-- **[OpenCode](opencode/opencode.md)**: Adicione aos prompts de sistema do OpenCode ou instruções do workspace.
-- **[Antigravity](antigravity/instructions.xml)**: Copie para `.gemini/antigravity/instructions.xml` no seu workspace.
-- **[Kiro](kiro/system-prompt.md)**: Defina como o system prompt nas configurações do seu Kiro.
+| Ferramenta | Arquivos atuais | Configuração recomendada | Status |
+|---|---|---|---|
+| **Codex** | [AGENTS.md](AGENTS.md), [codex/AGENTS.md](codex/AGENTS.md) | Mantenha `AGENTS.md` na raiz; copie `codex/AGENTS.md` para o repositório de destino quando precisar de um template Codex mais completo | OK |
+| **Claude Code / Projects** | [CLAUDE.md](CLAUDE.md), [claude/CLAUDE.md](claude/CLAUDE.md), [.claude/settings.json](.claude/settings.json) | Use `CLAUDE.md` na raiz como arquivo ponte; mantenha o fluxo detalhado do Claude em `claude/CLAUDE.md` | Atualizado |
+| **Cursor** | [Project Rules](cursor/.cursor/rules/pudo-core.mdc), [legacy .cursorrules](cursor/.cursorrules) | Prefira `.cursor/rules/*.mdc`; mantenha `.cursorrules` para versões antigas do Cursor | Migrado |
+| **GitHub Copilot** | [.github/copilot-instructions.md](.github/copilot-instructions.md), [.github/instructions/](.github/instructions/) | Use instruções no nível do repositório junto com arquivos `.instructions.md` por caminho | Adicionado |
+| **OpenCode** | [opencode/opencode.md](opencode/opencode.md) | Adicione aos system prompts ou workspace instructions do OpenCode | OK |
+| **Antigravity / Gemini-style** | [antigravity/instructions.xml](antigravity/instructions.xml) | Copie para `.gemini/antigravity/instructions.xml` no workspace de destino | OK |
+| **Kiro** | [kiro/system-prompt.md](kiro/system-prompt.md) | Defina como system prompt do Kiro | OK |
 
 ## Filosofia
 
@@ -147,6 +164,18 @@ O PUDO não é apenas uma lista de verificação — é uma mentalidade. Leia a 
 - **Iterativo** — É um ciclo, não um modelo cascata (waterfall)
 - **Nativo para IA** — Projetado para programação em par entre humanos e IA
 - **Integridade de fase** — Cada fase possui critérios claros de entrada e saída
+
+## Quando Não Usar PUDO
+
+PUDO pode ser excessivo para correções de uma linha, protótipos descartáveis, exploração pura ou scripts não críticos. Use o ciclo completo quando correção, manutenibilidade, segurança ou handoff em equipe forem importantes.
+
+## Limitações Atuais
+
+- PUDO não garante que a saída da IA esteja correta.
+- Revisão humana continua sendo obrigatória.
+- Mudanças sensíveis de segurança ainda exigem revisão dedicada.
+- Os exemplos são ilustrativos, não universais.
+- O método exige disciplina; pular quality gates faz você voltar ao prompting ad hoc.
 
 ## Para Quem É Isso?
 
