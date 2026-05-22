@@ -1,5 +1,7 @@
 # PUDO Methodology Rules
 
+Legacy Cursor rule file. Prefer the Project Rules templates in `cursor/.cursor/rules/*.mdc` for current Cursor versions. Keep this file for older Cursor workspaces that still read `.cursorrules`.
+
 Always follow the PUDO (Plan -> Understand -> Develop -> Optimize) framework.
 
 ## 1. Plan
