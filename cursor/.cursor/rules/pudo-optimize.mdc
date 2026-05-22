@@ -1,0 +1,17 @@
+---
+description: Use when reviewing, verifying, or preparing changes for release.
+alwaysApply: false
+---
+
+# PUDO Optimize Rule
+
+Before finishing:
+
+- Self-review correctness, maintainability, security, performance, and documentation impact.
+- Confirm changes satisfy the success criteria.
+- Run relevant checks or explain skipped checks.
+- Verify no unrelated files, tests, or public contracts were changed.
+- Document residual risks and follow-up only when useful.
+- Apply Release Gate criteria for merge, deploy, or handoff.
+
+Use `quality/review` documents when available; otherwise use `quality/qc-checklists.md`.
