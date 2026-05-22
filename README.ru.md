@@ -65,6 +65,20 @@
 
 > **Ключевая мысль:** PUDO — это **цикл**, а не конвейер. Вы возвращаетесь к этапам по мере того, как узнаете больше. Открытие на этапе Разработки может вернуть вас к Плану. Это ожидаемо.
 
+## Ворота Качества
+
+Каждый этап заканчивается контрольными воротами. Не переходите дальше, пока эти ворота не пройдены, либо пока риск явно не принят.
+
+| Ворота | Выполняются перед | Должны подтвердить |
+|---|---|---|
+| **Plan Gate** | Understand | Объем, критерии успеха, ограничения и то, что вне области работ, определены ясно |
+| **Understand Gate** | Develop | Релевантные файлы, архитектура, API и паттерны были проверены |
+| **Develop Gate** | Optimize | Реализация остается в рамках задачи, имеет тесты и покрывает ключевые edge cases |
+| **Optimize Gate** | Release | Рефакторинг не меняет поведение; производительность, безопасность, документация и риски были проверены |
+| **Release Gate** | Merge/deploy | Changelog, миграция, rollback, мониторинг и одобрение owner были учтены |
+
+Начинайте с [Quality Gates](quality/quality-gates.md), используйте [QC checklists](quality/qc-checklists.md), проверяйте изменения, созданные ИИ, через [AI Output Review](quality/ai-output-review.md), и берите failure modes из [general edge case catalogue](quality/edge-cases/general.md).
+
 ## Быстрый старт
 
 ### 1. Начните с Плана (Plan)
@@ -129,14 +143,17 @@ PUDO поставляется с [готовой к использованию �
 
 ## Интеграции ИИ
 
-PUDO разработан как операционная система по умолчанию для ваших ИИ-агентов. Мы включили готовые системные инструкции для самых популярных инструментов:
+PUDO задуман как операционная система по умолчанию для ИИ-агентов, пишущих код. Предпочтительно использовать актуальный формат конфигурации для каждого инструмента, сохраняя legacy-файлы там, где они еще полезны для старых workspace.
 
-- **[Claude Projects](CLAUDE.md)**: Вставьте в пользовательские инструкции вашего Проекта.
-- **[Codex](codex/AGENTS.md)**: Скопируйте в `AGENTS.md` в корне вашего репозитория.
-- **[Cursor](cursor/.cursorrules)**: Скопируйте в файл `.cursorrules` в корне вашего репозитория.
-- **[OpenCode](opencode/opencode.md)**: Добавьте в системные промпты OpenCode или инструкции рабочей области.
-- **[Antigravity](antigravity/instructions.xml)**: Скопируйте в `.gemini/antigravity/instructions.xml` в вашей рабочей области.
-- **[Kiro](kiro/system-prompt.md)**: Установите как системный промпт в настройках Kiro.
+| Инструмент | Текущие файлы | Рекомендуемая конфигурация | Статус |
+|---|---|---|---|
+| **Codex** | [AGENTS.md](AGENTS.md), [codex/AGENTS.md](codex/AGENTS.md) | Держите `AGENTS.md` в корне; копируйте `codex/AGENTS.md` в целевой репозиторий, если нужен более полный шаблон Codex | OK |
+| **Claude Code / Projects** | [CLAUDE.md](CLAUDE.md), [claude/CLAUDE.md](claude/CLAUDE.md), [.claude/settings.json](.claude/settings.json) | Используйте корневой `CLAUDE.md` как bridge-файл; подробный workflow Claude оставляйте в `claude/CLAUDE.md` | Обновлено |
+| **Cursor** | [Project Rules](cursor/.cursor/rules/pudo-core.mdc), [legacy .cursorrules](cursor/.cursorrules) | Предпочитайте `.cursor/rules/*.mdc`; сохраняйте `.cursorrules` для старых версий Cursor | Мигрировано |
+| **GitHub Copilot** | [.github/copilot-instructions.md](.github/copilot-instructions.md), [.github/instructions/](.github/instructions/) | Используйте repo-wide instructions вместе с `.instructions.md` файлами по путям | Добавлено |
+| **OpenCode** | [opencode/opencode.md](opencode/opencode.md) | Добавьте в system prompts или workspace instructions OpenCode | OK |
+| **Antigravity / Gemini-style** | [antigravity/instructions.xml](antigravity/instructions.xml) | Скопируйте в `.gemini/antigravity/instructions.xml` в целевой workspace | OK |
+| **Kiro** | [kiro/system-prompt.md](kiro/system-prompt.md) | Используйте как system prompt для Kiro | OK |
 
 ## Философия
 
@@ -147,6 +164,18 @@ PUDO — это не просто чек-лист, это образ мышле�
 - **Итеративность** — Это цикл, а не водопад (waterfall)
 - **ИИ-ориентированность** — Разработано для парного программирования "человек + ИИ"
 - **Целостность этапов** — На каждом этапе есть четкие критерии входа и выхода
+
+## Когда Не Стоит Использовать PUDO
+
+PUDO может быть избыточным для однострочных исправлений, одноразовых прототипов, чистого исследования или некритичных скриптов. Используйте полный цикл, когда важны корректность, поддерживаемость, безопасность или командный handoff.
+
+## Текущие Ограничения
+
+- PUDO не гарантирует, что результат ИИ будет корректным.
+- Проверка человеком по-прежнему обязательна.
+- Изменения, чувствительные к безопасности, по-прежнему требуют отдельного security review.
+- Примеры носят иллюстративный, а не универсальный характер.
+- Метод требует дисциплины; если пропускать quality gates, процесс снова превращается в ad hoc prompting.
 
 ## Для кого это?
 
