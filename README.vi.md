@@ -79,6 +79,18 @@ Mỗi giai đoạn kết thúc bằng một cổng kiểm tra. Không chuyển s
 
 Hãy bắt đầu với [Quality Gates](quality/quality-gates.md), dùng [QC checklists](quality/qc-checklists.md), rà soát thay đổi do AI tạo ra bằng [AI Output Review](quality/ai-output-review.md), và lấy failure modes từ [general edge case catalogue](quality/edge-cases/general.md).
 
+## Tác Động Kỳ Vọng
+
+Các con số này là ước lượng thực tế theo hướng tham chiếu, không phải cam kết tuyệt đối. Hiệu quả phụ thuộc vào độ lớn của task, chất lượng repo, và mức độ team thực sự tuân thủ PUDO.
+
+| Loại task | Giảm token rác | Giảm thời gian dev |
+|---|---:|---:|
+| One-line fix / script nhỏ | 0-8% | -5% đến +5% |
+| Feature nhỏ/trung bình | 25-38% | 12-20% |
+| Debug bug khó / production issue | 22-35% | 10-18% |
+| Feature nhiều file / có test / handoff team | 35-48% | 18-28% |
+| Trung bình thực tế nên claim | **34%** | **18%** |
+
 ## Bắt đầu nhanh
 
 ### 1. Bắt đầu với Plan
