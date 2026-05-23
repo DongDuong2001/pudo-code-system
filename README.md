@@ -83,6 +83,18 @@ Each phase ends with a gate. Do not move forward until the gate passes, or until
 
 Start with [Quality Gates](quality/quality-gates.md), use the [QC checklists](quality/qc-checklists.md), review AI-generated changes with [AI Output Review](quality/ai-output-review.md), and pull failure modes from the [general edge case catalogue](quality/edge-cases/general.md).
 
+## Expected Impact
+
+These numbers are practical directional estimates, not guarantees. The gains depend on task size, repo quality, and how consistently the team actually follows PUDO.
+
+| Task Type | Token Waste Reduction | Dev Time Reduction |
+|---|---:|---:|
+| One-line fix / small script | 0-8% | -5% to +5% |
+| Small/medium feature | 25-38% | 12-20% |
+| Hard bug / production issue | 22-35% | 10-18% |
+| Multi-file feature / tests / team handoff | 35-48% | 18-28% |
+| Practical average claim | **34%** | **18%** |
+
 ## Quick Start
 
 ### 1. Start with Plan
