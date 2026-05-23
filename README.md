@@ -54,7 +54,7 @@ The issue isn't the AI — it's the **lack of structure**. Without a clear metho
 
 ## The Solution: PUDO
 
-**PUDO** gives you a repeatable, 4-phase cycle that turns AI from a slot machine into a precision tool.
+**PUDO** is a portable operating system for AI-assisted development: installable rules, measurable quality gates, token-budgeted prompts, and workflow templates for real codebases.
 
 | Phase | Goal | You Do | AI Does |
 |:---:|---|---|---|
@@ -69,6 +69,32 @@ The issue isn't the AI — it's the **lack of structure**. Without a clear metho
 
 > **Key insight:** PUDO is a **cycle**, not a pipeline. You revisit phases as you learn more. A discovery in Develop might send you back to Plan. That's expected.
 
+## Install Into a Project
+
+Use the init command to generate agent rules, PR templates, quality checklists, and a PUDO session handoff file in a real repository:
+
+```bash
+npx pudo-code-system init
+```
+
+Non-interactive setup:
+
+```bash
+npx pudo-code-system init --yes --tools=cursor,claude,codex,copilot --project=nextjs --strictness=standard
+```
+
+Generated files can include `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/pudo-core.mdc`, `.github/copilot-instructions.md`, `.github/pull_request_template.md`, `.pudo/config.json`, and `.pudo/session.md`.
+
+## PUDO Modes
+
+Use the smallest mode that safely fits the task. See [PUDO Modes](docs/pudo-modes.md) for the full guide.
+
+| Mode | Use For | Process |
+|---|---|---|
+| **PUDO Lite** | Small fixes, scripts, tasks under 30 minutes | Three checks: scope, relevant files, verification |
+| **PUDO Standard** | Medium features, real bugs, focused refactors | Full Plan -> Understand -> Develop -> Optimize |
+| **PUDO Enterprise** | Team, production, security, compliance | Full PUDO plus owner, rollback, monitoring, migration, risk log |
+
 ## Quality Gates
 
 Each phase ends with a gate. Do not move forward until the gate passes, or until the risk is explicitly accepted.
@@ -81,7 +107,7 @@ Each phase ends with a gate. Do not move forward until the gate passes, or until
 | **Optimize Gate** | Release | Refactors preserve behavior; performance, security, docs, and risks were reviewed |
 | **Release Gate** | Merge/deploy | Changelog, migration, rollback, monitoring, and owner approval are handled |
 
-Start with [Quality Gates](quality/quality-gates.md), use the [QC checklists](quality/qc-checklists.md), review AI-generated changes with [AI Output Review](quality/ai-output-review.md), and pull failure modes from the [general edge case catalogue](quality/edge-cases/general.md).
+Start with [Quality Gates](quality/quality-gates.md), use the [QC checklists](quality/qc-checklists.md), review AI-generated changes with [AI Output Review](quality/ai-output-review.md), enforce [Anti-Hallucination Rules](quality/anti-hallucination.md), manage context with [Token Budget Rules](quality/token-budget.md), and pull failure modes from the [general edge case catalogue](quality/edge-cases/general.md).
 
 ## Expected Impact
 
@@ -94,6 +120,8 @@ These numbers are practical directional estimates, not guarantees. The gains dep
 | Hard bug / production issue | 22-35% | 10-18% |
 | Multi-file feature / tests / team handoff | 35-48% | 18-28% |
 | Practical average claim | **34%** | **18%** |
+
+Measure your own results with the [Benchmark Kit](benchmarks/). Track tokens, AI turns, failed attempts, unnecessary file reads, time to verified implementation, bugs found after AI output, and PR review comments.
 
 ## Quick Start
 
@@ -154,6 +182,20 @@ See PUDO applied to real-world scenarios:
 | [02](examples/02-api-integration/walkthrough.md) | Stripe API integration | Intermediate | How Understand saves debugging time |
 | [03](examples/03-debug-production/walkthrough.md) | Fixing a production bug | Advanced | How the full cycle prevents regressions |
 | [04](examples/04-quality-gate-failure/walkthrough.md) | Quality gate failure case | Intermediate | How a failed gate prevents bad releases |
+| [05](examples/05-before-after-token-waste/metrics.md) | Before/after token waste | Intermediate | How source grounding reduces wasted AI turns |
+
+## Developer Operating Kit
+
+PUDO includes files that can be installed into real projects, not only read as methodology docs:
+
+| Area | Files |
+|---|---|
+| CLI | [bin/pudo.js](bin/pudo.js), [package.json](package.json) |
+| Project state | [.pudo/config.json](.pudo/config.json), [.pudo/session.md](.pudo/session.md), [.pudo/checklists/release.md](.pudo/checklists/release.md) |
+| GitHub workflow | [.github/pull_request_template.md](.github/pull_request_template.md), [.github/ISSUE_TEMPLATE/](.github/ISSUE_TEMPLATE/) |
+| Stack templates | [templates/](templates/) |
+| Measurement | [benchmarks/](benchmarks/) |
+| Roadmap | [ROADMAP.md](ROADMAP.md) |
 
 ## Prompt Library
 
