@@ -1,0 +1,29 @@
+{
+  "name": "pudo-code-system",
+  "version": "1.0.0",
+  "description": "Portable operating kit for AI-assisted development with PUDO workflows, quality gates, and agent rules.",
+  "license": "MIT",
+  "bin": {
+    "pudo": "bin/pudo.js",
+    "pudo-code-system": "bin/pudo.js"
+  },
+  "files": [
+    "bin/",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "codex/",
+    "claude/",
+    "cursor/",
+    ".github/copilot-instructions.md",
+    ".github/instructions/",
+    "quality/",
+    "prompts/",
+    "skills/",
+    "docs/",
+    "templates/",
+    ".pudo/"
+  ],
+  "scripts": {
+    "check": "git diff --check"
+  }
+}

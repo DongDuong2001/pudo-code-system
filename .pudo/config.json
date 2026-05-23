@@ -1,0 +1,8 @@
+{
+  "mode": "standard",
+  "projectType": "generic",
+  "tools": ["codex", "claude", "cursor", "copilot"],
+  "qualityGates": true,
+  "tokenBudget": true,
+  "handoffFile": ".pudo/session.md"
+}
