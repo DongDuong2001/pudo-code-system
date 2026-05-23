@@ -79,6 +79,18 @@ Cada fase termina con una puerta de control. No avances hasta que esa puerta pas
 
 Empieza con [Quality Gates](quality/quality-gates.md), usa los [QC checklists](quality/qc-checklists.md), revisa cambios generados por IA con [AI Output Review](quality/ai-output-review.md), y toma failure modes del [general edge case catalogue](quality/edge-cases/general.md).
 
+## Impacto Esperado
+
+Estos números son estimaciones prácticas orientativas, no garantías. El beneficio depende del tamaño de la tarea, de la calidad del repositorio y de qué tan consistentemente el equipo siga PUDO.
+
+| Tipo de tarea | Reducción de token desperdiciado | Reducción del tiempo de desarrollo |
+|---|---:|---:|
+| Arreglo de una línea / script pequeño | 0-8% | -5% a +5% |
+| Función pequeña o mediana | 25-38% | 12-20% |
+| Bug difícil / incidente de producción | 22-35% | 10-18% |
+| Función con muchos archivos / pruebas / handoff de equipo | 35-48% | 18-28% |
+| Promedio práctico para comunicar | **34%** | **18%** |
+
 ## Inicio Rápido
 
 ### 1. Comienza con la Planificación (Plan)
