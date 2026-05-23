@@ -195,6 +195,7 @@ PUDO includes files that can be installed into real projects, not only read as m
 | GitHub workflow | [.github/pull_request_template.md](.github/pull_request_template.md), [.github/ISSUE_TEMPLATE/](.github/ISSUE_TEMPLATE/) |
 | Stack templates | [templates/](templates/) |
 | Measurement | [benchmarks/](benchmarks/) |
+| Release tracking | [CHANGELOG.md](CHANGELOG.md) |
 | Roadmap | [ROADMAP.md](ROADMAP.md) |
 
 ## Prompt Library
