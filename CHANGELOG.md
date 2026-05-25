@@ -4,6 +4,22 @@ All notable changes to `pudo-code-system` will be documented in this file.
 
 The format is inspired by Keep a Changelog and organized for practical repository tracking.
 
+## [Unreleased]
+
+### Added
+
+- `pudo check`, `pudo score`, and `pudo doctor` executable workflow commands
+- GitHub Action checker at [.github/workflows/pudo-check.yml](.github/workflows/pudo-check.yml)
+- Context engineering guide at [docs/context-engineering.md](docs/context-engineering.md)
+- Agent skill contract at [docs/agent-skill-contract.md](docs/agent-skill-contract.md)
+- Sample measured benchmark case under [benchmarks/results/stripe-webhook-2026-05](benchmarks/results/stripe-webhook-2026-05/)
+- README onboarding paths for solo dev, team lead, and enterprise/security usage
+
+### Changed
+
+- Repositioned PUDO as an AI Agent Operating Layer across Cursor, Claude, Codex, GitHub Copilot, and Gemini/Antigravity
+- Synchronized package and README badge version to `1.1.0`
+
 ## [1.1.0] - 2026-05-23
 
 ### Added
