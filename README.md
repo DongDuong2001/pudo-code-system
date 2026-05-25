@@ -20,7 +20,7 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" /></a>
-  <img src="https://img.shields.io/badge/version-1.0.1-brightgreen.svg" alt="Version 1.0.1" />
+  <img src="https://img.shields.io/badge/version-1.1.0-brightgreen.svg" alt="Version 1.1.0" />
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-orange.svg" alt="PRs Welcome" /></a>
   <img src="https://img.shields.io/badge/AI-agnostic-purple.svg" alt="AI Agnostic" />
 </p>
@@ -54,7 +54,9 @@ The issue isn't the AI — it's the **lack of structure**. Without a clear metho
 
 ## The Solution: PUDO
 
-**PUDO** is a portable operating system for AI-assisted development: installable rules, measurable quality gates, token-budgeted prompts, and workflow templates for real codebases.
+**PUDO** is an AI Agent Operating Layer for configuring coding agents across Cursor, Claude, Codex, GitHub Copilot, and Gemini/Antigravity: installable rules, measurable quality gates, token-budgeted prompts, workflow templates, and benchmark evidence for real codebases.
+
+Recent research on configuring agentic coding tools identifies repository-level context files as the dominant mechanism and notes `AGENTS.md` emerging as an interoperable standard across tools, while advanced mechanisms such as Skills and Subagents remain less adopted. PUDO starts from that repo-level layer and adds executable checks, quality gates, handoff, and measurement. ([arXiv:2602.14690](https://arxiv.org/abs/2602.14690))
 
 | Phase | Goal | You Do | AI Does |
 |:---:|---|---|---|
@@ -85,6 +87,22 @@ npx pudo-code-system init --yes --tools=cursor,claude,codex,copilot --project=ne
 
 Generated files can include `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/pudo-core.mdc`, `.github/copilot-instructions.md`, `.github/pull_request_template.md`, `.pudo/config.json`, and `.pudo/session.md`.
 
+Executable workflow:
+
+```bash
+npx pudo-code-system check
+npx pudo-code-system score
+npx pudo-code-system doctor
+```
+
+## Onboarding Paths
+
+| Path | Best For | Setup |
+|---|---|---|
+| **Solo dev** | Small projects, personal repos, fast iteration | `npx pudo-code-system init --strictness=lite` |
+| **Team lead** | Shared PR review, handoff, medium features | `npx pudo-code-system init --strictness=standard --tools=cursor,claude,codex,copilot` |
+| **Enterprise / security** | Production, compliance, migrations, sensitive data | `npx pudo-code-system init --strictness=enterprise` plus Release Gate |
+
 ## PUDO Modes
 
 Use the smallest mode that safely fits the task. See [PUDO Modes](docs/pudo-modes.md) for the full guide.
@@ -107,7 +125,7 @@ Each phase ends with a gate. Do not move forward until the gate passes, or until
 | **Optimize Gate** | Release | Refactors preserve behavior; performance, security, docs, and risks were reviewed |
 | **Release Gate** | Merge/deploy | Changelog, migration, rollback, monitoring, and owner approval are handled |
 
-Start with [Quality Gates](quality/quality-gates.md), use the [QC checklists](quality/qc-checklists.md), review AI-generated changes with [AI Output Review](quality/ai-output-review.md), enforce [Anti-Hallucination Rules](quality/anti-hallucination.md), manage context with [Token Budget Rules](quality/token-budget.md), and pull failure modes from the [general edge case catalogue](quality/edge-cases/general.md).
+Start with [Quality Gates](quality/quality-gates.md), use the [QC checklists](quality/qc-checklists.md), review AI-generated changes with [AI Output Review](quality/ai-output-review.md), enforce [Anti-Hallucination Rules](quality/anti-hallucination.md), manage context with [Token Budget Rules](quality/token-budget.md), engineer context with [Context Engineering](docs/context-engineering.md), and pull failure modes from the [general edge case catalogue](quality/edge-cases/general.md).
 
 ## Expected Impact
 
@@ -121,7 +139,7 @@ These numbers are practical directional estimates, not guarantees. The gains dep
 | Multi-file feature / tests / team handoff | 35-48% | 18-28% |
 | Practical average claim | **34%** | **18%** |
 
-Measure your own results with the [Benchmark Kit](benchmarks/). Track tokens, AI turns, failed attempts, unnecessary file reads, time to verified implementation, bugs found after AI output, and PR review comments.
+Measure your own results with the [Benchmark Kit](benchmarks/). Track tokens, AI turns, failed attempts, unnecessary file reads, time to verified implementation, bugs found after AI output, and PR review comments. See the sample measured case in [benchmarks/results/stripe-webhook-2026-05](benchmarks/results/stripe-webhook-2026-05/).
 
 ## Quick Start
 
@@ -192,9 +210,10 @@ PUDO includes files that can be installed into real projects, not only read as m
 |---|---|
 | CLI | [bin/pudo.js](bin/pudo.js), [package.json](package.json) |
 | Project state | [.pudo/config.json](.pudo/config.json), [.pudo/session.md](.pudo/session.md), [.pudo/checklists/release.md](.pudo/checklists/release.md) |
-| GitHub workflow | [.github/pull_request_template.md](.github/pull_request_template.md), [.github/ISSUE_TEMPLATE/](.github/ISSUE_TEMPLATE/) |
+| GitHub workflow | [.github/pull_request_template.md](.github/pull_request_template.md), [.github/ISSUE_TEMPLATE/](.github/ISSUE_TEMPLATE/), [.github/workflows/pudo-check.yml](.github/workflows/pudo-check.yml) |
 | Stack templates | [templates/](templates/) |
 | Measurement | [benchmarks/](benchmarks/) |
+| Context engineering | [docs/context-engineering.md](docs/context-engineering.md), [docs/agent-skill-contract.md](docs/agent-skill-contract.md) |
 | Release tracking | [CHANGELOG.md](CHANGELOG.md) |
 | Roadmap | [ROADMAP.md](ROADMAP.md) |
 

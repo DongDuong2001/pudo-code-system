@@ -20,7 +20,7 @@
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="Лицензия: MIT" /></a>
-  <img src="https://img.shields.io/badge/version-1.0.1-brightgreen.svg" alt="Версия 1.0.1" />
+  <img src="https://img.shields.io/badge/version-1.1.0-brightgreen.svg" alt="Версия 1.1.0" />
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-orange.svg" alt="Добро пожаловать в PR" /></a>
   <img src="https://img.shields.io/badge/AI-agnostic-purple.svg" alt="Не зависит от ИИ" />
 </p>
