@@ -1,0 +1,29 @@
+name: PUDO Check
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  pudo-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Validate PUDO operating layer
+        run: node bin/pudo.js check
+
+      - name: Score PUDO adoption
+        run: node bin/pudo.js score
+
+      - name: Diagnose workflow gaps
+        run: node bin/pudo.js doctor
