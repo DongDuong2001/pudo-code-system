@@ -36,7 +36,7 @@ function parseArgs(argv) {
   };
 
   for (const arg of argv) {
-    if (arg === "init") args.command = "init";
+    if (["init", "check", "score", "doctor"].includes(arg)) args.command = arg;
     else if (arg === "--help" || arg === "-h") args.help = true;
     else if (arg === "--yes" || arg === "-y") args.yes = true;
     else if (arg === "--dry-run") args.dryRun = true;
@@ -54,6 +54,9 @@ function help() {
 
 Usage:
   pudo init
+  pudo check
+  pudo score
+  pudo doctor
   pudo init --yes
   pudo init --tools=cursor,claude,codex,copilot --project=nextjs --strictness=standard
 
@@ -452,10 +455,192 @@ function writeFiles(files, args) {
   return results;
 }
 
+function exists(relativePath) {
+  return fs.existsSync(path.resolve(process.cwd(), relativePath));
+}
+
+function readJson(relativePath) {
+  try {
+    return JSON.parse(fs.readFileSync(path.resolve(process.cwd(), relativePath), "utf8"));
+  } catch (_) {
+    return null;
+  }
+}
+
+function hasAny(paths) {
+  return paths.some((relativePath) => exists(relativePath));
+}
+
+function evaluateProject() {
+  const agentRulePaths = [
+    "AGENTS.md",
+    "CLAUDE.md",
+    ".cursor/rules/pudo-core.mdc",
+    ".github/copilot-instructions.md",
+    "GEMINI.md"
+  ];
+
+  const checks = [
+    {
+      name: "PUDO config",
+      pass: exists(".pudo/config.json"),
+      fix: "Run `pudo init` or add `.pudo/config.json`."
+    },
+    {
+      name: "Session handoff",
+      pass: exists(".pudo/session.md"),
+      fix: "Add `.pudo/session.md` for cross-agent handoff."
+    },
+    {
+      name: "Release checklist",
+      pass: exists(".pudo/checklists/release.md"),
+      fix: "Add `.pudo/checklists/release.md`."
+    },
+    {
+      name: "PR template",
+      pass: exists(".github/pull_request_template.md"),
+      fix: "Add `.github/pull_request_template.md`."
+    },
+    {
+      name: "Agent rule file",
+      pass: hasAny(agentRulePaths),
+      fix: "Add at least one of AGENTS.md, CLAUDE.md, Cursor rules, Copilot instructions, or GEMINI.md."
+    }
+  ];
+
+  return checks;
+}
+
+function runCheck() {
+  const checks = evaluateProject();
+  const failures = checks.filter((check) => !check.pass);
+
+  console.log("PUDO check");
+  for (const check of checks) {
+    console.log(`- ${check.pass ? "PASS" : "FAIL"} ${check.name}`);
+    if (!check.pass) console.log(`  fix: ${check.fix}`);
+  }
+
+  if (failures.length) {
+    console.log(`Result: failed (${failures.length} missing requirement${failures.length === 1 ? "" : "s"})`);
+    process.exitCode = 1;
+  } else {
+    console.log("Result: passed");
+  }
+}
+
+function scoreCategory(name, earned, total, notes) {
+  return { name, earned, total, notes };
+}
+
+function runScore() {
+  const config = readJson(".pudo/config.json");
+  const categories = [
+    scoreCategory("Agent rules", hasAny(["AGENTS.md", "CLAUDE.md", ".cursor/rules/pudo-core.mdc", ".github/copilot-instructions.md"]) ? 25 : 0, 25, "repo-level agent configuration"),
+    scoreCategory("Workflow", exists(".github/pull_request_template.md") && exists(".pudo/session.md") ? 25 : 10, 25, "PR template and session handoff"),
+    scoreCategory("Quality gates", hasAny(["quality/quality-gates.md", ".pudo/checklists/release.md"]) ? 20 : 0, 20, "quality gates or release checklist"),
+    scoreCategory("Token/context discipline", hasAny(["quality/token-budget.md", "docs/context-engineering.md"]) ? 15 : 0, 15, "token budget or context engineering guidance"),
+    scoreCategory("Evidence", hasAny(["benchmarks/README.md", "benchmarks/results"]) ? 15 : 0, 15, "benchmark kit or measured results")
+  ];
+
+  const earned = categories.reduce((sum, item) => sum + item.earned, 0);
+  const total = categories.reduce((sum, item) => sum + item.total, 0);
+  const mode = config && config.mode ? config.mode : "unknown";
+
+  console.log(`PUDO score: ${earned}/${total} (${Math.round((earned / total) * 100)}%)`);
+  console.log(`Mode: ${mode}`);
+  for (const category of categories) {
+    console.log(`- ${category.name}: ${category.earned}/${category.total} (${category.notes})`);
+  }
+}
+
+function hasTests() {
+  const pkg = readJson("package.json");
+  if (pkg && pkg.scripts && pkg.scripts.test) return true;
+
+  return hasAny([
+    "tests",
+    "test",
+    "__tests__",
+    "src/__tests__",
+    "pytest.ini",
+    "vitest.config.ts",
+    "jest.config.js",
+    "go.mod"
+  ]);
+}
+
+function runDoctor() {
+  const findings = [];
+
+  if (!hasTests()) {
+    findings.push({
+      severity: "WARN",
+      issue: "No obvious test entrypoint found.",
+      fix: "Add a test command, test directory, or document manual verification in the PR template."
+    });
+  }
+
+  if (!exists(".pudo/checklists/release.md")) {
+    findings.push({
+      severity: "WARN",
+      issue: "No release checklist found.",
+      fix: "Add `.pudo/checklists/release.md` or run `pudo init`."
+    });
+  }
+
+  if (!hasAny([".github/CODEOWNERS", "CODEOWNERS", "docs/owners.md"])) {
+    findings.push({
+      severity: "INFO",
+      issue: "No owner file found.",
+      fix: "Add CODEOWNERS or document owner approval in your PR process."
+    });
+  }
+
+  if (!hasAny(["quality/anti-hallucination.md", "quality/ai-output-review.md"])) {
+    findings.push({
+      severity: "WARN",
+      issue: "No AI-output review or anti-hallucination checklist found.",
+      fix: "Add AI review rules for generated code and config."
+    });
+  }
+
+  console.log("PUDO doctor");
+  if (!findings.length) {
+    console.log("- PASS no obvious workflow gaps found");
+    return;
+  }
+
+  for (const finding of findings) {
+    console.log(`- ${finding.severity} ${finding.issue}`);
+    console.log(`  fix: ${finding.fix}`);
+  }
+}
+
 async function main() {
   const args = parseArgs(process.argv.slice(2));
 
-  if (args.help || args.command !== "init") {
+  if (args.help) {
+    help();
+    return;
+  }
+
+  if (args.command === "check") {
+    runCheck();
+    return;
+  }
+
+  if (args.command === "score") {
+    runScore();
+    return;
+  }
+
+  if (args.command === "doctor") {
+    runDoctor();
+    return;
+  }
+
+  if (args.command !== "init") {
     help();
     return;
   }
