@@ -8,17 +8,19 @@
 - Anti-hallucination rules
 - Benchmark kit
 - Session handoff template
+- Version/package consistency
+- README polish and onboarding paths
 
 ## v1.2
 
-- `pudo init` CLI hardening
-- Stack-specific templates
-- More before/after examples
-- Docs quality workflow
+- `pudo check`, `pudo score`, and `pudo doctor`
+- Sample measured case studies
+- Context engineering guide
+- GitHub Action checker
 
 ## v1.3
 
-- GitHub Action checker
+- CLI scorecard refinements
 - Prompt linter
 - Team adoption guide
 - Case studies with measured outcomes
@@ -27,4 +29,5 @@
 
 - Enterprise adoption guide
 - Metrics framework
-- Deeper integrations for agent-specific workflows
+- Agent skills and subagent workflows
+- Dashboard metrics
