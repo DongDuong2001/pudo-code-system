@@ -1,7 +1,7 @@
 {
   "name": "pudo-code-system",
-  "version": "1.0.0",
-  "description": "Portable operating kit for AI-assisted development with PUDO workflows, quality gates, and agent rules.",
+  "version": "1.1.0",
+  "description": "AI Agent Operating Layer for configuring coding agents with PUDO workflows, quality gates, benchmarks, and repo-level rules.",
   "license": "MIT",
   "bin": {
     "pudo": "bin/pudo.js",
@@ -16,7 +16,11 @@
     "cursor/",
     ".github/copilot-instructions.md",
     ".github/instructions/",
+    ".github/pull_request_template.md",
+    ".github/ISSUE_TEMPLATE/",
+    ".github/workflows/pudo-check.yml",
     "quality/",
+    "benchmarks/",
     "prompts/",
     "skills/",
     "docs/",
@@ -24,6 +28,10 @@
     ".pudo/"
   ],
   "scripts": {
-    "check": "git diff --check"
+    "check": "git diff --check",
+    "test": "node --check bin/pudo.js",
+    "pudo:check": "node bin/pudo.js check",
+    "pudo:score": "node bin/pudo.js score",
+    "pudo:doctor": "node bin/pudo.js doctor"
   }
 }
