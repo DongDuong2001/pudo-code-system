@@ -1,0 +1,7 @@
+metric,baseline,pudo
+ai_turns,12,6
+tokens_total,31000,19000
+wrong_attempts,3,1
+hallucinated_env_vars,2,0
+time_to_verified_percent,100,73
+post_ai_review_findings,5,2
