@@ -9,6 +9,7 @@
   },
   "files": [
     "bin/",
+    "src/",
     "AGENTS.md",
     "CLAUDE.md",
     "codex/",
@@ -29,7 +30,7 @@
   ],
   "scripts": {
     "check": "git diff --check",
-    "test": "node --check bin/pudo.js",
+    "test": "node --test",
     "pudo:check": "node bin/pudo.js check",
     "pudo:score": "node bin/pudo.js score",
     "pudo:doctor": "node bin/pudo.js doctor"

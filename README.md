@@ -127,17 +127,17 @@ Each phase ends with a gate. Do not move forward until the gate passes, or until
 
 Start with [Quality Gates](quality/quality-gates.md), use the [QC checklists](quality/qc-checklists.md), review AI-generated changes with [AI Output Review](quality/ai-output-review.md), enforce [Anti-Hallucination Rules](quality/anti-hallucination.md), manage context with [Token Budget Rules](quality/token-budget.md), engineer context with [Context Engineering](docs/context-engineering.md), and pull failure modes from the [general edge case catalogue](quality/edge-cases/general.md).
 
-## Expected Impact
+## Measurement Targets
 
-These numbers are practical directional estimates, not guarantees. The gains depend on task size, repo quality, and how consistently the team actually follows PUDO.
+These numbers are directional targets to validate with your own benchmark data, not proven PUDO-wide guarantees. Current public evidence is a sample measurement, so do not cite the table as a benchmark claim until enough measured cases exist. Gains depend on task size, repo quality, and how consistently the team follows PUDO.
 
-| Task Type | Token Waste Reduction | Dev Time Reduction |
+| Task Type | Token Waste Reduction Target | Dev Time Reduction Target |
 |---|---:|---:|
 | One-line fix / small script | 0-8% | -5% to +5% |
 | Small/medium feature | 25-38% | 12-20% |
 | Hard bug / production issue | 22-35% | 10-18% |
 | Multi-file feature / tests / team handoff | 35-48% | 18-28% |
-| Practical average claim | **34%** | **18%** |
+| Measurement target for mature usage | 34% | 18% |
 
 Measure your own results with the [Benchmark Kit](benchmarks/). Track tokens, AI turns, failed attempts, unnecessary file reads, time to verified implementation, bugs found after AI output, and PR review comments. See the sample measured case in [benchmarks/results/stripe-webhook-2026-05](benchmarks/results/stripe-webhook-2026-05/).
 

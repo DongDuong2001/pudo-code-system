@@ -1,4 +1,4 @@
-name: PUDO Check
+name: CI
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
       - main
 
 jobs:
-  pudo-check:
+  test:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,13 +17,16 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: "22"
+
+      - name: Install dependencies
+        run: npm ci || npm install
+
+      - name: Run tests
+        run: npm test
 
       - name: Validate PUDO operating layer
-        run: node bin/pudo.js check
-
-      - name: Score PUDO adoption
-        run: node bin/pudo.js score
+        run: npm run pudo:check
 
       - name: Diagnose workflow gaps
-        run: node bin/pudo.js doctor
+        run: npm run pudo:doctor
