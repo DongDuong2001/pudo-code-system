@@ -76,7 +76,7 @@ test("resolveOptions falls back for invalid tool, project, and strictness", asyn
 
   const options = await resolveOptions(args);
 
-  assert.deepEqual(options.tools, ["cursor", "claude", "codex", "copilot"]);
+  assert.deepEqual(options.tools, ["cursor", "claude", "codex", "copilot", "gemini", "opencode", "kiro"]);
   assert.equal(options.project, "generic");
   assert.equal(options.strictness, "standard");
 });
@@ -106,6 +106,21 @@ test("templates creates .pudo/config.json", () => {
   assert.deepEqual(config.tools, ["codex"]);
 });
 
+test("templates creates Gemini, OpenCode, and Kiro instructions", () => {
+  const files = templates({
+    tools: ["gemini", "opencode", "kiro"],
+    project: "nextjs",
+    strictness: "standard"
+  });
+
+  assert.ok(files["GEMINI.md"]);
+  assert.ok(files["opencode/opencode.md"]);
+  assert.ok(files["kiro/system-prompt.md"]);
+  assert.match(files["GEMINI.md"], /# Gemini Agent Instructions/);
+  assert.match(files["opencode/opencode.md"], /# OpenCode Instructions/);
+  assert.match(files["kiro/system-prompt.md"], /# Kiro System Prompt/);
+});
+
 test("writeFiles dry-run does not write files", () => withTempDir(() => {
   const results = writeFiles({ "AGENTS.md": "dry run\n" }, { dryRun: true, force: false });
 
@@ -129,7 +144,7 @@ test("init fixture creates expected project files", async () => withTempDir(asyn
   const options = await resolveOptions(parseArgs([
     "init",
     "--yes",
-    "--tools=codex,cursor",
+    "--tools=codex,cursor,gemini,opencode,kiro",
     "--project=go-api",
     "--strictness=lite"
   ]));
@@ -138,6 +153,9 @@ test("init fixture creates expected project files", async () => withTempDir(asyn
 
   assert.equal(fs.existsSync("AGENTS.md"), true);
   assert.equal(fs.existsSync(path.join(".cursor", "rules", "pudo-core.mdc")), true);
+  assert.equal(fs.existsSync("GEMINI.md"), true);
+  assert.equal(fs.existsSync(path.join("opencode", "opencode.md")), true);
+  assert.equal(fs.existsSync(path.join("kiro", "system-prompt.md")), true);
   assert.equal(fs.existsSync(path.join(".pudo", "config.json")), true);
   assert.equal(fs.existsSync(path.join(".github", "pull_request_template.md")), true);
   assert.equal(evaluateProject().every((check) => check.pass), true);
