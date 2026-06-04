@@ -103,7 +103,7 @@ async function resolveOptions(args) {
   try {
     const toolsAnswer = args.tools || await question(
       rl,
-      "Which AI tools do you use? (cursor, claude, codex, copilot, gemini, opencode, kiro) [all]: "
+      `Which AI tools do you use? (${TOOL_NAMES.join(", ")}) [all]: `
     );
     const projectAnswer = args.project || await question(
       rl,
