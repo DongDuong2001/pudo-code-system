@@ -575,7 +575,7 @@ function evaluateProject() {
     {
       name: "Agent rule file",
       pass: hasAny(agentRulePaths),
-      fix: "Add at least one of AGENTS.md, CLAUDE.md, Cursor rules, Copilot instructions, GEMINI.md, OpenCode, or Kiro instructions."
+      fix: "Add at least one of AGENTS.md, CLAUDE.md, .cursor/rules/pudo-core.mdc, .github/copilot-instructions.md, GEMINI.md, opencode/opencode.md, or kiro/system-prompt.md."
     }
   ];
 
