@@ -4,7 +4,7 @@ const fs = require("fs");
 const path = require("path");
 const readline = require("readline");
 
-const TOOL_NAMES = ["cursor", "claude", "codex", "copilot"];
+const TOOL_NAMES = ["cursor", "claude", "codex", "copilot", "gemini", "opencode", "kiro"];
 const PROJECT_TYPES = [
   "generic",
   "nextjs",
@@ -58,11 +58,11 @@ Usage:
   pudo score
   pudo doctor
   pudo init --yes
-  pudo init --tools=cursor,claude,codex,copilot --project=nextjs --strictness=standard
+  pudo init --tools=cursor,claude,codex,copilot,gemini,opencode,kiro --project=nextjs --strictness=standard
 
 Options:
   --yes              Use defaults: all tools, generic project, standard strictness
-  --tools=LIST       Comma-separated: cursor, claude, codex, copilot
+  --tools=LIST       Comma-separated: cursor, claude, codex, copilot, gemini, opencode, kiro
   --project=TYPE     generic, nextjs, react-vite, node-express, python-fastapi, django, laravel, go-api, mobile-react-native
   --strictness=MODE  lite, standard, enterprise
   --dry-run          Show files that would be written
@@ -103,7 +103,7 @@ async function resolveOptions(args) {
   try {
     const toolsAnswer = args.tools || await question(
       rl,
-      "Which AI tools do you use? (cursor, claude, codex, copilot) [all]: "
+      `Which AI tools do you use? (${TOOL_NAMES.join(", ")}) [all]: `
     );
     const projectAnswer = args.project || await question(
       rl,
@@ -392,6 +392,75 @@ ${joinBullets(stackNotes(options.project))}
 `;
   }
 
+  if (options.tools.includes("gemini")) {
+    files["GEMINI.md"] = `# Gemini Agent Instructions
+
+Use PUDO as the operating workflow: Plan -> Understand -> Develop -> Optimize.
+
+## Mode
+
+${joinBullets(modeRules(options.strictness))}
+
+## Project Notes
+
+${joinBullets(stackNotes(options.project))}
+
+## Rules
+
+- Inspect relevant files before editing.
+- Keep patches small and scoped.
+- Do not invent APIs, paths, env vars, config keys, or test results.
+- Run relevant checks or state why checks were skipped.
+- Use .pudo/session.md for handoff when context may be lost.
+`;
+  }
+
+  if (options.tools.includes("opencode")) {
+    files["opencode/opencode.md"] = `# OpenCode Instructions
+
+Use PUDO for coding tasks: Plan -> Understand -> Develop -> Optimize.
+
+## Mode
+
+${joinBullets(modeRules(options.strictness))}
+
+## Project Notes
+
+${joinBullets(stackNotes(options.project))}
+
+## Rules
+
+- Read relevant files before implementation.
+- Keep diffs focused and reviewable.
+- Avoid unrelated rewrites and dependency bloat.
+- Do not claim checks passed unless they were run.
+- Record long-running task context in .pudo/session.md.
+`;
+  }
+
+  if (options.tools.includes("kiro")) {
+    files["kiro/system-prompt.md"] = `# Kiro System Prompt
+
+Follow PUDO as the default development loop: Plan -> Understand -> Develop -> Optimize.
+
+## Mode
+
+${joinBullets(modeRules(options.strictness))}
+
+## Project Notes
+
+${joinBullets(stackNotes(options.project))}
+
+## Rules
+
+- Clarify scope, success criteria, and constraints before coding.
+- Inspect existing files, APIs, and conventions before editing.
+- Keep changes scoped to the task.
+- Include tests or verification notes for risky changes.
+- Surface release, rollback, migration, and monitoring risks when relevant.
+`;
+  }
+
   files[".github/pull_request_template.md"] = `## PUDO Phase Summary
 
 ### Plan
@@ -477,7 +546,9 @@ function evaluateProject() {
     "CLAUDE.md",
     ".cursor/rules/pudo-core.mdc",
     ".github/copilot-instructions.md",
-    "GEMINI.md"
+    "GEMINI.md",
+    "opencode/opencode.md",
+    "kiro/system-prompt.md"
   ];
 
   const checks = [
@@ -504,7 +575,7 @@ function evaluateProject() {
     {
       name: "Agent rule file",
       pass: hasAny(agentRulePaths),
-      fix: "Add at least one of AGENTS.md, CLAUDE.md, Cursor rules, Copilot instructions, or GEMINI.md."
+      fix: "Add at least one of AGENTS.md, CLAUDE.md, .cursor/rules/pudo-core.mdc, .github/copilot-instructions.md, GEMINI.md, opencode/opencode.md, or kiro/system-prompt.md."
     }
   ];
 
@@ -536,7 +607,7 @@ function scoreCategory(name, earned, total, notes) {
 function runScore() {
   const config = readJson(".pudo/config.json");
   const categories = [
-    scoreCategory("Agent rules", hasAny(["AGENTS.md", "CLAUDE.md", ".cursor/rules/pudo-core.mdc", ".github/copilot-instructions.md"]) ? 25 : 0, 25, "repo-level agent configuration"),
+    scoreCategory("Agent rules", hasAny(["AGENTS.md", "CLAUDE.md", ".cursor/rules/pudo-core.mdc", ".github/copilot-instructions.md", "GEMINI.md", "opencode/opencode.md", "kiro/system-prompt.md"]) ? 25 : 0, 25, "repo-level agent configuration"),
     scoreCategory("Workflow", exists(".github/pull_request_template.md") && exists(".pudo/session.md") ? 25 : 10, 25, "PR template and session handoff"),
     scoreCategory("Quality gates", hasAny(["quality/quality-gates.md", ".pudo/checklists/release.md"]) ? 20 : 0, 20, "quality gates or release checklist"),
     scoreCategory("Token/context discipline", hasAny(["quality/token-budget.md", "docs/context-engineering.md"]) ? 15 : 0, 15, "token budget or context engineering guidance"),

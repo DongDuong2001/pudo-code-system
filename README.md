@@ -82,10 +82,10 @@ npx pudo-code-system init
 Non-interactive setup:
 
 ```bash
-npx pudo-code-system init --yes --tools=cursor,claude,codex,copilot --project=nextjs --strictness=standard
+npx pudo-code-system init --yes --tools=cursor,claude,codex,copilot,gemini,opencode,kiro --project=nextjs --strictness=standard
 ```
 
-Generated files can include `AGENTS.md`, `CLAUDE.md`, `.cursor/rules/pudo-core.mdc`, `.github/copilot-instructions.md`, `.github/pull_request_template.md`, `.pudo/config.json`, and `.pudo/session.md`.
+Generated files can include `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `.cursor/rules/pudo-core.mdc`, `.github/copilot-instructions.md`, `opencode/opencode.md`, `kiro/system-prompt.md`, `.github/pull_request_template.md`, `.pudo/config.json`, and `.pudo/session.md`.
 
 Executable workflow:
 
@@ -100,7 +100,7 @@ npx pudo-code-system doctor
 | Path | Best For | Setup |
 |---|---|---|
 | **Solo dev** | Small projects, personal repos, fast iteration | `npx pudo-code-system init --strictness=lite` |
-| **Team lead** | Shared PR review, handoff, medium features | `npx pudo-code-system init --strictness=standard --tools=cursor,claude,codex,copilot` |
+| **Team lead** | Shared PR review, handoff, medium features | `npx pudo-code-system init --strictness=standard --tools=cursor,claude,codex,copilot,gemini,opencode,kiro` |
 | **Enterprise / security** | Production, compliance, migrations, sensitive data | `npx pudo-code-system init --strictness=enterprise` plus Release Gate |
 
 ## PUDO Modes
@@ -240,9 +240,9 @@ PUDO is designed to be the default operating system for AI coding agents. Prefer
 | **Claude Code / Projects** | [CLAUDE.md](CLAUDE.md), [claude/CLAUDE.md](claude/CLAUDE.md), [.claude/settings.json](.claude/settings.json) | Use root `CLAUDE.md` as the bridge; keep detailed Claude workflow in `claude/CLAUDE.md` | Updated |
 | **Cursor** | [Project Rules](cursor/.cursor/rules/pudo-core.mdc), [legacy .cursorrules](cursor/.cursorrules) | Prefer `.cursor/rules/*.mdc`; keep `.cursorrules` for legacy Cursor versions | Migrated |
 | **GitHub Copilot** | [.github/copilot-instructions.md](.github/copilot-instructions.md), [.github/instructions/](.github/instructions/) | Use repo-wide instructions plus path-specific `.instructions.md` files | Added |
-| **OpenCode** | [opencode/opencode.md](opencode/opencode.md) | Add to OpenCode system prompts or workspace instructions | OK |
-| **Antigravity / Gemini-style** | [antigravity/instructions.xml](antigravity/instructions.xml) | Copy to `.gemini/antigravity/instructions.xml` in the target workspace | OK |
-| **Kiro** | [kiro/system-prompt.md](kiro/system-prompt.md) | Set as the Kiro system prompt | OK |
+| **Gemini** | [GEMINI.md](GEMINI.md), [antigravity/instructions.xml](antigravity/instructions.xml) | Use `GEMINI.md` as the repo instruction bridge; keep Antigravity XML for Gemini-style workspaces | CLI generated |
+| **OpenCode** | [opencode/opencode.md](opencode/opencode.md) | Add to OpenCode system prompts or workspace instructions | CLI generated |
+| **Kiro** | [kiro/system-prompt.md](kiro/system-prompt.md) | Set as the Kiro system prompt | CLI generated |
 
 ## Philosophy
 
