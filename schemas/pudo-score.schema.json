@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pudo.dev/schemas/pudo-score.schema.json",
+  "title": "PUDO Repository Readiness Score",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "pudo_version",
+    "mode",
+    "score",
+    "max_score",
+    "percentage",
+    "status",
+    "categories"
+  ],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "pudo_version": { "type": "string" },
+    "mode": { "type": "string" },
+    "score": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "max_score": { "const": 100 },
+    "percentage": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "status": { "enum": ["ready", "needs_improvement", "high_risk"] },
+    "categories": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["name", "score", "max_score", "evidence", "missing"],
+        "properties": {
+          "name": { "type": "string" },
+          "score": { "type": "integer", "minimum": 0 },
+          "max_score": { "type": "integer", "minimum": 1 },
+          "evidence": { "type": "array", "items": { "type": "string" } },
+          "missing": { "type": "array", "items": { "type": "string" } }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

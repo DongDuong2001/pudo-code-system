@@ -1,0 +1,22 @@
+{
+  "name": "@pudo-code-system/mcp-server",
+  "version": "0.1.0-alpha.1",
+  "private": true,
+  "description": "Local stdio MCP server for PUDO project setup, quality gates, context packs, and readiness scoring.",
+  "type": "module",
+  "bin": {
+    "pudo-mcp-server": "dist/src/server.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test dist/tests/*.test.js"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "1.29.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "typescript": "^5.8.2"
+  }
+}

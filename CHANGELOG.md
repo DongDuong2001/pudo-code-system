@@ -6,9 +6,19 @@ The format is inspired by Keep a Changelog and organized for practical repositor
 
 ## [Unreleased]
 
+## [1.2.0] - 2026-06-10
+
 ### Added
 
 - `pudo check`, `pudo score`, and `pudo doctor` executable workflow commands
+- Evidence-based `pudo score --json` output and strict readiness enforcement with `pudo score --strict`
+- PUDO MCP server alpha under [packages/pudo-mcp-server](packages/pudo-mcp-server/) with local stdio tools for init, validation, scoring, context packs, quality gates, diagnosis, and session handoff
+- Agent tool and MCP security controls:
+  - [quality/agent-tool-security.md](quality/agent-tool-security.md)
+  - [quality/mcp-security-checklist.md](quality/mcp-security-checklist.md)
+  - [templates/mcp/pudo-server-policy.json](templates/mcp/pudo-server-policy.json)
+- Machine-readable schemas for score reports and MCP server policy in [schemas/](schemas/)
+- Repository ownership enforcement through [.github/CODEOWNERS](.github/CODEOWNERS)
 - GitHub Action checker at [.github/workflows/pudo-check.yml](.github/workflows/pudo-check.yml)
 - Context engineering guide at [docs/context-engineering.md](docs/context-engineering.md)
 - Agent skill contract at [docs/agent-skill-contract.md](docs/agent-skill-contract.md)
@@ -18,7 +28,9 @@ The format is inspired by Keep a Changelog and organized for practical repositor
 ### Changed
 
 - Repositioned PUDO as an AI Agent Operating Layer across Cursor, Claude, Codex, GitHub Copilot, and Gemini/Antigravity
-- Synchronized package and README badge version to `1.1.0`
+- Expanded CLI generation support to Gemini, OpenCode, and Kiro
+- Synchronized package and README badge version to `1.2.0`
+- Replaced file-existence scoring with content and evidence rubrics
 
 ## [1.1.0] - 2026-05-23
 

@@ -30,6 +30,10 @@ Lite / Standard / Enterprise
 
 - ...
 
+## Assumptions
+
+- ...
+
 ## Changes Made
 
 - ...

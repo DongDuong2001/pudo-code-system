@@ -1,8 +1,11 @@
 {
   "name": "pudo-code-system",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "AI Agent Operating Layer for configuring coding agents with PUDO workflows, quality gates, benchmarks, and repo-level rules.",
   "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
   "bin": {
     "pudo": "bin/pudo.js",
     "pudo-code-system": "bin/pudo.js"
@@ -25,6 +28,13 @@
     ".github/ISSUE_TEMPLATE/",
     ".github/workflows/pudo-check.yml",
     "quality/",
+    "schemas/",
+    "packages/pudo-mcp-server/package.json",
+    "packages/pudo-mcp-server/package-lock.json",
+    "packages/pudo-mcp-server/tsconfig.json",
+    "packages/pudo-mcp-server/src/",
+    "packages/pudo-mcp-server/tools/",
+    "packages/pudo-mcp-server/tests/",
     "benchmarks/",
     "prompts/",
     "skills/",
@@ -34,9 +44,11 @@
   ],
   "scripts": {
     "check": "git diff --check",
-    "test": "node --test",
+    "test": "node --test tests/cli.test.js",
     "pudo:check": "node bin/pudo.js check",
     "pudo:score": "node bin/pudo.js score",
-    "pudo:doctor": "node bin/pudo.js doctor"
+    "pudo:doctor": "node bin/pudo.js doctor",
+    "mcp:build": "npm run build --prefix packages/pudo-mcp-server",
+    "mcp:test": "npm test --prefix packages/pudo-mcp-server"
   }
 }

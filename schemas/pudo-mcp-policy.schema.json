@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pudo.dev/schemas/pudo-mcp-policy.schema.json",
+  "title": "PUDO MCP Server Policy",
+  "type": "object",
+  "required": ["version", "defaultAction", "repositoryBoundary", "tools"],
+  "properties": {
+    "version": { "type": "string" },
+    "defaultAction": { "enum": ["allow", "deny"] },
+    "repositoryBoundary": { "type": "string", "minLength": 1 },
+    "shellExecution": { "type": "boolean", "default": false },
+    "networkAccess": { "type": "boolean", "default": false },
+    "secretAccess": { "type": "boolean", "default": false },
+    "auditLog": {
+      "type": "object",
+      "properties": {
+        "enabled": { "type": "boolean" },
+        "redactSecrets": { "type": "boolean" },
+        "includeFileContents": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "tools": {
+      "type": "object",
+      "additionalProperties": {
+        "enum": ["allow", "allow-readonly", "require-approval", "deny"]
+      }
+    }
+  },
+  "additionalProperties": false
+}

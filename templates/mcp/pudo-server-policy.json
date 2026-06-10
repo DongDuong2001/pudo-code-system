@@ -1,0 +1,23 @@
+{
+  "$schema": "../../schemas/pudo-mcp-policy.schema.json",
+  "version": "1.0",
+  "defaultAction": "deny",
+  "repositoryBoundary": "${PUDO_PROJECT_ROOT}",
+  "shellExecution": false,
+  "networkAccess": false,
+  "secretAccess": false,
+  "auditLog": {
+    "enabled": true,
+    "redactSecrets": true,
+    "includeFileContents": false
+  },
+  "tools": {
+    "pudo.generateAgentRules": "allow",
+    "pudo.validateAgentRules": "allow",
+    "pudo.createContextPack": "allow-readonly",
+    "pudo.runQualityGate": "allow",
+    "pudo.scoreRepoReadiness": "allow",
+    "pudo.initProject": "require-approval",
+    "pudo.updateSessionHandoff": "require-approval"
+  }
+}
