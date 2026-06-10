@@ -32,6 +32,8 @@ function parseArgs(argv) {
     tools: null,
     project: null,
     strictness: null,
+    json: false,
+    strict: false,
     help: false
   };
 
@@ -41,6 +43,8 @@ function parseArgs(argv) {
     else if (arg === "--yes" || arg === "-y") args.yes = true;
     else if (arg === "--dry-run") args.dryRun = true;
     else if (arg === "--force") args.force = true;
+    else if (arg === "--json") args.json = true;
+    else if (arg === "--strict") args.strict = true;
     else if (arg.startsWith("--tools=")) args.tools = arg.slice("--tools=".length);
     else if (arg.startsWith("--project=")) args.project = arg.slice("--project=".length);
     else if (arg.startsWith("--strictness=")) args.strictness = arg.slice("--strictness=".length);
@@ -56,6 +60,8 @@ Usage:
   pudo init
   pudo check
   pudo score
+  pudo score --json
+  pudo score --strict
   pudo doctor
   pudo init --yes
   pudo init --tools=cursor,claude,codex,copilot,gemini,opencode,kiro --project=nextjs --strictness=standard
@@ -67,6 +73,8 @@ Options:
   --strictness=MODE  lite, standard, enterprise
   --dry-run          Show files that would be written
   --force            Overwrite existing files
+  --json             Emit machine-readable JSON for supported commands
+  --strict           Exit non-zero when score is below 80
 `);
 }
 
@@ -266,6 +274,10 @@ ${options.strictness}
 - ...
 
 ## Decisions Made
+
+- ...
+
+## Assumptions
 
 - ...
 
@@ -536,8 +548,42 @@ function readJson(relativePath) {
   }
 }
 
+function readText(relativePath) {
+  try {
+    return fs.readFileSync(path.resolve(process.cwd(), relativePath), "utf8");
+  } catch (_) {
+    return "";
+  }
+}
+
 function hasAny(paths) {
   return paths.some((relativePath) => exists(relativePath));
+}
+
+function readExisting(paths) {
+  return paths
+    .filter((relativePath) => exists(relativePath))
+    .map((relativePath) => ({
+      path: relativePath,
+      content: readText(relativePath)
+    }));
+}
+
+function containsAny(text, patterns) {
+  const normalized = text.toLowerCase();
+  return patterns.some((pattern) => normalized.includes(pattern.toLowerCase()));
+}
+
+function rubricCategory(name, maxScore, checks) {
+  const score = checks.reduce((sum, check) => sum + (check.pass ? check.points : 0), 0);
+
+  return {
+    name,
+    score,
+    max_score: maxScore,
+    evidence: checks.filter((check) => check.pass).map((check) => check.evidence),
+    missing: checks.filter((check) => !check.pass).map((check) => check.missing)
+  };
 }
 
 function evaluateProject() {
@@ -600,29 +646,221 @@ function runCheck() {
   }
 }
 
-function scoreCategory(name, earned, total, notes) {
-  return { name, earned, total, notes };
-}
-
-function runScore() {
+function evaluateScore() {
   const config = readJson(".pudo/config.json");
-  const categories = [
-    scoreCategory("Agent rules", hasAny(["AGENTS.md", "CLAUDE.md", ".cursor/rules/pudo-core.mdc", ".github/copilot-instructions.md", "GEMINI.md", "opencode/opencode.md", "kiro/system-prompt.md"]) ? 25 : 0, 25, "repo-level agent configuration"),
-    scoreCategory("Workflow", exists(".github/pull_request_template.md") && exists(".pudo/session.md") ? 25 : 10, 25, "PR template and session handoff"),
-    scoreCategory("Quality gates", hasAny(["quality/quality-gates.md", ".pudo/checklists/release.md"]) ? 20 : 0, 20, "quality gates or release checklist"),
-    scoreCategory("Token/context discipline", hasAny(["quality/token-budget.md", "docs/context-engineering.md"]) ? 15 : 0, 15, "token budget or context engineering guidance"),
-    scoreCategory("Evidence", hasAny(["benchmarks/README.md", "benchmarks/results"]) ? 15 : 0, 15, "benchmark kit or measured results")
+  const agentRulePaths = [
+    "AGENTS.md",
+    "CLAUDE.md",
+    ".cursor/rules/pudo-core.mdc",
+    ".github/copilot-instructions.md",
+    "GEMINI.md",
+    "opencode/opencode.md",
+    "kiro/system-prompt.md"
   ];
+  const agentRules = readExisting(agentRulePaths);
+  const agentText = agentRules.map((file) => file.content).join("\n");
+  const sessionText = readText(".pudo/session.md");
+  const prText = readText(".github/pull_request_template.md");
+  const releaseText = [
+    readText(".pudo/checklists/release.md"),
+    readText("quality/quality-gates.md")
+  ].join("\n");
+  const safetyText = [
+    readText("quality/anti-hallucination.md"),
+    readText("quality/ai-output-review.md"),
+    readText("quality/agent-tool-security.md"),
+    readText("quality/mcp-security-checklist.md"),
+    readText("templates/mcp/pudo-server-policy.json"),
+    readText(".claude/settings.json")
+  ].join("\n");
 
-  const earned = categories.reduce((sum, item) => sum + item.earned, 0);
-  const total = categories.reduce((sum, item) => sum + item.total, 0);
+  const categories = {
+    agent_rules: rubricCategory("Agent rules", 25, [
+      {
+        pass: agentRules.length > 0,
+        points: 5,
+        evidence: `${agentRules.length} agent instruction file(s) detected`,
+        missing: "Add at least one supported agent instruction file"
+      },
+      {
+        pass: containsAny(agentText, ["scope", "out of scope", "constraints"]),
+        points: 5,
+        evidence: "Agent instructions define scope or constraints",
+        missing: "Define scope, constraints, or out-of-scope behavior"
+      },
+      {
+        pass: containsAny(agentText, ["relevant files", "inspect", "read relevant"]),
+        points: 5,
+        evidence: "Agent instructions require repository inspection",
+        missing: "Require relevant file inspection before editing"
+      },
+      {
+        pass: containsAny(agentText, ["run relevant checks", "verification", "tests", "test"]),
+        points: 5,
+        evidence: "Agent instructions include verification expectations",
+        missing: "Add explicit test or verification commands"
+      },
+      {
+        pass: containsAny(agentText, ["do not invent", "secret", "unrelated", "approval"]),
+        points: 5,
+        evidence: "Agent instructions include safety boundaries",
+        missing: "Add anti-hallucination, secret, or approval boundaries"
+      }
+    ]),
+    context_quality: rubricCategory("Context quality", 20, [
+      {
+        pass: exists(".pudo/session.md"),
+        points: 4,
+        evidence: "Session handoff file exists",
+        missing: "Add .pudo/session.md"
+      },
+      {
+        pass: containsAny(sessionText, ["files inspected", "relevant files"]),
+        points: 4,
+        evidence: "Handoff records inspected files",
+        missing: "Record relevant or inspected files in the handoff"
+      },
+      {
+        pass: containsAny(sessionText, ["decisions made", "verified facts", "evidence"]),
+        points: 4,
+        evidence: "Handoff records decisions or verified evidence",
+        missing: "Record decisions and verified facts"
+      },
+      {
+        pass: containsAny(sessionText, ["assumptions"]),
+        points: 4,
+        evidence: "Handoff has an assumptions section",
+        missing: "Mark assumptions explicitly"
+      },
+      {
+        pass: containsAny(sessionText, ["remaining risks", "next action"]),
+        points: 4,
+        evidence: "Handoff tracks risks and next action",
+        missing: "Track remaining risks and next action"
+      }
+    ]),
+    workflow: rubricCategory("Workflow and quality gates", 20, [
+      {
+        pass: exists(".github/pull_request_template.md"),
+        points: 4,
+        evidence: "PR template exists",
+        missing: "Add .github/pull_request_template.md"
+      },
+      {
+        pass: containsAny(prText, ["commands run", "verification"]),
+        points: 4,
+        evidence: "PR template requests verification evidence",
+        missing: "Ask for commands run or verification evidence in the PR template"
+      },
+      {
+        pass: containsAny(releaseText, ["rollback", "recovery"]),
+        points: 4,
+        evidence: "Release gate covers rollback or recovery",
+        missing: "Add rollback or recovery requirements"
+      },
+      {
+        pass: containsAny(releaseText, ["monitoring", "logging"]),
+        points: 4,
+        evidence: "Release gate covers monitoring or logging",
+        missing: "Add monitoring or logging requirements"
+      },
+      {
+        pass: hasAny([".github/CODEOWNERS", "CODEOWNERS", "docs/owners.md"]) ||
+          containsAny(releaseText, ["owner approval", "approved owner"]),
+        points: 4,
+        evidence: "Ownership or owner approval is defined",
+        missing: "Add CODEOWNERS or an explicit owner approval gate"
+      }
+    ]),
+    ai_safety: rubricCategory("AI and MCP safety", 20, [
+      {
+        pass: hasAny(["quality/anti-hallucination.md", "quality/ai-output-review.md"]),
+        points: 5,
+        evidence: "Anti-hallucination or AI-output review policy exists",
+        missing: "Add an AI-output review or anti-hallucination policy"
+      },
+      {
+        pass: containsAny(safetyText, ["secret", ".env", "redaction"]),
+        points: 5,
+        evidence: "Secret handling or redaction policy exists",
+        missing: "Define secret handling and redaction"
+      },
+      {
+        pass: containsAny(safetyText, ["allowlist", "denylist", "read-only", "readonly", "approval"]),
+        points: 5,
+        evidence: "Tool permission and approval boundaries exist",
+        missing: "Define MCP tool allowlists, permissions, and approval mode"
+      },
+      {
+        pass: containsAny(safetyText, ["prompt injection", "tool poisoning", "supply chain"]),
+        points: 5,
+        evidence: "Prompt-injection or MCP supply-chain review exists",
+        missing: "Add prompt-injection and MCP supply-chain review"
+      }
+    ]),
+    evidence: rubricCategory("Operational evidence", 15, [
+      {
+        pass: hasTests(),
+        points: 5,
+        evidence: "Test entrypoint detected",
+        missing: "Add a runnable test entrypoint"
+      },
+      {
+        pass: hasAny([".github/workflows/pudo-check.yml", ".github/workflows/ci.yml"]),
+        points: 4,
+        evidence: "CI workflow detected",
+        missing: "Add CI that runs tests and PUDO checks"
+      },
+      {
+        pass: exists("benchmarks/results") &&
+          hasAny(["benchmarks/results/stripe-webhook-2026-05/metrics.csv"]),
+        points: 3,
+        evidence: "Measured benchmark result detected",
+        missing: "Add at least one measured benchmark result"
+      },
+      {
+        pass: exists("CHANGELOG.md"),
+        points: 3,
+        evidence: "Changelog exists",
+        missing: "Add CHANGELOG.md"
+      }
+    ])
+  };
+
+  const score = Object.values(categories).reduce((sum, category) => sum + category.score, 0);
+  const maxScore = Object.values(categories).reduce((sum, category) => sum + category.max_score, 0);
   const mode = config && config.mode ? config.mode : "unknown";
 
-  console.log(`PUDO score: ${earned}/${total} (${Math.round((earned / total) * 100)}%)`);
-  console.log(`Mode: ${mode}`);
-  for (const category of categories) {
-    console.log(`- ${category.name}: ${category.earned}/${category.total} (${category.notes})`);
+  return {
+    schema_version: "1.0",
+    pudo_version: "1.2.0",
+    mode,
+    score,
+    max_score: maxScore,
+    percentage: Math.round((score / maxScore) * 100),
+    status: score >= 80 ? "ready" : score >= 60 ? "needs_improvement" : "high_risk",
+    categories
+  };
+}
+
+function runScore(options = {}) {
+  const report = evaluateScore();
+
+  if (options.json) {
+    console.log(JSON.stringify(report, null, 2));
+  } else {
+    console.log(`PUDO score: ${report.score}/${report.max_score} (${report.percentage}%)`);
+    console.log(`Status: ${report.status}`);
+    console.log(`Mode: ${report.mode}`);
+    for (const category of Object.values(report.categories)) {
+      console.log(`- ${category.name}: ${category.score}/${category.max_score}`);
+      for (const missing of category.missing) console.log(`  missing: ${missing}`);
+    }
   }
+
+  if (options.strict && report.score < 80) process.exitCode = 1;
+
+  return report;
 }
 
 function hasTests() {
@@ -641,7 +879,7 @@ function hasTests() {
   ]);
 }
 
-function runDoctor() {
+function evaluateDoctor() {
   const findings = [];
 
   if (!hasTests()) {
@@ -676,6 +914,20 @@ function runDoctor() {
     });
   }
 
+  if (!hasAny(["quality/agent-tool-security.md", "quality/mcp-security-checklist.md"])) {
+    findings.push({
+      severity: "WARN",
+      issue: "No agent tool or MCP security policy found.",
+      fix: "Add agent tool permissions, approval, secret, and prompt-injection controls."
+    });
+  }
+
+  return findings;
+}
+
+function runDoctor() {
+  const findings = evaluateDoctor();
+
   console.log("PUDO doctor");
   if (!findings.length) {
     console.log("- PASS no obvious workflow gaps found");
@@ -702,7 +954,7 @@ async function main() {
   }
 
   if (args.command === "score") {
-    runScore();
+    runScore(args);
     return;
   }
 
@@ -742,6 +994,8 @@ module.exports = {
   templates,
   writeFiles,
   evaluateProject,
+  evaluateScore,
+  evaluateDoctor,
   runCheck,
   runScore,
   runDoctor,

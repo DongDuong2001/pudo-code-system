@@ -10,7 +10,8 @@ const {
   resolveOptions,
   templates,
   writeFiles,
-  evaluateProject
+  evaluateProject,
+  evaluateScore
 } = require("../src/cli");
 
 const repoRoot = path.resolve(__dirname, "..");
@@ -48,6 +49,8 @@ test("parseArgs parses init --yes", () => {
     tools: null,
     project: null,
     strictness: null,
+    json: false,
+    strict: false,
     help: false
   });
 });
@@ -63,6 +66,14 @@ test("parseArgs parses explicit tools", () => {
   const args = parseArgs(["init", "--tools=cursor,claude"]);
 
   assert.equal(args.tools, "cursor,claude");
+});
+
+test("parseArgs parses score output flags", () => {
+  const args = parseArgs(["score", "--json", "--strict"]);
+
+  assert.equal(args.command, "score");
+  assert.equal(args.json, true);
+  assert.equal(args.strict, true);
 });
 
 test("resolveOptions falls back for invalid tool, project, and strictness", async () => {
@@ -161,6 +172,17 @@ test("init fixture creates expected project files", async () => withTempDir(asyn
   assert.equal(evaluateProject().every((check) => check.pass), true);
 }));
 
+test("evaluateScore returns evidence-based rubric categories", () => {
+  const report = evaluateScore();
+
+  assert.equal(report.schema_version, "1.0");
+  assert.equal(report.pudo_version, "1.2.0");
+  assert.equal(report.max_score, 100);
+  assert.equal(typeof report.score, "number");
+  assert.ok(report.categories.agent_rules.evidence.length > 0);
+  assert.ok(Array.isArray(report.categories.ai_safety.missing));
+});
+
 test("real CLI commands execute", () => withTempDir((dir) => {
   const help = execFileSync(process.execPath, [binPath, "--help"], {
     cwd: repoRoot,
@@ -186,6 +208,14 @@ test("real CLI commands execute", () => withTempDir((dir) => {
     encoding: "utf8"
   });
   assert.match(score, /PUDO score:/);
+
+  const scoreJson = execFileSync(process.execPath, [binPath, "score", "--json"], {
+    cwd: repoRoot,
+    encoding: "utf8"
+  });
+  const report = JSON.parse(scoreJson);
+  assert.equal(report.max_score, 100);
+  assert.ok(report.categories.context_quality);
 
   const doctor = execFileSync(process.execPath, [binPath, "doctor"], {
     cwd: repoRoot,
