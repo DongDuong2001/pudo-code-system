@@ -25,6 +25,12 @@ jobs:
       - name: Run tests
         run: npm test
 
+      - name: Install MCP server dependencies
+        run: npm ci --prefix packages/pudo-mcp-server
+
+      - name: Test MCP server
+        run: npm run mcp:test
+
       - name: Validate PUDO operating layer
         run: npm run pudo:check
 
