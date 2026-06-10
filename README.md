@@ -16,11 +16,11 @@
   <img src="assets/Pudo_banner.png" alt="PUDO Code System" width="100%" />
 </p>
 
-<h3 align="center">A structured 4-phase methodology for coding with AI assistants.</h3>
+<h3 align="center">A portable operating layer for reliable AI-assisted development.</h3>
 
 <p align="center">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" /></a>
-  <img src="https://img.shields.io/badge/version-1.1.0-brightgreen.svg" alt="Version 1.1.0" />
+  <img src="https://img.shields.io/badge/version-1.2.0-brightgreen.svg" alt="Version 1.2.0" />
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-orange.svg" alt="PRs Welcome" /></a>
   <img src="https://img.shields.io/badge/AI-agnostic-purple.svg" alt="AI Agnostic" />
 </p>
@@ -92,8 +92,23 @@ Executable workflow:
 ```bash
 npx pudo-code-system check
 npx pudo-code-system score
+npx pudo-code-system score --json
+npx pudo-code-system score --strict
 npx pudo-code-system doctor
 ```
+
+`score` now evaluates instruction specificity, context quality, workflow evidence, AI/MCP safety, tests, CI, benchmarks, and release traceability. Its JSON output follows [schemas/pudo-score.schema.json](schemas/pudo-score.schema.json).
+
+## MCP Server Alpha
+
+PUDO `1.2.0` includes a local stdio MCP server alpha so compatible agents can call PUDO setup, validation, context-pack, quality-gate, readiness-score, and session-handoff tools.
+
+```bash
+npm install --prefix packages/pudo-mcp-server
+npm run mcp:test
+```
+
+Write tools require explicit approval, shell/network access is not exposed, and context reads are restricted to the configured repository root. See [PUDO MCP Server](docs/mcp.md), [Agent Tool Security](quality/agent-tool-security.md), and the [MCP Security Checklist](quality/mcp-security-checklist.md).
 
 ## Onboarding Paths
 
