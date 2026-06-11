@@ -20,6 +20,8 @@
 - Sample measured case studies
 - Context engineering guide
 - GitHub Action checker
+- Packaged CLI install smoke test covering `npx ... init` in a clean project
+- MCP server promoted as the primary agent-facing product surface
 
 ## v1.3
 
@@ -29,6 +31,7 @@
 - Run trace and metrics schemas
 - Team adoption guide
 - Case studies with measured outcomes
+- Publishable MCP server package and ready-to-use client configuration examples
 
 ## v1.4
 

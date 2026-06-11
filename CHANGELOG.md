@@ -6,6 +6,16 @@ The format is inspired by Keep a Changelog and organized for practical repositor
 
 ## [Unreleased]
 
+### Added
+
+- GitHub Actions CLI install smoke test that packs the npm artifact, runs `init` through `npx` in a clean project, verifies generated files, and runs `check`
+- README CI badge linking directly to the CLI install test
+
+### Changed
+
+- Promoted the MCP server to the primary agent-facing product surface in the README, with its callable tools and security boundaries shown before the CLI documentation
+- Updated the roadmap with packaged CLI verification and the path toward a publishable MCP server package
+
 ## [1.2.0] - 2026-06-10
 
 ### Added

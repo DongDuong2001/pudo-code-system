@@ -19,6 +19,7 @@
 <h3 align="center">A portable operating layer for reliable AI-assisted development.</h3>
 
 <p align="center">
+  <a href="https://github.com/DongDuong2001/pudo-code-system/actions/workflows/cli-install-test.yml"><img src="https://github.com/DongDuong2001/pudo-code-system/actions/workflows/cli-install-test.yml/badge.svg" alt="CLI Install Test" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" /></a>
   <img src="https://img.shields.io/badge/version-1.2.0-brightgreen.svg" alt="Version 1.2.0" />
   <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/PRs-welcome-orange.svg" alt="PRs Welcome" /></a>
@@ -55,6 +56,30 @@ The issue isn't the AI — it's the **lack of structure**. Without a clear metho
 ## The Solution: PUDO
 
 **PUDO** is an AI Agent Operating Layer for configuring coding agents across Cursor, Claude, Codex, GitHub Copilot, and Gemini/Antigravity: installable rules, measurable quality gates, token-budgeted prompts, workflow templates, and benchmark evidence for real codebases.
+
+## The MCP Server Is The Product Surface
+
+The PUDO MCP server turns the operating layer into tools that compatible coding agents can call directly. Instead of relying on an agent to remember documentation, PUDO can generate and validate agent rules, create bounded context packs, run quality gates, score repository readiness, diagnose workflow gaps, initialize projects, and maintain session handoffs.
+
+| MCP Tool | What It Gives The Agent |
+|---|---|
+| `pudo.generateAgentRules` | Project-specific agent instructions |
+| `pudo.validateAgentRules` | Validation of installed workflow files |
+| `pudo.createContextPack` | Repository-bounded context without common sensitive or generated paths |
+| `pudo.runQualityGate` | Evidence checks before advancing or releasing |
+| `pudo.scoreRepoReadiness` | Machine-readable readiness scoring |
+| `pudo.doctor` | Workflow and policy gap diagnosis |
+| `pudo.initProject` | Approval-gated project initialization |
+| `pudo.updateSessionHandoff` | Approval-gated continuity between sessions |
+
+The alpha server uses local stdio, restricts reads to one configured repository root, requires explicit approval for writes, and exposes no shell or network execution.
+
+```bash
+npm install --prefix packages/pudo-mcp-server
+npm run mcp:test
+```
+
+See [PUDO MCP Server](docs/mcp.md), [Agent Tool Security](quality/agent-tool-security.md), and the [MCP Security Checklist](quality/mcp-security-checklist.md).
 
 Recent research on configuring agentic coding tools identifies repository-level context files as the dominant mechanism and notes `AGENTS.md` emerging as an interoperable standard across tools, while advanced mechanisms such as Skills and Subagents remain less adopted. PUDO starts from that repo-level layer and adds executable checks, quality gates, handoff, and measurement. ([arXiv:2602.14690](https://arxiv.org/abs/2602.14690))
 
@@ -98,17 +123,6 @@ npx pudo-code-system doctor
 ```
 
 `score` now evaluates instruction specificity, context quality, workflow evidence, AI/MCP safety, tests, CI, benchmarks, and release traceability. Its JSON output follows [schemas/pudo-score.schema.json](schemas/pudo-score.schema.json).
-
-## MCP Server Alpha
-
-PUDO `1.2.0` includes a local stdio MCP server alpha so compatible agents can call PUDO setup, validation, context-pack, quality-gate, readiness-score, and session-handoff tools.
-
-```bash
-npm install --prefix packages/pudo-mcp-server
-npm run mcp:test
-```
-
-Write tools require explicit approval, shell/network access is not exposed, and context reads are restricted to the configured repository root. See [PUDO MCP Server](docs/mcp.md), [Agent Tool Security](quality/agent-tool-security.md), and the [MCP Security Checklist](quality/mcp-security-checklist.md).
 
 ## Onboarding Paths
 
