@@ -1,0 +1,52 @@
+name: CLI Install Test
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  npx-init-smoke:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Build package artifact
+        id: package
+        shell: bash
+        run: echo "tarball=$(npm pack --silent)" >> "$GITHUB_OUTPUT"
+
+      - name: Run npx init in a clean project
+        shell: bash
+        run: |
+          project_dir="$(mktemp -d)"
+          cd "$project_dir"
+          npx --yes \
+            --package="$GITHUB_WORKSPACE/${{ steps.package.outputs.tarball }}" \
+            -- pudo-code-system init \
+            --yes \
+            --tools=cursor,claude,codex,copilot,gemini,opencode,kiro \
+            --project=nextjs \
+            --strictness=standard
+
+          test -f AGENTS.md
+          test -f CLAUDE.md
+          test -f GEMINI.md
+          test -f .cursor/rules/pudo-core.mdc
+          test -f .github/copilot-instructions.md
+          test -f .github/pull_request_template.md
+          test -f .pudo/config.json
+          test -f .pudo/session.md
+
+          npx --yes \
+            --package="$GITHUB_WORKSPACE/${{ steps.package.outputs.tarball }}" \
+            -- pudo-code-system check
