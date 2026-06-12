@@ -50,7 +50,7 @@ function lintPrompt(filePath, content) {
 
   // Check for variables section
   if (content.includes("## Variables")) {
-    const variablePattern = /\{\{([A-Z_]+)\}\}/g;
+    const variablePattern = /\{\{([A-Za-z0-9_]+)\}\}/g;
     const variables = [];
     let match;
     while ((match = variablePattern.exec(content)) !== null) {
