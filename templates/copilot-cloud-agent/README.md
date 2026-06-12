@@ -17,7 +17,7 @@ This template provides a complete setup for using PUDO with GitHub Copilot's clo
 
 ```bash
 cp templates/copilot-cloud-agent/.github/copilot-instructions.md .github/
-cp templates/copilot-cloud-agent/.github/instructions/*.md .github/instructions/
+mkdir -p .github/instructions && cp templates/copilot-cloud-agent/.github/instructions/*.md .github/instructions/
 cp templates/copilot-cloud-agent/.github/pull_request_template.md .github/
 cp templates/copilot-cloud-agent/.github/CODEOWNERS .github/
 ```
