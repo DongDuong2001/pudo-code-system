@@ -1,6 +1,5 @@
 ---
-description: PUDO rules for API and backend code changes
-applyWhen: "**/*.{ts,js,py,go,java,rb}"
+applyTo: "**/*.{ts,js,py,go,java,rb}"
 ---
 
 # Backend Code Guidelines
