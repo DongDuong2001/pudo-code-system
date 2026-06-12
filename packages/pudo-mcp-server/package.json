@@ -1,7 +1,6 @@
 {
   "name": "@pudo-code-system/mcp-server",
   "version": "0.1.0-alpha.1",
-  "private": true,
   "description": "Local stdio MCP server for PUDO project setup, quality gates, context packs, and readiness scoring.",
   "type": "module",
   "bin": {
@@ -9,7 +8,8 @@
   },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "test": "npm run build && node --test dist/tests/*.test.js"
+    "test": "npm run build && node --test dist/tests/*.test.js",
+    "prepack": "npm run build"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "1.29.0",
@@ -18,5 +18,28 @@
   "devDependencies": {
     "@types/node": "^22.15.0",
     "typescript": "^5.8.2"
-  }
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DongDuong2001/pudo-code-system",
+    "directory": "packages/pudo-mcp-server"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "ai-agent",
+    "pudo",
+    "code-quality",
+    "developer-tools"
+  ],
+  "license": "MIT",
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE"
+  ]
 }
