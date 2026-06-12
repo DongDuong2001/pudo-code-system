@@ -1,6 +1,5 @@
 ---
-description: PUDO rules for frontend code changes
-applyWhen: "**/*.{tsx,jsx,vue,svelte,css,scss}"
+applyTo: "**/*.{tsx,jsx,vue,svelte,css,scss}"
 ---
 
 # Frontend Code Guidelines
