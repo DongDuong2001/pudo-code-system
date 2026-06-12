@@ -66,7 +66,7 @@ function lintPrompt(filePath, content) {
   }
 
   // Check for empty prompt
-  const promptMatch = content.match(/## Prompt\n([\s\S]*?)(?=\n## |$)/);
+  const promptMatch = content.match(/## Prompt\r?\n([\s\S]*?)(?=\r?\n## |$)/);
   if (promptMatch && promptMatch[1].trim().length < 50) {
     issues.push({ severity: "WARN", message: "Prompt section is very short (< 50 chars)" });
   }
