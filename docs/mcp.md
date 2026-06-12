@@ -21,7 +21,7 @@ npm install -g @pudo-code-system/mcp-server
 pudo-mcp-server
 ```
 
-The server requires `PUDO_PROJECT_ROOT` environment variable pointing to your project:
+For safety, set `PUDO_PROJECT_ROOT` to an explicit absolute path for your project root (if unset, the server defaults to the current working directory):
 
 ```bash
 PUDO_PROJECT_ROOT=/path/to/project npx @pudo-code-system/mcp-server
