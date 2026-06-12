@@ -10,6 +10,8 @@ The format is inspired by Keep a Changelog and organized for practical repositor
 
 - GitHub Actions CLI install smoke test that packs the npm artifact, runs `init` through `npx` in a clean project, verifies generated files, and runs `check`
 - README CI badge linking directly to the CLI install test
+- Team adoption guide at [docs/team-adoption-guide.md](docs/team-adoption-guide.md) for structured onboarding and recurring workflow
+- Claude Fable 5 support: updated CLAUDE.md and CLI templates with 1M context window guidance, extended session handoff, and long-running autonomous task patterns
 
 ### Changed
 

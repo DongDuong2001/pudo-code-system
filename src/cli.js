@@ -343,6 +343,14 @@ ${joinBullets(modeRules(options.strictness))}
 
 ${joinBullets(stackNotes(options.project))}
 
+## Claude Fable 5
+
+When using Claude Fable 5 (claude-fable-5), leverage its 1M context window:
+- Include more files in context packs for large refactors (up to 25 files)
+- Use extended session handoffs for long-running autonomous tasks
+- Fable 5 can plan, execute, and refine over multi-hour runs
+- Use .pudo/session.md for checkpoints across long work blocks
+
 ## Required Behavior
 
 - Inspect relevant files before editing.

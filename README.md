@@ -247,6 +247,7 @@ PUDO includes files that can be installed into real projects, not only read as m
 | Stack templates | [templates/](templates/) |
 | Measurement | [benchmarks/](benchmarks/) |
 | Context engineering | [docs/context-engineering.md](docs/context-engineering.md), [docs/agent-skill-contract.md](docs/agent-skill-contract.md) |
+| Team adoption | [docs/team-adoption-guide.md](docs/team-adoption-guide.md) |
 | Release tracking | [CHANGELOG.md](CHANGELOG.md) |
 | Roadmap | [ROADMAP.md](ROADMAP.md) |
 
