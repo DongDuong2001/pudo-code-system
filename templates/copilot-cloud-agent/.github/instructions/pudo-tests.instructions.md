@@ -1,6 +1,5 @@
 ---
-description: PUDO rules for test file changes
-applyWhen: "**/*.{test,spec}.{ts,tsx,js,jsx,py,go}"
+applyTo: "**/*.{test,spec}.{ts,tsx,js,jsx,py,go}"
 ---
 
 # Test Code Guidelines
