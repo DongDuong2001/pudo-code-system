@@ -1,0 +1,115 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pudo.dev/schemas/pudo-metrics.schema.json",
+  "title": "PUDO Metrics Report",
+  "description": "Aggregated metrics for PUDO usage over a time period or project.",
+  "type": "object",
+  "required": ["schema_version", "pudo_version", "period", "summary", "by_mode", "by_task_type"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "pudo_version": {
+      "type": "string"
+    },
+    "project": {
+      "type": "string",
+      "description": "Project or repository name"
+    },
+    "period": {
+      "type": "object",
+      "required": ["start", "end"],
+      "properties": {
+        "start": { "type": "string", "format": "date-time" },
+        "end": { "type": "string", "format": "date-time" }
+      }
+    },
+    "summary": {
+      "type": "object",
+      "required": ["total_tasks", "completed_tasks", "avg_duration_ms"],
+      "properties": {
+        "total_tasks": { "type": "integer", "minimum": 0 },
+        "completed_tasks": { "type": "integer", "minimum": 0 },
+        "abandoned_tasks": { "type": "integer", "minimum": 0 },
+        "failed_tasks": { "type": "integer", "minimum": 0 },
+        "avg_duration_ms": { "type": "integer", "minimum": 0 },
+        "total_tokens_input": { "type": "integer", "minimum": 0 },
+        "total_tokens_output": { "type": "integer", "minimum": 0 },
+        "avg_tokens_per_task": { "type": "integer", "minimum": 0 },
+        "token_waste_reduction_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+        "time_reduction_pct": { "type": "number", "minimum": 0, "maximum": 100 }
+      },
+      "additionalProperties": false
+    },
+    "by_mode": {
+      "type": "object",
+      "properties": {
+        "lite": { "$ref": "#/$defs/mode_stats" },
+        "standard": { "$ref": "#/$defs/mode_stats" },
+        "enterprise": { "$ref": "#/$defs/mode_stats" }
+      }
+    },
+    "by_task_type": {
+      "type": "object",
+      "additionalProperties": {
+        "$ref": "#/$defs/task_type_stats"
+      }
+    },
+    "quality_gates": {
+      "type": "object",
+      "properties": {
+        "total_gates_checked": { "type": "integer", "minimum": 0 },
+        "gates_passed": { "type": "integer", "minimum": 0 },
+        "gates_failed": { "type": "integer", "minimum": 0 },
+        "pass_rate_pct": { "type": "number", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "ai_usage": {
+      "type": "object",
+      "properties": {
+        "total_ai_turns": { "type": "integer", "minimum": 0 },
+        "avg_turns_per_task": { "type": "number", "minimum": 0 },
+        "failed_attempts": { "type": "integer", "minimum": 0 },
+        "failed_attempt_rate_pct": { "type": "number", "minimum": 0, "maximum": 100 },
+        "models_used": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "traces": {
+      "type": "array",
+      "description": "Optional list of individual run trace references",
+      "items": {
+        "type": "object",
+        "properties": {
+          "trace_id": { "type": "string" },
+          "task": { "type": "string" },
+          "status": { "type": "string", "enum": ["completed", "abandoned", "failed"] },
+          "duration_ms": { "type": "integer", "minimum": 0 }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "mode_stats": {
+      "type": "object",
+      "properties": {
+        "tasks": { "type": "integer", "minimum": 0 },
+        "avg_duration_ms": { "type": "integer", "minimum": 0 },
+        "completion_rate_pct": { "type": "number", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "task_type_stats": {
+      "type": "object",
+      "properties": {
+        "tasks": { "type": "integer", "minimum": 0 },
+        "avg_duration_ms": { "type": "integer", "minimum": 0 },
+        "avg_tokens": { "type": "integer", "minimum": 0 },
+        "token_waste_reduction_pct": { "type": "number", "minimum": 0, "maximum": 100 }
+      }
+    }
+  },
+  "additionalProperties": false
+}

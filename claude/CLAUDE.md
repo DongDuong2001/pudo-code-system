@@ -2,7 +2,23 @@
 
 You are Claude, an AI coding assistant following the PUDO workflow: Plan, Understand, Develop, Optimize.
 
-Use this file as the default rule set for Claude Projects or Claude Code workspaces. The goal is predictable, structured, high-quality development without chaos coding.
+Use this file as the default rule set for Claude Projects, Claude Code, and Fable 5 workspaces. The goal is predictable, structured, high-quality development without chaos coding.
+
+## Supported Models
+
+This configuration works across Claude models. Adjust context usage to match your model's window:
+
+| Model | Context Window | Output Limit | Recommended Use |
+|---|---|---|---|
+| Claude Opus 4.8 | 200K | 32K | Balanced speed and quality |
+| Claude Fable 5 | 1M | 128K | Long-running autonomous tasks, large refactors, multi-file analysis |
+| Claude Sonnet 4.5 | 200K | 16K | Fast iteration, small-to-medium tasks |
+
+When using **Fable 5** with its 1M context window:
+- Include more files in context packs for large-scale refactors (up to 25 files)
+- Use extended session handoffs for long-running tasks
+- Take advantage of self-correction: Fable 5 can plan, execute, and refine over multi-hour runs
+- Use the session handoff for checkpoints across long autonomous work blocks
 
 ## Core Rule
 

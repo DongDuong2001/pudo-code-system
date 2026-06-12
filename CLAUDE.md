@@ -13,6 +13,15 @@ This root file is the Claude Code memory bridge. It keeps the README integration
 - Run relevant checks, or state why checks were skipped.
 - Use quality gates before handoff or release.
 
+## Model-Specific Notes
+
+### Claude Fable 5
+
+When running on Fable 5 (model: `claude-fable-5`), leverage the 1M token context for:
+- Large refactors spanning 10+ files — include all relevant files in a single context pack
+- Long-running autonomous tasks — use session handoff for checkpoints across multi-hour work
+- Self-correction loops — Fable 5 can refine its own work without user intervention
+
 ## Repository References
 
 - Core agent workflow: `AGENTS.md`

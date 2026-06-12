@@ -25,13 +25,14 @@
 
 ## v1.3
 
-- Prompt linter
-- JSON output for check and doctor
-- Copilot cloud agent setup template
-- Run trace and metrics schemas
-- Team adoption guide
+- ✅ Prompt linter (`pudo lint`)
+- ✅ JSON output for check and doctor (`pudo check --json`, `pudo doctor --json`)
+- ✅ Copilot cloud agent setup template (`templates/copilot-cloud-agent/`)
+- ✅ Run trace and metrics schemas (`schemas/pudo-run-trace.schema.json`, `schemas/pudo-metrics.schema.json`)
+- ✅ Team adoption guide (`docs/team-adoption-guide.md`)
+- ✅ Publishable MCP server package and ready-to-use client configuration examples
+- ✅ Claude Fable 5 support (1M context window, long-running agentic tasks)
 - Case studies with measured outcomes
-- Publishable MCP server package and ready-to-use client configuration examples
 
 ## v1.4
 

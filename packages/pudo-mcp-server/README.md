@@ -1,6 +1,6 @@
-# PUDO MCP Server
+# @pudo-code-system/mcp-server
 
-The PUDO MCP server is an alpha local stdio server that exposes project setup, validation, context, quality-gate, and readiness tools to MCP-compatible coding agents.
+Local stdio MCP server for PUDO project setup, quality gates, context packs, and readiness scoring.
 
 ## Stability
 
@@ -10,10 +10,10 @@ The PUDO MCP server is an alpha local stdio server that exposes project setup, v
 - Repository boundary: one explicit project root
 - Shell and network execution: not exposed
 
-## Install And Run
+## Install
 
 ```bash
-# Via npx (no install needed)
+# From npm (recommended)
 npx @pudo-code-system/mcp-server
 
 # Or install globally
@@ -21,24 +21,9 @@ npm install -g @pudo-code-system/mcp-server
 pudo-mcp-server
 ```
 
-For safety, set `PUDO_PROJECT_ROOT` to an explicit absolute path for your project root (if unset, the server defaults to the current working directory):
-
-```bash
-PUDO_PROJECT_ROOT=/path/to/project npx @pudo-code-system/mcp-server
-```
-
-On PowerShell:
-
-```powershell
-$env:PUDO_PROJECT_ROOT = "D:\path\to\project"
-npx @pudo-code-system/mcp-server
-```
-
-The server writes protocol messages to stdout and diagnostics to stderr, as required for stdio MCP servers.
-
 ## Client Configuration
 
-Use `npx` for zero-install setup:
+Use with any MCP-compatible client (Claude Desktop, Cursor, Codex, etc.):
 
 ```json
 {
@@ -47,7 +32,7 @@ Use `npx` for zero-install setup:
       "command": "npx",
       "args": ["@pudo-code-system/mcp-server"],
       "env": {
-        "PUDO_PROJECT_ROOT": "/absolute/path/to/project"
+        "PUDO_PROJECT_ROOT": "/absolute/path/to/your/project"
       }
     }
   }
@@ -62,14 +47,12 @@ Or with globally installed binary:
     "pudo": {
       "command": "pudo-mcp-server",
       "env": {
-        "PUDO_PROJECT_ROOT": "/absolute/path/to/project"
+        "PUDO_PROJECT_ROOT": "/absolute/path/to/your/project"
       }
     }
   }
 }
 ```
-
-Do not place tokens or credentials in this configuration.
 
 ## Tools
 
@@ -89,14 +72,25 @@ Write operations require `confirmWrite: true`. `pudo.initProject` defaults to dr
 ## Security
 
 Review:
-
-- [Agent Tool Security](../quality/agent-tool-security.md)
-- [MCP Security Checklist](../quality/mcp-security-checklist.md)
-- [Server Policy Template](../templates/mcp/pudo-server-policy.json)
+- [Agent Tool Security](https://github.com/DongDuong2001/pudo-code-system/blob/main/quality/agent-tool-security.md)
+- [MCP Security Checklist](https://github.com/DongDuong2001/pudo-code-system/blob/main/quality/mcp-security-checklist.md)
+- [Server Policy Template](https://github.com/DongDuong2001/pudo-code-system/blob/main/templates/mcp/pudo-server-policy.json)
 
 The alpha server does not expose shell execution, network access, database access, or secrets. Context packs reject common sensitive and generated paths and enforce the repository boundary.
 
-## Official MCP References
+## Development
 
-- [MCP documentation](https://modelcontextprotocol.io/docs/)
-- [MCP TypeScript SDK v1](https://github.com/modelcontextprotocol/typescript-sdk/tree/v1.x)
+```bash
+# Install dependencies
+npm ci
+
+# Build
+npm run build
+
+# Test
+npm test
+```
+
+## License
+
+MIT

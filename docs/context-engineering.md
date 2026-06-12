@@ -34,6 +34,18 @@ Plan / Understand / Develop / Optimize
 - Commands or manual checks that prove the change
 ```
 
+## Context Window Guide
+
+Match context pack size to your model's window:
+
+| Model | Context Window | Max Files in Pack | Recommended Pack Size |
+|---|---|---|---|
+| Claude Opus 4.8 | 200K | 8-10 | 15-20K tokens |
+| Claude Fable 5 | 1M | 25 | 40-80K tokens |
+| GPT-4o | 128K | 6-8 | 10-15K tokens |
+
+For Fable 5, take advantage of the 1M window for large refactors and multi-file analysis, but avoid filling the context with irrelevant files. **Include only files that help decide what to change or how to verify it.**
+
 ## What Files To Include Before Coding
 
 Include only files that help decide what to change or how to verify it:

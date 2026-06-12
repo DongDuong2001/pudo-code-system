@@ -3,6 +3,7 @@
 const fs = require("fs");
 const path = require("path");
 const readline = require("readline");
+const { lintPrompts } = require("./prompt-linter");
 
 const TOOL_NAMES = ["cursor", "claude", "codex", "copilot", "gemini", "opencode", "kiro"];
 const PROJECT_TYPES = [
@@ -38,7 +39,7 @@ function parseArgs(argv) {
   };
 
   for (const arg of argv) {
-    if (["init", "check", "score", "doctor"].includes(arg)) args.command = arg;
+    if (["init", "check", "score", "doctor", "lint"].includes(arg)) args.command = arg;
     else if (arg === "--help" || arg === "-h") args.help = true;
     else if (arg === "--yes" || arg === "-y") args.yes = true;
     else if (arg === "--dry-run") args.dryRun = true;
@@ -59,10 +60,14 @@ function help() {
 Usage:
   pudo init
   pudo check
+  pudo check --json
   pudo score
   pudo score --json
   pudo score --strict
   pudo doctor
+  pudo doctor --json
+  pudo lint
+  pudo lint --json
   pudo init --yes
   pudo init --tools=cursor,claude,codex,copilot,gemini,opencode,kiro --project=nextjs --strictness=standard
 
@@ -342,6 +347,14 @@ ${joinBullets(modeRules(options.strictness))}
 ## Project Notes
 
 ${joinBullets(stackNotes(options.project))}
+
+## Claude Fable 5
+
+When using Claude Fable 5 (claude-fable-5), leverage its 1M context window:
+- Include more files in context packs for large refactors (up to 25 files)
+- Use extended session handoffs for long-running autonomous tasks
+- Fable 5 can plan, execute, and refine over multi-hour runs
+- Use .pudo/session.md for checkpoints across long work blocks
 
 ## Required Behavior
 
@@ -628,22 +641,39 @@ function evaluateProject() {
   return checks;
 }
 
-function runCheck() {
+function runCheck(options = {}) {
   const checks = evaluateProject();
   const failures = checks.filter((check) => !check.pass);
 
-  console.log("PUDO check");
-  for (const check of checks) {
-    console.log(`- ${check.pass ? "PASS" : "FAIL"} ${check.name}`);
-    if (!check.pass) console.log(`  fix: ${check.fix}`);
+  if (options.json) {
+    const report = {
+      schema_version: "1.0",
+      pudo_version: "1.2.0",
+      command: "check",
+      passed: failures.length === 0,
+      total: checks.length,
+      failed: failures.length,
+      checks: checks.map((check) => ({
+        name: check.name,
+        passed: check.pass,
+        fix: check.fix
+      }))
+    };
+    console.log(JSON.stringify(report, null, 2));
+  } else {
+    console.log("PUDO check");
+    for (const check of checks) {
+      console.log(`- ${check.pass ? "PASS" : "FAIL"} ${check.name}`);
+      if (!check.pass) console.log(`  fix: ${check.fix}`);
+    }
+    if (failures.length) {
+      console.log(`Result: failed (${failures.length} missing requirement${failures.length === 1 ? "" : "s"})`);
+    } else {
+      console.log("Result: passed");
+    }
   }
 
-  if (failures.length) {
-    console.log(`Result: failed (${failures.length} missing requirement${failures.length === 1 ? "" : "s"})`);
-    process.exitCode = 1;
-  } else {
-    console.log("Result: passed");
-  }
+  if (failures.length) process.exitCode = 1;
 }
 
 function evaluateScore() {
@@ -925,19 +955,71 @@ function evaluateDoctor() {
   return findings;
 }
 
-function runDoctor() {
+function runDoctor(options = {}) {
   const findings = evaluateDoctor();
 
-  console.log("PUDO doctor");
-  if (!findings.length) {
-    console.log("- PASS no obvious workflow gaps found");
-    return;
+  if (options.json) {
+    const report = {
+      schema_version: "1.0",
+      pudo_version: "1.2.0",
+      command: "doctor",
+      healthy: !findings.some((f) => f.severity === "WARN"),
+      total_findings: findings.length,
+      findings: findings.map((f) => ({
+        severity: f.severity,
+        issue: f.issue,
+        fix: f.fix
+      }))
+    };
+    console.log(JSON.stringify(report, null, 2));
+  } else {
+    console.log("PUDO doctor");
+    if (!findings.length) {
+      console.log("- PASS no obvious workflow gaps found");
+      return;
+    }
+    for (const finding of findings) {
+      console.log(`- ${finding.severity} ${finding.issue}`);
+      console.log(`  fix: ${finding.fix}`);
+    }
+  }
+}
+
+function runLint(options = {}) {
+  const promptsDir = path.resolve(process.cwd(), "prompts");
+  const report = lintPrompts(promptsDir);
+
+  if (options.json) {
+    const output = {
+      schema_version: "1.0",
+      pudo_version: "1.2.0",
+      command: "lint",
+      ...report
+    };
+    console.log(JSON.stringify(output, null, 2));
+  } else {
+    console.log("PUDO prompt lint");
+    console.log(`- Files checked: ${report.total_files}`);
+    console.log(`- Errors: ${report.total_errors}`);
+    console.log(`- Warnings: ${report.total_warnings}`);
+
+    for (const result of report.results) {
+      if (!result.passed || result.warnings > 0) {
+        console.log(`\n${result.file}:`);
+        for (const issue of result.issues) {
+          console.log(`  - ${issue.severity}: ${issue.message}`);
+        }
+      }
+    }
+
+    if (report.passed) {
+      console.log("\nResult: passed");
+    } else {
+      console.log(`\nResult: failed (${report.total_errors} error${report.total_errors === 1 ? "" : "s"})`);
+    }
   }
 
-  for (const finding of findings) {
-    console.log(`- ${finding.severity} ${finding.issue}`);
-    console.log(`  fix: ${finding.fix}`);
-  }
+  if (!report.passed) process.exitCode = 1;
 }
 
 async function main() {
@@ -949,7 +1031,7 @@ async function main() {
   }
 
   if (args.command === "check") {
-    runCheck();
+    runCheck(args);
     return;
   }
 
@@ -959,7 +1041,12 @@ async function main() {
   }
 
   if (args.command === "doctor") {
-    runDoctor();
+    runDoctor(args);
+    return;
+  }
+
+  if (args.command === "lint") {
+    runLint(args);
     return;
   }
 
@@ -999,5 +1086,7 @@ module.exports = {
   runCheck,
   runScore,
   runDoctor,
+  runLint,
+  lintPrompts: require("./prompt-linter").lintPrompts,
   main
 };
