@@ -1,5 +1,5 @@
 ---
-applyTo: "**/*.{ts,js,py,go,java,rb}"
+applyTo: "**/*.ts,**/*.js,**/*.py,**/*.go,**/*.java,**/*.rb"
 ---
 
 # Backend Code Guidelines
