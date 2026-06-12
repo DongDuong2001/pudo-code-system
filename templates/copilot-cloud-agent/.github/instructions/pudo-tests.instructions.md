@@ -1,5 +1,5 @@
 ---
-applyTo: "**/*.{test,spec}.{ts,tsx,js,jsx,py,go}"
+applyTo: "**/*.test.ts,**/*.test.tsx,**/*.test.js,**/*.test.jsx,**/*.spec.ts,**/*.spec.tsx,**/*.spec.js,**/*.spec.jsx,**/*.test.py,**/*.spec.py,**/*.test.go,**/*.spec.go"
 ---
 
 # Test Code Guidelines
