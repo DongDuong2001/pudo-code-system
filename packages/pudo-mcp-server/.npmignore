@@ -8,11 +8,10 @@ tsconfig.json
 # Dependencies
 node_modules/
 
-# Build artifacts (excluded from npm)
-dist/
-*.js
-*.d.ts
-*.map
+# Build artifacts (published to npm; see package.json "files")
+# (Intentionally do not ignore dist/ or compiled JS output)
+
+
 
 # IDE/Editor
 .vscode/
