@@ -10,40 +10,57 @@ The PUDO MCP server is an alpha local stdio server that exposes project setup, v
 - Repository boundary: one explicit project root
 - Shell and network execution: not exposed
 
-## Install And Build
+## Install And Run
 
 ```bash
-npm install --prefix packages/pudo-mcp-server
-npm run build --prefix packages/pudo-mcp-server
+# Via npx (no install needed)
+npx @pudo-code-system/mcp-server
+
+# Or install globally
+npm install -g @pudo-code-system/mcp-server
+pudo-mcp-server
 ```
 
-## Run
+The server requires `PUDO_PROJECT_ROOT` environment variable pointing to your project:
 
 ```bash
-PUDO_PROJECT_ROOT=/path/to/project node packages/pudo-mcp-server/dist/src/server.js
+PUDO_PROJECT_ROOT=/path/to/project npx @pudo-code-system/mcp-server
 ```
 
 On PowerShell:
 
 ```powershell
 $env:PUDO_PROJECT_ROOT = "D:\path\to\project"
-node packages/pudo-mcp-server/dist/src/server.js
+npx @pudo-code-system/mcp-server
 ```
 
 The server writes protocol messages to stdout and diagnostics to stderr, as required for stdio MCP servers.
 
 ## Client Configuration
 
-Use an absolute path to the built server:
+Use `npx` for zero-install setup:
 
 ```json
 {
   "mcpServers": {
     "pudo": {
-      "command": "node",
-      "args": [
-        "/absolute/path/to/pudo-code-system/packages/pudo-mcp-server/dist/src/server.js"
-      ],
+      "command": "npx",
+      "args": ["@pudo-code-system/mcp-server"],
+      "env": {
+        "PUDO_PROJECT_ROOT": "/absolute/path/to/project"
+      }
+    }
+  }
+}
+```
+
+Or with globally installed binary:
+
+```json
+{
+  "mcpServers": {
+    "pudo": {
+      "command": "pudo-mcp-server",
       "env": {
         "PUDO_PROJECT_ROOT": "/absolute/path/to/project"
       }

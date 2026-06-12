@@ -75,8 +75,12 @@ The PUDO MCP server turns the operating layer into tools that compatible coding 
 The alpha server uses local stdio, restricts reads to one configured repository root, requires explicit approval for writes, and exposes no shell or network execution.
 
 ```bash
-npm install --prefix packages/pudo-mcp-server
-npm run mcp:test
+# Via npx (no install needed)
+npx @pudo-code-system/mcp-server
+
+# Or install globally
+npm install -g @pudo-code-system/mcp-server
+pudo-mcp-server
 ```
 
 See [PUDO MCP Server](docs/mcp.md), [Agent Tool Security](quality/agent-tool-security.md), and the [MCP Security Checklist](quality/mcp-security-checklist.md).
