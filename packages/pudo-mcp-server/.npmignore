@@ -1,0 +1,36 @@
+# Source files
+src/
+tools/
+tests/
+*.ts
+tsconfig.json
+
+# Dependencies
+node_modules/
+
+# Build artifacts (excluded from npm)
+dist/
+*.js
+*.d.ts
+*.map
+
+# IDE/Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Misc
+*.tgz
