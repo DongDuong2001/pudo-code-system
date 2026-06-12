@@ -990,7 +990,13 @@ function runLint(options = {}) {
   const report = lintPrompts(promptsDir);
 
   if (options.json) {
-    console.log(JSON.stringify(report, null, 2));
+    const output = {
+      schema_version: "1.0",
+      pudo_version: "1.2.0",
+      command: "lint",
+      ...report
+    };
+    console.log(JSON.stringify(output, null, 2));
   } else {
     console.log("PUDO prompt lint");
     console.log(`- Files checked: ${report.total_files}`);
