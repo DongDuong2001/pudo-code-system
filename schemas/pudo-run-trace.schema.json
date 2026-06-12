@@ -1,0 +1,154 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pudo.dev/schemas/pudo-run-trace.schema.json",
+  "title": "PUDO Run Trace",
+  "description": "Tracks PUDO workflow execution across phases for a task or session.",
+  "type": "object",
+  "required": ["schema_version", "pudo_version", "trace_id", "task", "started_at", "phases"],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "pudo_version": {
+      "type": "string"
+    },
+    "trace_id": {
+      "type": "string",
+      "format": "uuid"
+    },
+    "task": {
+      "type": "string",
+      "description": "Task or feature name"
+    },
+    "mode": {
+      "type": "string",
+      "enum": ["lite", "standard", "enterprise"],
+      "default": "standard"
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "status": {
+      "type": "string",
+      "enum": ["in_progress", "completed", "abandoned", "failed"]
+    },
+    "phases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["phase", "started_at"],
+        "properties": {
+          "phase": {
+            "type": "string",
+            "enum": ["plan", "understand", "develop", "optimize", "release"]
+          },
+          "started_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "completed_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["pending", "in_progress", "completed", "skipped"]
+          },
+          "gate_passed": {
+            "type": "boolean",
+            "description": "Whether the quality gate for this phase was passed"
+          },
+          "files_inspected": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "files_changed": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "decisions": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "risks": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "properties": {
+        "ai_turns": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tokens_input": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tokens_output": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "files_read": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "files_written": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tests_run": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tests_passed": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "duration_ms": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "failed_attempts": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "quality_gates": {
+      "type": "object",
+      "properties": {
+        "plan": { "$ref": "#/$defs/gate_result" },
+        "understand": { "$ref": "#/$defs/gate_result" },
+        "develop": { "$ref": "#/$defs/gate_result" },
+        "optimize": { "$ref": "#/$defs/gate_result" },
+        "release": { "$ref": "#/$defs/gate_result" }
+      }
+    }
+  },
+  "$defs": {
+    "gate_result": {
+      "type": "object",
+      "properties": {
+        "passed": { "type": "boolean" },
+        "checked_at": { "type": "string", "format": "date-time" },
+        "notes": { "type": "string" }
+      }
+    }
+  },
+  "additionalProperties": false
+}
