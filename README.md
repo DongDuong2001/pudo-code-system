@@ -76,10 +76,10 @@ The alpha server uses local stdio, restricts reads to one configured repository 
 
 ```bash
 # Via npx (no install needed)
-npx @pudo-code-system/mcp-server
+npx @dongduong2001/mcp-server@alpha
 
 # Or install globally
-npm install -g @pudo-code-system/mcp-server
+npm install -g @dongduong2001/mcp-server@alpha
 pudo-mcp-server
 ```
 

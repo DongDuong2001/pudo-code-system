@@ -14,24 +14,24 @@ The PUDO MCP server is an alpha local stdio server that exposes project setup, v
 
 ```bash
 # Via npx (no install needed)
-npx @pudo-code-system/mcp-server
+npx @dongduong2001/mcp-server@alpha
 
 # Or install globally
-npm install -g @pudo-code-system/mcp-server
+npm install -g @dongduong2001/mcp-server@alpha
 pudo-mcp-server
 ```
 
 For safety, set `PUDO_PROJECT_ROOT` to an explicit absolute path for your project root (if unset, the server defaults to the current working directory):
 
 ```bash
-PUDO_PROJECT_ROOT=/path/to/project npx @pudo-code-system/mcp-server
+PUDO_PROJECT_ROOT=/path/to/project npx @dongduong2001/mcp-server@alpha
 ```
 
 On PowerShell:
 
 ```powershell
 $env:PUDO_PROJECT_ROOT = "D:\path\to\project"
-npx @pudo-code-system/mcp-server
+npx @dongduong2001/mcp-server@alpha
 ```
 
 The server writes protocol messages to stdout and diagnostics to stderr, as required for stdio MCP servers.
@@ -45,7 +45,7 @@ Use `npx` for zero-install setup:
   "mcpServers": {
     "pudo": {
       "command": "npx",
-      "args": ["@pudo-code-system/mcp-server"],
+      "args": ["@dongduong2001/mcp-server@alpha"],
       "env": {
         "PUDO_PROJECT_ROOT": "/absolute/path/to/project"
       }
