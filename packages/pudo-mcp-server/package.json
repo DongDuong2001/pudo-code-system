@@ -1,5 +1,5 @@
 {
-  "name": "@pudo-code-system/mcp-server",
+  "name": "pudo-mcp-server",
   "version": "0.1.0-alpha.1",
   "description": "Local stdio MCP server for PUDO project setup, quality gates, context packs, and readiness scoring.",
   "type": "module",
