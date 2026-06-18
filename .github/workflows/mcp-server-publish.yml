@@ -88,9 +88,9 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # ── Publish to npm public registry ────────────────────────────────────
-      # publishConfig in package.json hard-wires the registry to GitHub Packages
-      # and overrides --registry at publish time. We remove it temporarily in CI
-      # using `npm pkg delete`, publish to npmjs.org, then restore it.
+      # setup-node wrote `@dongduong2001:registry=https://npm.pkg.github.com/`
+      # into ~/.npmrc. We must overwrite that scope mapping to point to npmjs.org
+      # before publishing, otherwise npm ignores --registry for scoped packages.
       # If NPM_TOKEN is empty the step exits cleanly without failing.
 
       - name: Publish to npm
@@ -100,12 +100,12 @@ jobs:
             echo "NPM_TOKEN not configured — skipping npm publish."
             exit 0
           fi
-          # Remove publishConfig so --registry flag is respected
+          # Redirect the @dongduong2001 scope to npmjs.org and add auth token
+          npm config set @dongduong2001:registry https://registry.npmjs.org/
+          npm config set //registry.npmjs.org/:_authToken "${NPM_TOKEN}"
+          # Remove publishConfig so it doesn't re-override the registry
           npm pkg delete publishConfig
-          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
-          npm publish \
-            --registry https://registry.npmjs.org/ \
-            --access public
+          npm publish --access public
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
