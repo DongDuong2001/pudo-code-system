@@ -88,27 +88,24 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # ── Publish to npm public registry ────────────────────────────────────
-      # Requires NPM_TOKEN secret: Settings → Secrets → Actions → NPM_TOKEN
-      # setup-node is called again to reconfigure ~/.npmrc for the public
-      # registry. If the secret is empty the step exits cleanly.
-
-      - name: Setup Node.js for npm registry
-        if: ${{ github.event.inputs.dry_run != 'true' }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: "22"
-          registry-url: "https://registry.npmjs.org/"
+      # publishConfig in package.json points to GitHub Packages, so we must
+      # write the npmjs.org token directly and pass --registry explicitly to
+      # override publishConfig at publish time.
+      # If NPM_TOKEN is empty the step exits cleanly without failing.
 
       - name: Publish to npm
         if: ${{ github.event.inputs.dry_run != 'true' }}
         run: |
-          if [[ -z "$NODE_AUTH_TOKEN" ]]; then
+          if [[ -z "$NPM_TOKEN" ]]; then
             echo "NPM_TOKEN not configured — skipping npm publish."
             exit 0
           fi
-          npm publish --access public
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> ~/.npmrc
+          npm publish \
+            --registry https://registry.npmjs.org/ \
+            --access public
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       # ── Job summary ───────────────────────────────────────────────────────
 
