@@ -1,0 +1,129 @@
+name: Publish MCP Server
+
+# Triggers:
+#   1. Push a tag like v0.2.0 or v0.2.0-alpha.1  →  full publish
+#   2. workflow_dispatch                           →  manual publish from any branch
+#
+# The job always builds and tests first.
+# Publishing to GitHub Packages uses GITHUB_TOKEN (built-in, no setup needed).
+# Publishing to npm public registry requires an NPM_TOKEN secret.
+# If NPM_TOKEN is not set, the npm publish step is skipped automatically.
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run — build and test without publishing"
+        required: false
+        default: "false"
+        type: choice
+        options:
+          - "false"
+          - "true"
+
+jobs:
+  build-test-publish:
+    name: Build, test, and publish
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write   # required for GitHub Packages publish
+
+    defaults:
+      run:
+        working-directory: packages/pudo-mcp-server
+
+    steps:
+      # ── Setup ────────────────────────────────────────────────────────────────
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: packages/pudo-mcp-server/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      # ── Build ─────────────────────────────────────────────────────────────
+
+      - name: Build
+        run: npm run build
+
+      # ── Test ──────────────────────────────────────────────────────────────
+
+      - name: Test
+        run: node --test dist/tests/*.test.js
+        env:
+          # Point the test suite at the monorepo root so it can locate
+          # the pudo-code-system package when resolving templates.
+          PUDO_PACKAGE_ROOT: ${{ github.workspace }}
+
+      # ── Version info ──────────────────────────────────────────────────────
+
+      - name: Read package version
+        id: pkg
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "Publishing version: $VERSION"
+
+      # ── Publish to GitHub Packages ────────────────────────────────────────
+      # Uses the registry already set in publishConfig.
+      # GITHUB_TOKEN is always available; no secret needed.
+
+      - name: Configure npm for GitHub Packages
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" >> ~/.npmrc
+
+      - name: Publish to GitHub Packages
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── Publish to npm public registry ───────────────────────────────────
+      # Only runs when the NPM_TOKEN secret is configured in the repo.
+      # Add it at: Settings → Secrets → Actions → New repository secret
+      # Name: NPM_TOKEN  Value: your npm automation token
+
+      - name: Configure npm for public registry
+        if: ${{ github.event.inputs.dry_run != 'true' && secrets.NPM_TOKEN != '' }}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" >> ~/.npmrc
+
+      - name: Publish to npm
+        if: ${{ github.event.inputs.dry_run != 'true' && secrets.NPM_TOKEN != '' }}
+        run: |
+          npm publish \
+            --registry https://registry.npmjs.org/ \
+            --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      # ── Summary ───────────────────────────────────────────────────────────
+
+      - name: Summary
+        run: |
+          DRY="${{ github.event.inputs.dry_run }}"
+          VERSION="${{ steps.pkg.outputs.version }}"
+          echo "## MCP Server Publish Summary" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "| | |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|---|---|" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Version | \`$VERSION\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Dry run | \`${DRY:-false}\` |" >> "$GITHUB_STEP_SUMMARY"
+          echo "| GitHub Packages | $([[ '${DRY:-false}' == 'true' ]] && echo 'skipped (dry run)' || echo '✅ published') |" >> "$GITHUB_STEP_SUMMARY"
+          if [[ -n "${{ secrets.NPM_TOKEN }}" && '${DRY:-false}' != 'true' ]]; then
+            echo "| npm registry | ✅ published |" >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "| npm registry | ⏭ skipped (no NPM_TOKEN) |" >> "$GITHUB_STEP_SUMMARY"
+          fi
