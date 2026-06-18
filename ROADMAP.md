@@ -1,48 +1,80 @@
 # Roadmap
 
-## v1.1
+> This roadmap reflects the current direction of PUDO. Priorities may shift based on community feedback. Items marked ✅ are shipped. Items marked 🔄 are in progress. Unmarked items are planned.
 
-- PUDO Lite / Standard / Enterprise
-- PR and issue templates
-- Token budget guide
-- Anti-hallucination rules
-- Benchmark kit
-- Session handoff template
-- Version/package consistency
-- README polish and onboarding paths
+---
 
-## v1.2
+## Short-Term — v1.3 (Current)
 
-- `pudo check`, `pudo score`, and `pudo doctor`
-- Evidence-based `pudo score --json` and strict readiness threshold
-- MCP server alpha with repository-bound stdio tools
-- Agent tool security policy and MCP security checklist
-- Sample measured case studies
-- Context engineering guide
-- GitHub Action checker
-- Packaged CLI install smoke test covering `npx ... init` in a clean project
-- MCP server promoted as the primary agent-facing product surface
+Focus: stability, completeness, and team adoption.
 
-## v1.3
+| Item | Status |
+| --- | --- |
+| Prompt linter (`pudo lint`) | ✅ Shipped |
+| JSON output for check and doctor (`--json` flag) | ✅ Shipped |
+| Copilot cloud agent setup template | ✅ Shipped |
+| Run trace and metrics schemas | ✅ Shipped |
+| Team adoption guide (`docs/team-adoption-guide.md`) | ✅ Shipped |
+| Publishable MCP server package with client config examples | ✅ Shipped |
+| Claude Fable 5 support (1M context window, long-running tasks) | ✅ Shipped |
+| Additional measured case studies | 🔄 In progress |
+| `docs/getting-started.md` first-steps guide | 🔄 In progress |
+| `docs/architecture.md` with system diagrams | 🔄 In progress |
+| Expanded FAQ (team handoff, enterprise patterns) | Planned |
+| `SUPPORT.md` community channels | ✅ Shipped |
 
-- ✅ Prompt linter (`pudo lint`)
-- ✅ JSON output for check and doctor (`pudo check --json`, `pudo doctor --json`)
-- ✅ Copilot cloud agent setup template (`templates/copilot-cloud-agent/`)
-- ✅ Run trace and metrics schemas (`schemas/pudo-run-trace.schema.json`, `schemas/pudo-metrics.schema.json`)
-- ✅ Team adoption guide (`docs/team-adoption-guide.md`)
-- ✅ Publishable MCP server package and ready-to-use client configuration examples
-- ✅ Claude Fable 5 support (1M context window, long-running agentic tasks)
-- Case studies with measured outcomes
+---
 
-## v1.4
+## Mid-Term — v1.4
 
-- MCP remote transport and authentication guidance
-- Stack recipes with command detection
-- OpenAI Agents, LangGraph, and other framework adapters
+Focus: agent interoperability and broader ecosystem reach.
 
-## v2.0
+| Item | Notes |
+| --- | --- |
+| MCP remote transport and authentication guidance | Enables hosted / cloud-based agent use |
+| Stack recipes with command detection | Auto-detect Next.js, FastAPI, Go, etc. |
+| OpenAI Agents, LangGraph, and other framework adapters | Expand beyond coding-agent toolchains |
+| Automated release workflow (version bump → publish) | Reduce manual release risk |
+| Multi-version Node.js CI matrix (20.x, 22.x) | Catch compatibility regressions earlier |
+| npm public registry publish for MCP server | Improve discoverability (`npm install @pudo/mcp-server`) |
+| Dependency audit CI step (`npm audit`) | Supply chain safety in every PR |
 
-- Enterprise adoption guide
-- Metrics framework
-- Agent skills and subagent workflows
-- Dashboard metrics
+---
+
+## Long-Term — v2.0
+
+Focus: enterprise readiness and ecosystem maturity.
+
+| Item | Notes |
+| --- | --- |
+| Enterprise adoption guide | Compliance, governance, regulated environments |
+| Metrics framework and dashboard | Visualize token waste, PUDO score trends over time |
+| Agent skills and subagent workflows | Deep integration with emerging agent frameworks |
+| GitHub App / bot for PUDO gate enforcement | Automated gate checks as a required status check |
+| Community prompt registry | Searchable, rated, versioned community prompts |
+| Benchmark dataset (10+ measured cases) | Validate directional targets with real evidence |
+| Governance model (maintainer council) | Reduce single-maintainer risk |
+
+---
+
+## Future Ecosystem
+
+Ideas under consideration — not committed, not scheduled:
+
+- IDE extensions (VS Code sidebar for PUDO phase tracking)
+- LLM fine-tuning dataset based on PUDO-structured sessions
+- Certification or badging for PUDO-compliant repositories
+- PUDO-as-a-service for teams without local MCP server setup
+
+---
+
+## What's Done
+
+A full history of shipped features is in [CHANGELOG.md](CHANGELOG.md).
+
+Key milestones:
+
+- **v1.0** — Initial methodology, philosophy docs, prompt library
+- **v1.1** — CLI (`pudo init`), stack templates, benchmark kit, session handoff
+- **v1.2** — `pudo check/score/doctor`, MCP server alpha, agent tool security, CODEOWNERS, GitHub Actions
+- **v1.3** — Prompt linter, JSON output, Claude Fable 5, team adoption guide, publishable MCP package
