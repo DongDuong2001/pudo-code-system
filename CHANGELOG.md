@@ -12,11 +12,21 @@ The format is inspired by Keep a Changelog and organized for practical repositor
 - README CI badge linking directly to the CLI install test
 - Team adoption guide at [docs/team-adoption-guide.md](docs/team-adoption-guide.md) for structured onboarding and recurring workflow
 - Claude Fable 5 support: updated CLAUDE.md and CLI templates with 1M context window guidance, extended session handoff, and long-running autonomous task patterns
+- `docs/getting-started.md` — first-steps guide with a 5-minute PUDO cycle, CLI install walkthrough, and mode selection guidance
+- `docs/architecture.md` — system diagrams, component breakdown, data flow, security boundaries, and repository layout rationale
+- `docs/README.md` — documentation index linking all docs with reading-order guidance
+- `SUPPORT.md` — community support channels, response time expectations, and guidance on asking good questions
+- Expanded `CONTRIBUTING.md` with development setup, commit conventions, PR process, contribution types, and good-first-issue guidance
+- Issue templates for documentation improvements and prompt submissions (`.github/ISSUE_TEMPLATE/`)
+- Expanded `docs/faq.md` with team adoption, production incident, MCP server, and scope creep questions
 
 ### Changed
 
 - Promoted the MCP server to the primary agent-facing product surface in the README, with its callable tools and security boundaries shown before the CLI documentation
 - Updated the roadmap with packaged CLI verification and the path toward a publishable MCP server package
+- Restructured `ROADMAP.md` with short/mid/long-term lanes, status badges, and a narrative per milestone
+- Upgraded `README.md` with table of contents, architecture diagram, repository structure section, and fixed broken `<iframe>` sponsor embed
+- Updated `SECURITY.md` with explicit response SLA and escalation guidance for active exploits
 
 ## [1.2.0] - 2026-06-10
 
