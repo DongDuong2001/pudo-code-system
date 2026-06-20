@@ -1,0 +1,70 @@
+id: lifecycle.feature-delivery
+name: Feature Delivery
+version: "1.0.0"
+description: End-to-end delivery of a medium-sized feature using the PUDO kernel workflows.
+
+inputs:
+  required:
+    - feature_description
+    - success_criteria
+  optional:
+    - domain_context
+    - starter_kit
+
+outputs:
+  artifacts:
+    - implemented_feature
+    - tests
+    - walkthrough_document
+  output_contract: schemas/pudo-output-contract.schema.json
+
+dependencies:
+  workflows:
+    - workflows/pudo/plan.yaml
+    - workflows/pudo/understand.yaml
+    - workflows/pudo/develop.yaml
+    - workflows/pudo/optimize.yaml
+  playbooks: []
+
+phases:
+  - id: plan
+    name: Plan Feature
+    workflow: workflows/pudo/plan.yaml
+    gate: quality/plan-gate
+
+  - id: understand
+    name: Understand Codebase
+    workflow: workflows/pudo/understand.yaml
+    gate: quality/understand-gate
+
+  - id: develop
+    name: Implement Feature
+    workflow: workflows/pudo/develop.yaml
+    gate: quality/develop-gate
+
+  - id: optimize
+    name: Review and Optimize
+    workflow: workflows/pudo/optimize.yaml
+    gate: quality/optimize-gate
+
+decision_points:
+  - trigger: unknown_architecture
+    action: insert_architecture_draft_before_understand
+  - trigger: scope_expansion_detected
+    action: return_to_plan
+
+failure_modes:
+  - skipping_understand_for_unfamiliar_code
+  - merging_without_optimize_gate
+
+success_criteria:
+  - all_kernel_gates_passed
+  - tests_executed_and_reported
+  - session_handoff_updated
+
+quality_gates:
+  - quality/plan-gate
+  - quality/understand-gate
+  - quality/develop-gate
+  - quality/optimize-gate
+  - quality/release-gate
