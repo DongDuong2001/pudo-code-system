@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
+import { readFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
 import { registerCheckTools } from "../tools/pudo_check.js";
@@ -11,12 +14,17 @@ import { registerScoreTools } from "../tools/pudo_score.js";
 import { registerSessionTools } from "../tools/pudo_session.js";
 import { resolveProjectRoot } from "../tools/core.js";
 
+const packageRoot = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
+const { version: serverVersion } = JSON.parse(
+  readFileSync(join(packageRoot, "package.json"), "utf8")
+) as { version: string };
+
 const projectRoot = resolveProjectRoot();
 process.chdir(projectRoot);
 
 const server = new McpServer({
   name: "pudo-mcp-server",
-  version: "0.1.0-alpha.1"
+  version: serverVersion
 });
 
 registerInitTools(server);
