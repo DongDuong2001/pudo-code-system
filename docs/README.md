@@ -24,6 +24,13 @@ Welcome to the PUDO documentation. This index covers all available docs and when
 
 ---
 
+## AI DevOS v3 Design
+
+| Doc | What It Covers | Read When |
+| --- | --- | --- |
+| [DevOS Design Index](devos/README.md) | Complete v3 architecture — 15 deliverables | You're implementing or reviewing the DevOS evolution |
+| [Migration Roadmap](devos/14-migration-roadmap.md) | v2 → v5 evolution and commit strategy | You're planning the v3 rollout |
+
 ## Technical Reference
 
 | Doc | What It Covers | Read When |
@@ -37,6 +44,11 @@ Welcome to the PUDO documentation. This index covers all available docs and when
 
 ## Quick Links
 
+- [Workflows](../workflows/README.md) — Machine-readable lifecycle workflow specs
+- [Playbooks](../playbooks/README.md) — Business outcome workflows (MVP, SaaS launch)
+- [Memory Templates](../memory/README.md) — Persistent project memory
+- [Context Packs](../context/README.md) — Domain overlays (SaaS, FinTech, etc.)
+- [Governance](../governance/README.md) — Org standards and release process
 - [Prompt Library](../prompts/README.md) — 21 ready-to-use prompts across 4 phases
 - [Quality Gates](../quality/quality-gates.md) — Phase gate checklists
 - [QC Checklists](../quality/qc-checklists.md) — Product, engineering, security, and AI output checklists

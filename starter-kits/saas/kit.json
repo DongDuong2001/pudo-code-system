@@ -1,0 +1,24 @@
+{
+  "id": "saas",
+  "name": "SaaS Starter Kit",
+  "version": "1.0.0",
+  "description": "Multi-tenant SaaS foundation with PUDO workflows and memory seeds.",
+  "stack": ["nextjs", "node-express"],
+  "domain": "saas",
+  "strictness_default": "standard",
+  "workflows": [
+    "workflows/lifecycle/feature-delivery.yaml",
+    "workflows/lifecycle/idea-to-mvp.yaml"
+  ],
+  "playbook": "playbooks/launch-saas.md",
+  "memory_seeds": [
+    "memory/templates/project.md",
+    "memory/templates/tech-stack.md",
+    "memory/templates/roadmap.md"
+  ],
+  "context_domains": ["saas"],
+  "governance_profile": "standard",
+  "template_refs": [
+    "templates/nextjs/AGENTS.md"
+  ]
+}
