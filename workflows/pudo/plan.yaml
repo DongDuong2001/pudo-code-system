@@ -1,0 +1,82 @@
+id: pudo.plan
+name: PUDO Plan Phase
+version: "1.0.0"
+description: Define scope, success criteria, constraints, and implementation plan before code changes.
+
+inputs:
+  required:
+    - task_description
+    - success_criteria
+  optional:
+    - constraints
+    - known_risks
+    - existing_plan
+
+outputs:
+  artifacts:
+    - scope_document
+    - risk_list
+    - implementation_plan
+  output_contract: schemas/pudo-output-contract.schema.json
+
+dependencies:
+  skills:
+    - skills/plan/architecture/SKILL.md
+    - skills/plan/security/SKILL.md
+  prompts:
+    - prompts/plan/scope-definition.md
+    - prompts/plan/risk-assessment.md
+  templates:
+    - templates/engineering/feature-proposal.md
+  memory:
+    - project.md
+    - decision-log.md
+
+phases:
+  - id: define_scope
+    name: Define Scope
+    pudo_phase: plan
+    skills:
+      - skills/plan/architecture/SKILL.md
+    prompts:
+      - prompts/plan/scope-definition.md
+    gate: quality/plan-gate
+    exit_conditions:
+      - scope_documented
+      - non_goals_explicit
+      - success_criteria_measurable
+
+  - id: assess_risks
+    name: Assess Risks
+    pudo_phase: plan
+    skills:
+      - skills/plan/security/SKILL.md
+    prompts:
+      - prompts/plan/risk-assessment.md
+    gate: quality/plan-gate
+    exit_conditions:
+      - risks_identified
+      - verification_strategy_defined
+
+decision_points:
+  - trigger: scope_too_large
+    action: split_into_sub_features
+  - trigger: security_sensitive
+    action: add_security_threat_model_prompt
+
+failure_modes:
+  - vague_scope_without_non_goals
+  - missing_verification_strategy
+  - plan_without_file_inspection_intent
+
+success_criteria:
+  - plan_gate_passed
+  - output_contract_complete
+
+quality_gates:
+  - id: quality/plan-gate
+    ref: quality/quality-gates.md#plan-gate
+
+non_goals:
+  - writing_implementation_code
+  - guessing_repository_structure
