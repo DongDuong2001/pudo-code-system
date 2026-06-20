@@ -80,9 +80,26 @@ jobs:
       # ── Publish to GitHub Packages ────────────────────────────────────────
       # publishConfig.registry in package.json points to npm.pkg.github.com.
       # NODE_AUTH_TOKEN is picked up automatically by npm.
+      # Skip if this version is already published (avoids E409 on re-runs).
+
+      - name: Check GitHub Packages for existing version
+        id: gh_pkg
+        if: ${{ github.event.inputs.dry_run != 'true' }}
+        run: |
+          VERSION="${{ steps.pkg.outputs.version }}"
+          PUBLISHED=$(npm view "@dongduong2001/mcp-server@${VERSION}" version \
+            --registry=https://npm.pkg.github.com/ 2>/dev/null || true)
+          if [[ "$PUBLISHED" == "$VERSION" ]]; then
+            echo "Version ${VERSION} is already on GitHub Packages — skipping publish."
+            echo "already_published=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "already_published=false" >> "$GITHUB_OUTPUT"
+          fi
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish to GitHub Packages
-        if: ${{ github.event.inputs.dry_run != 'true' }}
+        if: ${{ github.event.inputs.dry_run != 'true' && steps.gh_pkg.outputs.already_published != 'true' }}
         run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -98,14 +115,21 @@ jobs:
         run: |
           if [[ -z "$NPM_TOKEN" ]]; then
             echo "NPM_TOKEN not configured — skipping npm publish."
+            echo "npm_result=skipped_no_token" >> "$GITHUB_ENV"
             exit 0
           fi
-          # Redirect the @dongduong2001 scope to npmjs.org and add auth token
+          VERSION="${{ steps.pkg.outputs.version }}"
           npm config set @dongduong2001:registry https://registry.npmjs.org/
           npm config set //registry.npmjs.org/:_authToken "${NPM_TOKEN}"
-          # Remove publishConfig so it doesn't re-override the registry
+          PUBLISHED=$(npm view "@dongduong2001/mcp-server@${VERSION}" version 2>/dev/null || true)
+          if [[ "$PUBLISHED" == "$VERSION" ]]; then
+            echo "Version ${VERSION} is already on npm — skipping publish."
+            echo "npm_result=skipped_exists" >> "$GITHUB_ENV"
+            exit 0
+          fi
           npm pkg delete publishConfig
           npm publish --access public
+          echo "npm_result=published" >> "$GITHUB_ENV"
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
@@ -125,7 +149,14 @@ jobs:
           if [[ "${DRY:-false}" == "true" ]]; then
             echo "| GitHub Packages | ⏭ dry run |" >> "$GITHUB_STEP_SUMMARY"
             echo "| npm registry    | ⏭ dry run |" >> "$GITHUB_STEP_SUMMARY"
+          elif [[ "${{ steps.gh_pkg.outputs.already_published }}" == "true" ]]; then
+            echo "| GitHub Packages | ⏭ already published |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| npm registry    | see Publish to npm step |" >> "$GITHUB_STEP_SUMMARY"
           else
             echo "| GitHub Packages | ✅ published |" >> "$GITHUB_STEP_SUMMARY"
             echo "| npm registry    | see Publish to npm step |" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [[ "${DRY:-false}" != "true" && "${{ steps.gh_pkg.outputs.already_published }}" == "true" ]]; then
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "> To publish again, bump \`packages/pudo-mcp-server/package.json\` and push a new \`v*\` tag." >> "$GITHUB_STEP_SUMMARY"
           fi
