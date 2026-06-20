@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pudo.dev/schemas/pudo-output-contract.schema.json",
+  "title": "PUDO Output Contract",
+  "description": "Structured output produced at workflow or phase completion.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "workflow_id",
+    "completed_at",
+    "executive_summary",
+    "objectives",
+    "acceptance_criteria",
+    "deliverables",
+    "next_recommended_actions"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "const": "1.0"
+    },
+    "workflow_id": {
+      "type": "string",
+      "description": "Workflow identifier, e.g. pudo.plan or lifecycle.feature-delivery"
+    },
+    "phase_id": {
+      "type": "string",
+      "description": "Optional phase within workflow"
+    },
+    "trace_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Link to pudo-run-trace if available"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "executive_summary": {
+      "type": "string",
+      "maxLength": 2000
+    },
+    "objectives": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["description", "status"],
+        "properties": {
+          "description": { "type": "string" },
+          "status": {
+            "type": "string",
+            "enum": ["met", "partial", "not_met", "deferred"]
+          }
+        }
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "constraints": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "trade_offs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "decision": { "type": "string" },
+          "chosen": { "type": "string" },
+          "rejected": { "type": "string" },
+          "rationale": { "type": "string" }
+        }
+      }
+    },
+    "risks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "description": { "type": "string" },
+          "severity": {
+            "type": "string",
+            "enum": ["low", "medium", "high", "critical"]
+          },
+          "mitigation": { "type": "string" }
+        }
+      }
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["criterion", "passed"],
+        "properties": {
+          "criterion": { "type": "string" },
+          "passed": { "type": "boolean" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "deliverables": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "type"],
+        "properties": {
+          "name": { "type": "string" },
+          "type": {
+            "type": "string",
+            "enum": ["file", "document", "code", "test", "config", "other"]
+          },
+          "path": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      }
+    },
+    "affected_files": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "architecture_impact": {
+      "type": "string"
+    },
+    "testing_strategy": {
+      "type": "object",
+      "properties": {
+        "tests_run": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "tests_skipped": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "coverage_notes": { "type": "string" }
+      }
+    },
+    "deployment_notes": {
+      "type": "string"
+    },
+    "rollback_strategy": {
+      "type": "string"
+    },
+    "future_improvements": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "next_recommended_actions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "quality_gate_status": {
+      "type": "object",
+      "properties": {
+        "gate_id": { "type": "string" },
+        "passed": { "type": "boolean" },
+        "notes": { "type": "string" }
+      }
+    }
+  },
+  "additionalProperties": false
+}
