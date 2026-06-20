@@ -1,6 +1,6 @@
 {
   "name": "@dongduong2001/mcp-server",
-  "version": "0.2.0-alpha.7",
+  "version": "0.2.0-alpha.8",
   "description": "Local stdio MCP server for PUDO project setup, quality gates, context packs, and readiness scoring.",
   "type": "module",
   "bin": {
