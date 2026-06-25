@@ -332,6 +332,13 @@ ${joinBullets(stackNotes(options.project))}
 - Do not add dependencies without justification.
 - Run relevant checks or state why they were skipped.
 - Use .pudo/session.md for handoff when context may be lost.
+
+## Release & Package Quality
+
+- Maintain npm package release-readiness and stability.
+- Work on a dedicated feature branch.
+- Stage and commit files individually using Conventional Commits.
+- Determine SemVer using release/VERSIONING.md and update CHANGELOG.md.
 `;
   }
 
@@ -363,6 +370,13 @@ When using Claude Fable 5 (claude-fable-5), leverage its 1M context window:
 - Do not invent APIs, paths, env vars, database fields, or test results.
 - Run relevant checks or state why checks were skipped.
 - Record handoff context in .pudo/session.md for long work.
+
+## Release & Package Quality
+
+- Maintain npm package release-readiness and stability.
+- Work on a dedicated feature branch.
+- Stage and commit files individually using Conventional Commits.
+- Determine SemVer using release/VERSIONING.md and update CHANGELOG.md.
 `;
   }
 
@@ -391,6 +405,13 @@ ${joinBullets(stackNotes(options.project))}
 - Avoid unrelated rewrites.
 - Do not invent APIs, paths, env vars, or test results.
 - Run relevant checks or report skipped checks.
+
+## Release & Package Quality
+
+- Maintain npm package release-readiness and stability.
+- Work on a dedicated feature branch.
+- Stage and commit files individually using Conventional Commits.
+- Determine SemVer using release/VERSIONING.md and update CHANGELOG.md.
 `;
   }
 
@@ -414,6 +435,13 @@ ${joinBullets(stackNotes(options.project))}
 - Follow existing conventions.
 - Do not invent APIs, paths, env vars, config keys, or test results.
 - Run targeted checks or state why they were skipped.
+
+## Release & Package Quality
+
+- Maintain npm package release-readiness and stability.
+- Work on a dedicated feature branch.
+- Stage and commit files individually using Conventional Commits.
+- Determine SemVer using release/VERSIONING.md and update CHANGELOG.md.
 `;
   }
 
@@ -437,6 +465,13 @@ ${joinBullets(stackNotes(options.project))}
 - Do not invent APIs, paths, env vars, config keys, or test results.
 - Run relevant checks or state why checks were skipped.
 - Use .pudo/session.md for handoff when context may be lost.
+
+## Release & Package Quality
+
+- Maintain npm package release-readiness and stability.
+- Work on a dedicated feature branch.
+- Stage and commit files individually using Conventional Commits.
+- Determine SemVer using release/VERSIONING.md and update CHANGELOG.md.
 `;
   }
 
@@ -460,6 +495,13 @@ ${joinBullets(stackNotes(options.project))}
 - Avoid unrelated rewrites and dependency bloat.
 - Do not claim checks passed unless they were run.
 - Record long-running task context in .pudo/session.md.
+
+## Release & Package Quality
+
+- Maintain npm package release-readiness and stability.
+- Work on a dedicated feature branch.
+- Stage and commit files individually using Conventional Commits.
+- Determine SemVer using release/VERSIONING.md and update CHANGELOG.md.
 `;
   }
 
@@ -483,6 +525,13 @@ ${joinBullets(stackNotes(options.project))}
 - Keep changes scoped to the task.
 - Include tests or verification notes for risky changes.
 - Surface release, rollback, migration, and monitoring risks when relevant.
+
+## Release & Package Quality
+
+- Maintain npm package release-readiness and stability.
+- Work on a dedicated feature branch.
+- Stage and commit files individually using Conventional Commits.
+- Determine SemVer using release/VERSIONING.md and update CHANGELOG.md.
 `;
   }
 

@@ -25,4 +25,9 @@ You are an Antigravity agent adhering to the PUDO (Plan -> Understand -> Develop
 - Never perform "Chaos Coding" (guessing, random trial and error).
 - If an implementation fails repeatedly, stop and explicitly return to the Plan phase.
 - Always communicate which PUDO phase you are currently in.
+- Maintain npm package release-readiness and stability.
+- Work on a dedicated feature branch.
+- Stage and commit files individually using Conventional Commits.
+- Determine SemVer using release/VERSIONING.md and update CHANGELOG.md.
 </directives>
+
