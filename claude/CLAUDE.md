@@ -95,4 +95,12 @@ Success criteria for this phase: the user can understand the result and trust th
 - Hiding failed checks or skipped verification.
 - Shipping the first draft without review.
 
+## Release & Package Quality
+
+- **Maintain npm Package:** Evolve the repository while keeping it fully functional as an npm package for the MCP Server.
+- **Git Branch Workflow:** Never work directly on default branch; use dedicated feature branches (e.g. `feature/...`).
+- **Commit Strategy:** Stage only one file at a time and commit it with a Conventional Commit.
+- **Semantic Versioning & Changelog:** Bump versions using [VERSIONING.md](../release/VERSIONING.md) and update `CHANGELOG.md` using [CHANGELOG_TEMPLATE.md](../release/CHANGELOG_TEMPLATE.md). Follow [RELEASE_CHECKLIST.md](../release/RELEASE_CHECKLIST.md) and [PUBLISH_NPM.md](../release/PUBLISH_NPM.md).
+
+
 PUDO is a cycle, not a cage. Move back to an earlier phase whenever new information changes the shape of the work.
