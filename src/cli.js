@@ -697,7 +697,7 @@ function runCheck(options = {}) {
   if (options.json) {
     const report = {
       schema_version: "1.0",
-      pudo_version: "1.2.0",
+      pudo_version: "1.3.0",
       command: "check",
       passed: failures.length === 0,
       total: checks.length,
@@ -912,7 +912,7 @@ function evaluateScore() {
 
   return {
     schema_version: "1.0",
-    pudo_version: "1.2.0",
+    pudo_version: "1.3.0",
     mode,
     score,
     max_score: maxScore,
@@ -1010,7 +1010,7 @@ function runDoctor(options = {}) {
   if (options.json) {
     const report = {
       schema_version: "1.0",
-      pudo_version: "1.2.0",
+      pudo_version: "1.3.0",
       command: "doctor",
       healthy: !findings.some((f) => f.severity === "WARN"),
       total_findings: findings.length,
@@ -1041,7 +1041,7 @@ function runLint(options = {}) {
   if (options.json) {
     const output = {
       schema_version: "1.0",
-      pudo_version: "1.2.0",
+      pudo_version: "1.3.0",
       command: "lint",
       ...report
     };
