@@ -6,8 +6,15 @@ The format is inspired by Keep a Changelog and organized for practical repositor
 
 ## [Unreleased]
 
+## [1.3.0] - 2026-06-25
+
 ### Added
 
+- Release management guidelines under `release/` (`RELEASE_CHECKLIST.md`, `VERSIONING.md`, `PUBLISH_NPM.md`, `MIGRATION_GUIDE.md`, `CHANGELOG_TEMPLATE.md`)
+- Production-ready playbooks under `playbooks/`:
+  - `playbooks/backend/` (API security, caching & messaging, resilience & observability)
+  - `playbooks/system-design/` (Playbook template and Payment Processing & Notification examples)
+  - `playbooks/database/` (Schema design, indexing, partitioning, transactions, migration, soft deletes, auditing)
 - GitHub Actions CLI install smoke test that packs the npm artifact, runs `init` through `npx` in a clean project, verifies generated files, and runs `check`
 - README CI badge linking directly to the CLI install test
 - Team adoption guide at [docs/team-adoption-guide.md](docs/team-adoption-guide.md) for structured onboarding and recurring workflow
@@ -22,6 +29,7 @@ The format is inspired by Keep a Changelog and organized for practical repositor
 
 ### Changed
 
+- Updated templates in `src/cli.js` to output release and quality rules
 - Promoted the MCP server to the primary agent-facing product surface in the README, with its callable tools and security boundaries shown before the CLI documentation
 - Updated the roadmap with packaged CLI verification and the path toward a publishable MCP server package
 - Restructured `ROADMAP.md` with short/mid/long-term lanes, status badges, and a narrative per milestone
