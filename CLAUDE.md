@@ -38,3 +38,11 @@ When running on Fable 5 (model: `claude-fable-5`), leverage the 1M token context
 - Adding dependencies without justification.
 - Removing or weakening tests without approval.
 - Hiding failed or skipped verification.
+
+## Release & Package Quality
+
+- **Maintain npm Package:** Evolve the repository while keeping it fully functional as an npm package for the MCP Server.
+- **Git Branch Workflow:** Never work directly on default branch; use dedicated feature branches (e.g. `feature/...`).
+- **Commit Strategy:** Stage only one file at a time and commit it with a Conventional Commit.
+- **Semantic Versioning & Changelog:** Bump versions using [VERSIONING.md](release/VERSIONING.md) and update `CHANGELOG.md` using [CHANGELOG_TEMPLATE.md](release/CHANGELOG_TEMPLATE.md). Follow [RELEASE_CHECKLIST.md](release/RELEASE_CHECKLIST.md) and [PUBLISH_NPM.md](release/PUBLISH_NPM.md).
+
