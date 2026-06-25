@@ -17,7 +17,7 @@ function findRepoRoot(start: string): string {
     const manifestPath = path.join(current, "package.json");
     if (fs.existsSync(manifestPath)) {
       const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
-      if (manifest.name === "pudo-code-system") return current;
+      if (manifest.name === "pudo-code-system" || manifest.name === "@dongduong2001/pudo-code-system") return current;
     }
 
     const parent = path.dirname(current);
