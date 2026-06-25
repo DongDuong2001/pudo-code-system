@@ -1,5 +1,5 @@
 {
-  "name": "pudo-code-system",
+  "name": "@dongduong2001/pudo-code-system",
   "version": "1.3.0",
   "description": "AI Agent Operating Layer for configuring coding agents with PUDO workflows, quality gates, benchmarks, and repo-level rules.",
   "license": "MIT",
@@ -50,5 +50,9 @@
     "pudo:doctor": "node bin/pudo.js doctor",
     "mcp:build": "npm run build --prefix packages/pudo-mcp-server",
     "mcp:test": "npm test --prefix packages/pudo-mcp-server"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://npm.pkg.github.com/"
   }
 }
