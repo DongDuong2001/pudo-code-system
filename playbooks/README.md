@@ -14,6 +14,9 @@ Playbooks compose multiple workflows, skills, templates, and starter kits to ach
 | [launch-saas](launch-saas.md) | Production SaaS | 4-8 weeks |
 | [deploy-production](deploy-production.md) | First production deploy | 1-2 weeks |
 | [security-hardening](security-hardening.md) | Security audit + fixes | 1-2 weeks |
+| [backend](backend/README.md) | Backend engineering guides | Continuous |
+| [system-design](system-design/README.md) | System design templates | Continuous |
+| [database](database/README.md) | Database optimization playbooks | Continuous |
 
 ## Playbook vs Workflow
 
