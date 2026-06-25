@@ -26,7 +26,7 @@
   <a href="LICENSE">
     <img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="License: MIT" />
   </a>
-  <img src="https://img.shields.io/badge/version-1.2.0-brightgreen.svg" alt="Version 1.2.0" />
+  <img src="https://img.shields.io/badge/version-1.3.0-brightgreen.svg" alt="Version 1.3.0" />
   <a href="CONTRIBUTING.md">
     <img src="https://img.shields.io/badge/PRs-welcome-orange.svg" alt="PRs Welcome" />
   </a>
