@@ -40,6 +40,8 @@
     "skills/",
     "docs/",
     "templates/",
+    "playbooks/",
+    "workflows/",
     ".pudo/"
   ],
   "scripts": {
