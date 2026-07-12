@@ -7,7 +7,7 @@ import { fileURLToPath } from "node:url";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
 import { createContextPack } from "../tools/pudo_context_pack.js";
-import { initProject } from "../tools/pudo_init.js";
+import { initProject, getInitOptions, listPlaybooks, getPlaybook } from "../tools/pudo_init.js";
 import { runQualityGate } from "../tools/pudo_quality_gate.js";
 import { scoreRepoReadiness } from "../tools/pudo_score.js";
 
@@ -137,7 +137,10 @@ test("stdio server exposes the expected PUDO tools", async () => {
       "pudo.createContextPack",
       "pudo.doctor",
       "pudo.generateAgentRules",
+      "pudo.getInitOptions",
+      "pudo.getPlaybook",
       "pudo.initProject",
+      "pudo.listPlaybooks",
       "pudo.runQualityGate",
       "pudo.scoreRepoReadiness",
       "pudo.updateSessionHandoff",
@@ -147,3 +150,25 @@ test("stdio server exposes the expected PUDO tools", async () => {
     await client.close();
   }
 });
+
+test("getInitOptions returns valid config choices", () => {
+  const options = getInitOptions();
+  assert.ok(options.tools.includes("cursor"));
+  assert.ok(options.projects.includes("nextjs"));
+  assert.deepEqual(options.strictness, ["lite", "standard", "enterprise"]);
+});
+
+test("listPlaybooks returns available playbooks", () => {
+  const result = listPlaybooks();
+  assert.ok(result.playbooks.length > 0);
+  const paths = result.playbooks.map(p => p.path);
+  assert.ok(paths.includes("build-mvp.md"));
+  assert.ok(paths.includes("backend/api-security.md"));
+});
+
+test("getPlaybook retrieves playbook contents", () => {
+  const result = getPlaybook({ path: "build-mvp.md" });
+  assert.equal(result.path, "build-mvp.md");
+  assert.match(result.content, /# Minimum Viable Product/);
+});
+
