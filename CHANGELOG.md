@@ -6,6 +6,17 @@ The format is inspired by Keep a Changelog and organized for practical repositor
 
 ## [Unreleased]
 
+## [1.3.1] - 2026-07-12
+
+### Added
+
+- Expose PUDO project templates, playbooks, and init choices as MCP tools (`pudo.getInitOptions`, `pudo.listPlaybooks`, `pudo.getPlaybook`) to help agents guide developers in selecting workflows.
+- Include `"playbooks/"` and `"workflows/"` folders in the root npm files list, ensuring playbooks are bundled when published.
+
+### Fixed
+
+- Fixed resolving package root for test execution by supporting scoped package naming during path discovery.
+
 ## [1.3.0] - 2026-06-25
 
 ### Added
