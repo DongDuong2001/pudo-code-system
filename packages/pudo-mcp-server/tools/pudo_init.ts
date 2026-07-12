@@ -1,9 +1,12 @@
+import fs from "node:fs";
+import path from "node:path";
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod/v4";
 import {
   jsonToolResult,
   loadPudoApi,
   requireWriteApproval,
+  findPudoPackageRoot,
   type PudoOptions
 } from "./core.js";
 
@@ -65,6 +68,70 @@ export function initProject(input: {
   };
 }
 
+function getPlaybooksRecursively(dir: string, baseDir: string): Array<{ name: string; path: string }> {
+  let results: Array<{ name: string; path: string }> = [];
+  if (!fs.existsSync(dir)) return results;
+  const list = fs.readdirSync(dir);
+  for (const file of list) {
+    const filePath = path.join(dir, file);
+    const stat = fs.statSync(filePath);
+    if (stat && stat.isDirectory()) {
+      results = results.concat(getPlaybooksRecursively(filePath, baseDir));
+    } else if (file.endsWith(".md")) {
+      const relativePath = path.relative(baseDir, filePath).replaceAll("\\", "/");
+      let title = file;
+      try {
+        const content = fs.readFileSync(filePath, "utf8");
+        const match = content.match(/^#\s+(.+)$/m);
+        if (match) {
+          title = match[1].trim();
+        }
+      } catch {
+        // Fall back to filename
+      }
+      results.push({
+        name: title,
+        path: relativePath
+      });
+    }
+  }
+  return results;
+}
+
+export function listPlaybooks() {
+  const packageRoot = findPudoPackageRoot();
+  const playbooksDir = path.join(packageRoot, "playbooks");
+  const playbooks = getPlaybooksRecursively(playbooksDir, playbooksDir);
+  return { playbooks };
+}
+
+export function getPlaybook(input: { path: string }) {
+  const packageRoot = findPudoPackageRoot();
+  const playbooksDir = path.join(packageRoot, "playbooks");
+  const target = path.resolve(playbooksDir, input.path);
+  const relative = path.relative(playbooksDir, target);
+
+  if (relative.startsWith("..") || path.isAbsolute(relative)) {
+    throw new Error(`Path escapes playbooks boundary: ${input.path}`);
+  }
+
+  if (!fs.existsSync(target) || !fs.statSync(target).isFile()) {
+    throw new Error(`Playbook not found: ${input.path}`);
+  }
+
+  const content = fs.readFileSync(target, "utf8");
+  return { path: input.path, content };
+}
+
+export function getInitOptions() {
+  const api = loadPudoApi();
+  return {
+    tools: api.TOOL_NAMES,
+    projects: api.PROJECT_TYPES,
+    strictness: ["lite", "standard", "enterprise"]
+  };
+}
+
 export function registerInitTools(server: McpServer): void {
   server.registerTool(
     "pudo.generateAgentRules",
@@ -99,5 +166,50 @@ export function registerInitTools(server: McpServer): void {
       }
     },
     async (input) => jsonToolResult(initProject(input))
+  );
+
+  server.registerTool(
+    "pudo.getInitOptions",
+    {
+      description: "Get lists of supported tools, project types (stacks), and strictness levels to initialize a PUDO project.",
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false
+      }
+    },
+    async () => jsonToolResult(getInitOptions())
+  );
+
+  server.registerTool(
+    "pudo.listPlaybooks",
+    {
+      description: "List all available business and engineering playbooks (e.g. build-mvp, launch-saas, backend, database, system-design).",
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false
+      }
+    },
+    async () => jsonToolResult(listPlaybooks())
+  );
+
+  server.registerTool(
+    "pudo.getPlaybook",
+    {
+      description: "Retrieve the full content of a specific playbook to guide development.",
+      inputSchema: z.object({
+        path: z.string().describe("Relative path to the playbook file, e.g. 'build-mvp.md' or 'backend/api-security.md'")
+      }),
+      annotations: {
+        readOnlyHint: true,
+        destructiveHint: false,
+        idempotentHint: true,
+        openWorldHint: false
+      }
+    },
+    async (input) => jsonToolResult(getPlaybook(input))
   );
 }
