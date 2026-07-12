@@ -176,7 +176,7 @@ test("evaluateScore returns evidence-based rubric categories", () => {
   const report = evaluateScore();
 
   assert.equal(report.schema_version, "1.0");
-  assert.equal(report.pudo_version, "1.3.0");
+  assert.equal(report.pudo_version, "1.3.1");
   assert.equal(report.max_score, 100);
   assert.equal(typeof report.score, "number");
   assert.ok(report.categories.agent_rules.evidence.length > 0);
