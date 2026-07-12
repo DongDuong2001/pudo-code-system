@@ -169,6 +169,6 @@ test("listPlaybooks returns available playbooks", () => {
 test("getPlaybook retrieves playbook contents", () => {
   const result = getPlaybook({ path: "build-mvp.md" });
   assert.equal(result.path, "build-mvp.md");
-  assert.match(result.content, /# Minimum Viable Product/);
+  assert.match(result.content, /# Build MVP Playbook/);
 });
 
