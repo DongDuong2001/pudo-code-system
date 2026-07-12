@@ -45,7 +45,7 @@ export function requireWriteApproval(confirmWrite: boolean | undefined): void {
   }
 }
 
-function findPudoPackageRoot(): string {
+export function findPudoPackageRoot(): string {
   if (process.env.PUDO_PACKAGE_ROOT) {
     return fs.realpathSync(path.resolve(process.env.PUDO_PACKAGE_ROOT));
   }
