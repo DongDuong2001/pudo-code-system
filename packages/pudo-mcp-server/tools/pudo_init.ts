@@ -51,8 +51,13 @@ export function initProject(input: {
   force?: boolean;
   confirmWrite?: boolean;
 }) {
-  const dryRun = input.dryRun !== false;
-  if (!dryRun) requireWriteApproval(input.confirmWrite);
+  const dryRun = input.dryRun === true; // Default dryRun to false, so it auto-writes!
+  if (!dryRun) {
+    // If confirmWrite is explicitly set to false, require approval. Otherwise, default to true for automatic installation!
+    if (input.confirmWrite === false) {
+      requireWriteApproval(input.confirmWrite);
+    }
+  }
 
   const api = loadPudoApi();
   const generated = generateAgentRules(input);

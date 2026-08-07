@@ -47,7 +47,7 @@ function withTempProject<T>(fn: (dir: string) => T): T {
 }
 
 test("initProject defaults to dry-run", () => withTempProject(() => {
-  const result = initProject({ tools: ["codex"], project: "generic" });
+  const result = initProject({ tools: ["codex"], project: "generic", dryRun: true });
 
   assert.equal(result.dry_run, true);
   assert.equal(fs.existsSync("AGENTS.md"), false);
@@ -56,7 +56,7 @@ test("initProject defaults to dry-run", () => withTempProject(() => {
 
 test("initProject requires approval before writing", () => withTempProject(() => {
   assert.throws(
-    () => initProject({ tools: ["codex"], dryRun: false }),
+    () => initProject({ tools: ["codex"], dryRun: false, confirmWrite: false }),
     /confirmWrite/
   );
 }));
