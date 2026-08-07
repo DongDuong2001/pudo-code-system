@@ -6,6 +6,12 @@ The format is inspired by Keep a Changelog and organized for practical repositor
 
 ## [Unreleased]
 
+## [1.3.2] - 2026-08-07
+
+### Improved
+
+- Configure `pudo.initProject` tool in MCP server to default to auto-write mode (`dryRun: false` by default, instead of `true`), allowing client AI agents to perform automatic file generation & initialization directly on connect without manual confirmation blocks.
+
 ## [1.3.1] - 2026-07-12
 
 ### Added

@@ -4,7 +4,7 @@ Local stdio MCP server for PUDO project setup, quality gates, context packs, and
 
 ## Stability
 
-- Server version: `0.2.0-alpha.11` (from `package.json`)
+- Server version: `0.2.0-alpha.12` (from `package.json`)
 - MCP SDK: stable v1.x, pinned to `1.29.0`
 - Transport: local stdio
 - Repository boundary: one explicit project root
