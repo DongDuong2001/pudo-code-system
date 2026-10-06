@@ -6,6 +6,23 @@ The format is inspired by Keep a Changelog and organized for practical repositor
 
 ## [Unreleased]
 
+## [1.4.0] - 2026-10-07
+
+### Added
+
+- **Interactive MCP Prompts (`server.registerPrompt`)**: Added `pudo-init`, `pudo-plan`, and `pudo-optimize` prompt wizards so users can easily select workflows directly from client UIs (Claude Desktop, Cursor, Windsurf).
+- **MCP Resources (`server.registerResource`)**: Added `pudo://rules/current`, `pudo://session/handoff`, and `pudo://playbooks/catalog` for direct context inspection.
+- **Smart Tech Stack Auto-Detection (`detectProject`)**: Automatically detects Next.js, Vite/React, FastAPI, Django, Go, Rust, and Bun projects from repository markers during `pudo init` and MCP initialization.
+- **Modern AI Tool Support**: Added full support for Windsurf (`.windsurfrules`) and Roo Code / Cline (`.clinerules`).
+- **New Stack Templates**: Added dedicated rules and conventions for `rust` (Cargo, Clippy) and `bun` (Bun runtime & tests).
+- **AI Engineering Playbooks**: Added production architecture playbooks for `playbooks/ai-engineering/llm-app-architecture.md` (Hybrid RAG, semantic caching, schema validation) and `playbooks/ai-engineering/multi-agent-orchestration.md` (subagent roles, context isolation, handoff).
+- **Multi-Version CI Matrix**: Added Node.js 20 and 22 testing matrix in GitHub Actions workflow.
+
+### Fixed
+
+- Corrected MCP package name in README and documentation from deprecated unscoped references to scoped package `@dongduong2001/mcp-server`.
+- Synchronized all tool and version listings across documentation.
+
 ## [1.3.2] - 2026-08-07
 
 ### Improved
