@@ -17,6 +17,7 @@ Playbooks compose multiple workflows, skills, templates, and starter kits to ach
 | [backend](backend/README.md) | Backend engineering guides | Continuous |
 | [system-design](system-design/README.md) | System design templates | Continuous |
 | [database](database/README.md) | Database optimization playbooks | Continuous |
+| [ai-engineering](ai-engineering/README.md) | LLM architecture & multi-agent systems | Continuous |
 
 ## Playbook vs Workflow
 

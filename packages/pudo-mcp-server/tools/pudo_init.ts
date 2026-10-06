@@ -7,6 +7,7 @@ import {
   loadPudoApi,
   requireWriteApproval,
   findPudoPackageRoot,
+  resolveProjectRoot,
   type PudoOptions
 } from "./core.js";
 
@@ -23,10 +24,14 @@ function normalizeOptions(input: {
 }): PudoOptions {
   const api = loadPudoApi();
   const tools = input.tools?.filter((tool) => api.TOOL_NAMES.includes(tool));
+  const detected = api.detectProject ? api.detectProject(resolveProjectRoot()) : "generic";
+  const project = input.project && api.PROJECT_TYPES.includes(input.project) && input.project !== "generic"
+    ? input.project
+    : (detected !== "generic" ? detected : (input.project || "generic"));
 
   return {
     tools: tools?.length ? tools : api.TOOL_NAMES,
-    project: api.PROJECT_TYPES.includes(input.project || "") ? input.project! : "generic",
+    project,
     strictness: input.strictness || "standard"
   };
 }

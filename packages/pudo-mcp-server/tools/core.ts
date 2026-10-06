@@ -13,6 +13,7 @@ export type PudoApi = {
   TOOL_NAMES: string[];
   PROJECT_TYPES: string[];
   STRICTNESS: string[];
+  detectProject?: (cwd?: string) => string;
   templates(options: PudoOptions): Record<string, string>;
   writeFiles(
     files: Record<string, string>,

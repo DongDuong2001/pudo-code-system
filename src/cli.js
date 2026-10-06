@@ -5,7 +5,7 @@ const path = require("path");
 const readline = require("readline");
 const { lintPrompts } = require("./prompt-linter");
 
-const TOOL_NAMES = ["cursor", "claude", "codex", "copilot", "gemini", "opencode", "kiro"];
+const TOOL_NAMES = ["cursor", "claude", "codex", "copilot", "gemini", "opencode", "kiro", "windsurf", "roo"];
 const PROJECT_TYPES = [
   "generic",
   "nextjs",
@@ -19,6 +19,8 @@ const PROJECT_TYPES = [
   "laravel",
   "go",
   "go-api",
+  "rust",
+  "bun",
   "react-native",
   "mobile-react-native"
 ];
@@ -69,12 +71,12 @@ Usage:
   pudo lint
   pudo lint --json
   pudo init --yes
-  pudo init --tools=cursor,claude,codex,copilot,gemini,opencode,kiro --project=nextjs --strictness=standard
+  pudo init --tools=cursor,claude,codex,copilot,gemini,opencode,kiro,windsurf,roo --project=nextjs --strictness=standard
 
 Options:
-  --yes              Use defaults: all tools, generic project, standard strictness
-  --tools=LIST       Comma-separated: cursor, claude, codex, copilot, gemini, opencode, kiro
-  --project=TYPE     generic, nextjs, react-vite, node-express, python-fastapi, django, laravel, go-api, mobile-react-native
+  --yes              Use defaults: all tools, auto-detected or generic project, standard strictness
+  --tools=LIST       Comma-separated: cursor, claude, codex, copilot, gemini, opencode, kiro, windsurf, roo
+  --project=TYPE     generic, nextjs, react-vite, node-express, python-fastapi, django, laravel, go-api, rust, bun, mobile-react-native
   --strictness=MODE  lite, standard, enterprise
   --dry-run          Show files that would be written
   --force            Overwrite existing files
@@ -103,11 +105,64 @@ function normalizeChoice(value, allowed, fallback) {
   return allowed.includes(normalized) ? normalized : fallback;
 }
 
+function detectProject(cwd = process.cwd()) {
+  try {
+    if (fs.existsSync(path.join(cwd, "next.config.js")) ||
+        fs.existsSync(path.join(cwd, "next.config.mjs")) ||
+        fs.existsSync(path.join(cwd, "next.config.ts"))) {
+      return "nextjs";
+    }
+    if (fs.existsSync(path.join(cwd, "vite.config.js")) ||
+        fs.existsSync(path.join(cwd, "vite.config.ts")) ||
+        fs.existsSync(path.join(cwd, "vite.config.mjs"))) {
+      return "react-vite";
+    }
+    if (fs.existsSync(path.join(cwd, "Cargo.toml"))) {
+      return "rust";
+    }
+    if (fs.existsSync(path.join(cwd, "bun.lockb")) ||
+        fs.existsSync(path.join(cwd, "bun.lock")) ||
+        fs.existsSync(path.join(cwd, "bunfig.toml"))) {
+      return "bun";
+    }
+    if (fs.existsSync(path.join(cwd, "go.mod"))) {
+      return "go-api";
+    }
+    if (fs.existsSync(path.join(cwd, "manage.py"))) {
+      return "django";
+    }
+    if (fs.existsSync(path.join(cwd, "artisan"))) {
+      return "laravel";
+    }
+    if (fs.existsSync(path.join(cwd, "pyproject.toml")) ||
+        fs.existsSync(path.join(cwd, "requirements.txt"))) {
+      const content = fs.existsSync(path.join(cwd, "pyproject.toml"))
+        ? fs.readFileSync(path.join(cwd, "pyproject.toml"), "utf8")
+        : fs.readFileSync(path.join(cwd, "requirements.txt"), "utf8");
+      if (content.toLowerCase().includes("fastapi")) return "python-fastapi";
+      if (content.toLowerCase().includes("django")) return "django";
+      return "python";
+    }
+    if (fs.existsSync(path.join(cwd, "package.json"))) {
+      const pkg = JSON.parse(fs.readFileSync(path.join(cwd, "package.json"), "utf8"));
+      const deps = { ...pkg.dependencies, ...pkg.devDependencies };
+      if (deps.next) return "nextjs";
+      if (deps.vite) return "react-vite";
+      if (deps.react && (deps["react-native"] || deps.expo)) return "mobile-react-native";
+      if (deps.react) return "react";
+      if (deps.express) return "node-express";
+      if (deps.fastify || deps.koa || deps.hono || deps.nest || deps["@nestjs/core"]) return "node";
+    }
+  } catch (_) {}
+  return "generic";
+}
+
 async function resolveOptions(args) {
+  const detected = detectProject();
   if (args.yes) {
     return {
       tools: normalizeList(args.tools, TOOL_NAMES, TOOL_NAMES),
-      project: normalizeChoice(args.project, PROJECT_TYPES, "generic"),
+      project: args.project ? normalizeChoice(args.project, PROJECT_TYPES, "generic") : detected,
       strictness: normalizeChoice(args.strictness, STRICTNESS, "standard")
     };
   }
@@ -120,7 +175,7 @@ async function resolveOptions(args) {
     );
     const projectAnswer = args.project || await question(
       rl,
-      "Project type? (generic, nextjs, react-vite, node-express, python-fastapi, django, laravel, go-api, mobile-react-native) [generic]: "
+      `Project type? (${PROJECT_TYPES.join(", ")}) [${detected}]: `
     );
     const strictnessAnswer = args.strictness || await question(
       rl,
@@ -129,7 +184,7 @@ async function resolveOptions(args) {
 
     return {
       tools: normalizeList(toolsAnswer || TOOL_NAMES.join(","), TOOL_NAMES, TOOL_NAMES),
-      project: normalizeChoice(projectAnswer || "generic", PROJECT_TYPES, "generic"),
+      project: normalizeChoice(projectAnswer || detected, PROJECT_TYPES, detected),
       strictness: normalizeChoice(strictnessAnswer || "standard", STRICTNESS, "standard")
     };
   } finally {
@@ -195,6 +250,16 @@ function stackNotes(project) {
       "Run `go fmt` for touched Go files.",
       "Follow existing error-handling and context propagation patterns.",
       "Check concurrency and cancellation behavior for long-running work."
+    ],
+    rust: [
+      "Run `cargo check`, `cargo test`, and `cargo clippy` on touched crates.",
+      "Preserve module hierarchies, explicit error handling, and ownership semantics.",
+      "Avoid unwrap/expect in production code paths without strong invariants."
+    ],
+    bun: [
+      "Use `bun test` and `bun run` conventions.",
+      "Verify Bun built-in APIs and compatibility boundaries.",
+      "Keep TypeScript configuration aligned with Bun runtime."
     ],
     "react-native": [
       "Inspect navigation, state management, platform-specific files, and styling conventions before editing.",
@@ -535,6 +600,65 @@ ${joinBullets(stackNotes(options.project))}
 `;
   }
 
+  if (options.tools.includes("windsurf")) {
+    files[".windsurfrules"] = `# Windsurf Cascade Instructions
+
+Follow PUDO as the default development loop: Plan -> Understand -> Develop -> Optimize.
+
+## Mode
+
+${joinBullets(modeRules(options.strictness))}
+
+## Project Notes
+
+${joinBullets(stackNotes(options.project))}
+
+## Cascade Rules
+
+- Plan before editing: state the objective, file scope, and verification steps.
+- Inspect relevant codebase files before modifying them.
+- Make targeted, reviewable diffs rather than entire file rewrites.
+- Run tests and linters to verify changes before presenting to the user.
+- Document any active session state in .pudo/session.md.
+
+## Release & Package Quality
+
+- Maintain npm package release-readiness and stability.
+- Work on a dedicated feature branch.
+- Stage and commit files individually using Conventional Commits.
+- Determine SemVer using release/VERSIONING.md and update CHANGELOG.md.
+`;
+  }
+
+  if (options.tools.includes("roo")) {
+    files[".clinerules"] = `# Roo Code / Cline Custom Instructions
+
+Adhere strictly to the PUDO cycle: Plan -> Understand -> Develop -> Optimize.
+
+## Mode
+
+${joinBullets(modeRules(options.strictness))}
+
+## Project Notes
+
+${joinBullets(stackNotes(options.project))}
+
+## Roo Rules
+
+- In Architect/Plan mode: outline scope, constraints, and non-goals.
+- In Code/Develop mode: keep patches scoped, do not invent APIs or configs.
+- In Test/Optimize mode: run test suite and verify quality gates.
+- Always preserve handoff context in .pudo/session.md when switching modes or tasks.
+
+## Release & Package Quality
+
+- Maintain npm package release-readiness and stability.
+- Work on a dedicated feature branch.
+- Stage and commit files individually using Conventional Commits.
+- Determine SemVer using release/VERSIONING.md and update CHANGELOG.md.
+`;
+  }
+
   files[".github/pull_request_template.md"] = `## PUDO Phase Summary
 
 ### Plan
@@ -656,7 +780,9 @@ function evaluateProject() {
     ".github/copilot-instructions.md",
     "GEMINI.md",
     "opencode/opencode.md",
-    "kiro/system-prompt.md"
+    "kiro/system-prompt.md",
+    ".windsurfrules",
+    ".clinerules"
   ];
 
   const checks = [
@@ -697,7 +823,7 @@ function runCheck(options = {}) {
   if (options.json) {
     const report = {
       schema_version: "1.0",
-      pudo_version: "1.3.2",
+      pudo_version: "1.4.0",
       command: "check",
       passed: failures.length === 0,
       total: checks.length,
@@ -912,7 +1038,7 @@ function evaluateScore() {
 
   return {
     schema_version: "1.0",
-    pudo_version: "1.3.2",
+    pudo_version: "1.4.0",
     mode,
     score,
     max_score: maxScore,
@@ -1010,7 +1136,7 @@ function runDoctor(options = {}) {
   if (options.json) {
     const report = {
       schema_version: "1.0",
-      pudo_version: "1.3.2",
+      pudo_version: "1.4.0",
       command: "doctor",
       healthy: !findings.some((f) => f.severity === "WARN"),
       total_findings: findings.length,
@@ -1041,7 +1167,7 @@ function runLint(options = {}) {
   if (options.json) {
     const output = {
       schema_version: "1.0",
-      pudo_version: "1.3.2",
+      pudo_version: "1.4.0",
       command: "lint",
       ...report
     };
@@ -1123,6 +1249,7 @@ module.exports = {
   TOOL_NAMES,
   PROJECT_TYPES,
   STRICTNESS,
+  detectProject,
   parseArgs,
   normalizeList,
   normalizeChoice,

@@ -8,6 +8,7 @@ const { execFileSync } = require("node:child_process");
 const {
   parseArgs,
   resolveOptions,
+  detectProject,
   templates,
   writeFiles,
   evaluateProject,
@@ -87,9 +88,48 @@ test("resolveOptions falls back for invalid tool, project, and strictness", asyn
 
   const options = await resolveOptions(args);
 
-  assert.deepEqual(options.tools, ["cursor", "claude", "codex", "copilot", "gemini", "opencode", "kiro"]);
+  assert.deepEqual(options.tools, ["cursor", "claude", "codex", "copilot", "gemini", "opencode", "kiro", "windsurf", "roo"]);
   assert.equal(options.project, "generic");
   assert.equal(options.strictness, "standard");
+});
+
+test("detectProject detects various stacks accurately", () => withTempDir((dir) => {
+  assert.equal(detectProject(dir), "generic");
+
+  fs.writeFileSync(path.join(dir, "next.config.js"), "module.exports = {};", "utf8");
+  assert.equal(detectProject(dir), "nextjs");
+  fs.unlinkSync(path.join(dir, "next.config.js"));
+
+  fs.writeFileSync(path.join(dir, "vite.config.ts"), "export default {};", "utf8");
+  assert.equal(detectProject(dir), "react-vite");
+  fs.unlinkSync(path.join(dir, "vite.config.ts"));
+
+  fs.writeFileSync(path.join(dir, "Cargo.toml"), "[package]\nname = 'demo'", "utf8");
+  assert.equal(detectProject(dir), "rust");
+  fs.unlinkSync(path.join(dir, "Cargo.toml"));
+
+  fs.writeFileSync(path.join(dir, "bunfig.toml"), "", "utf8");
+  assert.equal(detectProject(dir), "bun");
+  fs.unlinkSync(path.join(dir, "bunfig.toml"));
+
+  fs.writeFileSync(path.join(dir, "go.mod"), "module demo\ngo 1.22", "utf8");
+  assert.equal(detectProject(dir), "go-api");
+  fs.unlinkSync(path.join(dir, "go.mod"));
+}));
+
+test("templates creates Windsurf and Roo instructions", () => {
+  const files = templates({
+    tools: ["windsurf", "roo"],
+    project: "rust",
+    strictness: "standard"
+  });
+
+  assert.ok(files[".windsurfrules"]);
+  assert.ok(files[".clinerules"]);
+  assert.match(files[".windsurfrules"], /# Windsurf Cascade Instructions/);
+  assert.match(files[".windsurfrules"], /cargo clippy/);
+  assert.match(files[".clinerules"], /# Roo Code \/ Cline Custom Instructions/);
+  assert.match(files[".clinerules"], /cargo clippy/);
 });
 
 test("templates creates Codex AGENTS.md", () => {
@@ -176,7 +216,7 @@ test("evaluateScore returns evidence-based rubric categories", () => {
   const report = evaluateScore();
 
   assert.equal(report.schema_version, "1.0");
-  assert.equal(report.pudo_version, "1.3.2");
+  assert.equal(report.pudo_version, "1.4.0");
   assert.equal(report.max_score, 100);
   assert.equal(typeof report.score, "number");
   assert.ok(report.categories.agent_rules.evidence.length > 0);

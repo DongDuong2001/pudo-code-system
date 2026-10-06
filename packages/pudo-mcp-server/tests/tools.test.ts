@@ -146,6 +146,30 @@ test("stdio server exposes the expected PUDO tools", async () => {
       "pudo.updateSessionHandoff",
       "pudo.validateAgentRules"
     ]);
+
+    const prompts = await client.listPrompts();
+    const promptNames = prompts.prompts.map((p) => p.name).sort();
+    assert.deepEqual(promptNames, [
+      "pudo-init",
+      "pudo-optimize",
+      "pudo-plan"
+    ]);
+
+    const initPrompt = await client.getPrompt({ name: "pudo-init", arguments: {} });
+    assert.ok(initPrompt.messages.length > 0);
+    assert.match((initPrompt.messages[0].content as { type: "text"; text: string }).text, /PUDO Operating Layer/);
+
+    const resources = await client.listResources();
+    const resourceUris = resources.resources.map((r) => r.uri).sort();
+    assert.deepEqual(resourceUris, [
+      "pudo://playbooks/catalog",
+      "pudo://rules/current",
+      "pudo://session/handoff"
+    ]);
+
+    const catalog = await client.readResource({ uri: "pudo://playbooks/catalog" });
+    assert.ok(catalog.contents.length > 0);
+    assert.match((catalog.contents[0] as { text: string }).text, /playbooks/);
   } finally {
     await client.close();
   }
