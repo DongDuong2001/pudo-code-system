@@ -12,6 +12,8 @@ import { registerInitTools } from "../tools/pudo_init.js";
 import { registerQualityGateTools } from "../tools/pudo_quality_gate.js";
 import { registerScoreTools } from "../tools/pudo_score.js";
 import { registerSessionTools } from "../tools/pudo_session.js";
+import { registerPrompts } from "../tools/pudo_prompts.js";
+import { registerResources } from "../tools/pudo_resources.js";
 import { resolveProjectRoot } from "../tools/core.js";
 
 const packageRoot = join(dirname(fileURLToPath(import.meta.url)), "..", "..");
@@ -34,6 +36,8 @@ registerDoctorTools(server);
 registerContextPackTools(server);
 registerQualityGateTools(server);
 registerSessionTools(server);
+registerPrompts(server);
+registerResources(server);
 
 const transport = new StdioServerTransport();
 await server.connect(transport);
