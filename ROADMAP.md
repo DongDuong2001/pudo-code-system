@@ -18,26 +18,26 @@ Focus: stability, completeness, and team adoption.
 | Publishable MCP server package with client config examples | ✅ Shipped |
 | Claude Fable 5 support (1M context window, long-running tasks) | ✅ Shipped |
 | Additional measured case studies | 🔄 In progress |
-| `docs/getting-started.md` first-steps guide | 🔄 In progress |
-| `docs/architecture.md` with system diagrams | 🔄 In progress |
+| `docs/getting-started.md` first-steps guide | ✅ Shipped |
+| `docs/architecture.md` with system diagrams | ✅ Shipped |
 | Expanded FAQ (team handoff, enterprise patterns) | Planned |
 | `SUPPORT.md` community channels | ✅ Shipped |
 
 ---
 
-## Mid-Term — v1.4
+## Mid-Term — v1.4 (Current)
 
-Focus: agent interoperability and broader ecosystem reach.
+Focus: agent interoperability, modern AI coding tools, and broader ecosystem reach.
 
-| Item | Notes |
-| --- | --- |
-| MCP remote transport and authentication guidance | Enables hosted / cloud-based agent use |
-| Stack recipes with command detection | Auto-detect Next.js, FastAPI, Go, etc. |
-| OpenAI Agents, LangGraph, and other framework adapters | Expand beyond coding-agent toolchains |
-| Automated release workflow (version bump → publish) | Reduce manual release risk |
-| Multi-version Node.js CI matrix (20.x, 22.x) | Catch compatibility regressions earlier |
-| npm public registry publish for MCP server | Improve discoverability (`npm install @pudo/mcp-server`) |
-| Dependency audit CI step (`npm audit`) | Supply chain safety in every PR |
+| Item | Status | Notes |
+| --- | --- | --- |
+| Interactive MCP Prompts & Resources | ✅ Shipped | `pudo-init`, `pudo-plan`, `pudo-optimize` prompt wizards |
+| Stack recipes with auto-detection | ✅ Shipped | Auto-detect Next.js, Vite, FastAPI, Django, Go, Rust, Bun |
+| Modern AI tool adapters (Windsurf, Roo Code) | ✅ Shipped | Generated `.windsurfrules` and `.clinerules` |
+| AI Engineering Playbooks | ✅ Shipped | LLM App Architecture and Multi-Agent Orchestration |
+| Multi-version Node.js CI matrix (20.x, 22.x) | ✅ Shipped | Verified across LTS versions in CI |
+| Automated release workflow (version bump → publish) | Planned | GitHub Actions release pipeline |
+| Dependency audit CI step (`npm audit`) | Planned | Supply chain safety in every PR |
 
 ---
 
