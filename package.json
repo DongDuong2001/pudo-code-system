@@ -51,7 +51,9 @@
     "pudo:score": "node bin/pudo.js score",
     "pudo:doctor": "node bin/pudo.js doctor",
     "mcp:build": "npm run build --prefix packages/pudo-mcp-server",
-    "mcp:test": "npm test --prefix packages/pudo-mcp-server"
+    "mcp:test": "npm test --prefix packages/pudo-mcp-server",
+    "web:dev": "npm run dev --prefix apps/web",
+    "web:build": "npm run build --prefix apps/web"
   },
   "publishConfig": {
     "access": "public",
