@@ -75,6 +75,8 @@ jobs:
         run: |
           VERSION=$(node -p "require('./package.json').version")
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          # Prereleases (e.g. 0.3.0-alpha.2) go to the "alpha" dist-tag so @latest stays stable and @alpha stays current.
+          if [[ "$VERSION" == *-* ]]; then echo "tag=alpha" >> "$GITHUB_OUTPUT"; else echo "tag=latest" >> "$GITHUB_OUTPUT"; fi
           echo "Publishing version: $VERSION"
 
       # ── Publish to GitHub Packages ────────────────────────────────────────
@@ -100,7 +102,7 @@ jobs:
 
       - name: Publish to GitHub Packages
         if: ${{ github.event.inputs.dry_run != 'true' && steps.gh_pkg.outputs.already_published != 'true' }}
-        run: npm publish
+        run: npm publish --tag "${{ steps.pkg.outputs.tag }}"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -128,7 +130,7 @@ jobs:
             exit 0
           fi
           npm pkg delete publishConfig
-          npm publish --access public
+          npm publish --access public --tag "${{ steps.pkg.outputs.tag }}"
           echo "npm_result=published" >> "$GITHUB_ENV"
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
