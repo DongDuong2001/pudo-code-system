@@ -3,10 +3,12 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Terminal, Shield, ArrowRight, CheckCircle2, Copy, Check, Sparkles, Play, Cpu } from "lucide-react";
+import { localePath, type Locale } from "@/lib/i18n/config";
+import type { Dictionary } from "@/lib/i18n/en";
 
 type TerminalTab = "init" | "check" | "score";
 
-export function Hero() {
+export function Hero({ locale, t }: { locale: Locale; t: Dictionary["hero"] }) {
   const [activeTab, setActiveTab] = useState<TerminalTab>("init");
   const [copied, setCopied] = useState(false);
 
@@ -72,9 +74,9 @@ export function Hero() {
         <div className="flex justify-center mb-6">
           <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-zinc-900/90 px-3.5 py-1 text-xs text-zinc-300 shadow-inner">
             <span className="flex h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="font-mono text-zinc-400">Release v1.4.0</span>
+            <span className="font-mono text-zinc-400">{t.release}</span>
             <span className="text-zinc-600">•</span>
-            <span>Interactive MCP Prompts & Multi-Agent Mesh</span>
+            <span>{t.announcement}</span>
             <ArrowRight className="h-3 w-3 text-zinc-400" />
           </div>
         </div>
@@ -82,14 +84,13 @@ export function Hero() {
         {/* Main Title & Subtitle */}
         <div className="mx-auto max-w-4xl text-center">
           <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-6xl sm:leading-[1.1]">
-            The Operating Layer for{" "}
+            {t.titleLead}{" "}
             <span className="bg-gradient-to-r from-zinc-100 via-zinc-300 to-zinc-400 bg-clip-text text-transparent">
-              AI Coding Agents
+              {t.titleAccent}
             </span>
           </h1>
           <p className="mt-6 text-lg sm:text-xl text-zinc-400 leading-relaxed max-w-2xl mx-auto">
-            Standardize coding workflows across Claude, Cursor, Windsurf, Roo, and Codex.
-            Enforce architectural invariants, context handoffs, and evidence-based repository readiness.
+            {t.subtitle}
           </p>
 
           {/* Call to Actions */}
@@ -99,20 +100,20 @@ export function Hero() {
               className="inline-flex items-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-semibold text-black hover:bg-zinc-200 transition-colors shadow-sm"
             >
               <Cpu className="h-4 w-4" />
-              Generate Agent Rules
+              {t.ctaGenerate}
             </Link>
             <Link
               href="#mcp"
               className="inline-flex items-center gap-2 rounded-lg border border-white/15 bg-zinc-900/80 px-5 py-3 text-sm font-semibold text-zinc-200 hover:border-zinc-600 hover:text-white transition-colors"
             >
               <Terminal className="h-4 w-4 text-emerald-400" />
-              Setup MCP Server
+              {t.ctaMcp}
             </Link>
             <Link
-              href="/docs"
+              href={localePath(locale, "/docs")}
               className="inline-flex items-center gap-2 rounded-lg px-4 py-3 text-sm font-medium text-zinc-400 hover:text-white transition-colors"
             >
-              Read Playbooks
+              {t.ctaPlaybooks}
               <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -149,10 +150,10 @@ export function Hero() {
               <button
                 onClick={handleCopyCommand}
                 className="flex items-center gap-1.5 rounded px-2 py-1 text-xs font-mono text-zinc-400 hover:bg-zinc-800 hover:text-white transition-colors"
-                title="Copy active command"
+                title={t.copyTitle}
               >
                 {copied ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
-                <span className="hidden sm:inline">Copy Command</span>
+                <span className="hidden sm:inline">{t.copyCommand}</span>
               </button>
             </div>
 

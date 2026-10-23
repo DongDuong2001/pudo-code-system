@@ -3,15 +3,16 @@
 import { useState, useMemo } from "react";
 import { Copy, Check, Download, Terminal, Sliders, CheckCircle2, FileText, Code } from "lucide-react";
 import { generateRuleTemplate, RuleGeneratorOptions } from "@/lib/data/rules-templates";
+import type { Dictionary } from "@/lib/i18n/en";
 
 const FRAMEWORKS = [
-  { id: "next", label: "Next.js", desc: "React Server Components, App Router" },
-  { id: "react", label: "React + Vite", desc: "SPA, client state, hooks" },
-  { id: "fastapi", label: "FastAPI", desc: "Async Python, Pydantic v2" },
-  { id: "django", label: "Django", desc: "Python, ORM, fat models" },
-  { id: "go", label: "Go", desc: "cmd/, internal/, standard layout" },
-  { id: "rust", label: "Rust", desc: "Cargo, zero-cost, clippy checks" },
-  { id: "bun", label: "Bun", desc: "High-speed runtime, bun:test" },
+  { id: "next", label: "Next.js" },
+  { id: "react", label: "React + Vite" },
+  { id: "fastapi", label: "FastAPI" },
+  { id: "django", label: "Django" },
+  { id: "go", label: "Go" },
+  { id: "rust", label: "Rust" },
+  { id: "bun", label: "Bun" },
 ] as const;
 
 const TOOLS = [
@@ -23,7 +24,7 @@ const TOOLS = [
   { id: "gemini", label: "Gemini", file: "GEMINI.md", tag: "Antigravity / CLI" },
 ] as const;
 
-export function ConfigGenerator() {
+export function ConfigGenerator({ t }: { t: Dictionary["generator"] }) {
   const [project, setProject] = useState<RuleGeneratorOptions["project"]>("next");
   const [tool, setTool] = useState<RuleGeneratorOptions["tool"]>("cursor");
   const [strictness, setStrictness] = useState<RuleGeneratorOptions["strictness"]>("standard");
@@ -68,14 +69,13 @@ export function ConfigGenerator() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
           <h2 className="text-xs font-mono font-semibold uppercase tracking-wider text-emerald-400">
-            Interactive Rule Generator
+            {t.eyebrow}
           </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Configure Agent Rules for Your Stack
+            {t.title}
           </p>
           <p className="mt-4 text-base text-zinc-400 leading-relaxed">
-            Select your technology stack and target AI coding editor. Copy the generated rule file or download it
-            directly into your repository root.
+            {t.intro}
           </p>
         </div>
 
@@ -85,7 +85,7 @@ export function ConfigGenerator() {
             {/* 1. Target AI Tool */}
             <div>
               <label className="block text-xs font-mono font-semibold uppercase text-zinc-300 tracking-wider mb-2.5">
-                1. Target AI Coding Tool
+                {t.toolLabel}
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
                 {TOOLS.map((t) => (
@@ -108,7 +108,7 @@ export function ConfigGenerator() {
             {/* 2. Target Framework */}
             <div>
               <label className="block text-xs font-mono font-semibold uppercase text-zinc-300 tracking-wider mb-2.5">
-                2. Project Stack
+                {t.stackLabel}
               </label>
               <div className="grid grid-cols-2 gap-2">
                 {FRAMEWORKS.map((f) => (
@@ -122,7 +122,7 @@ export function ConfigGenerator() {
                     }`}
                   >
                     <span className="text-xs font-semibold">{f.label}</span>
-                    <span className="text-[10px] text-zinc-500 truncate">{f.desc}</span>
+                    <span className="text-[10px] text-zinc-500 truncate">{t.frameworks[f.id]}</span>
                   </button>
                 ))}
               </div>
@@ -131,7 +131,7 @@ export function ConfigGenerator() {
             {/* 3. Strictness Mode */}
             <div>
               <label className="block text-xs font-mono font-semibold uppercase text-zinc-300 tracking-wider mb-2.5">
-                3. Enforcement Mode
+                {t.modeLabel}
               </label>
               <div className="grid grid-cols-2 gap-2">
                 <button
@@ -142,8 +142,8 @@ export function ConfigGenerator() {
                       : "border-white/[0.08] bg-zinc-950/60 text-zinc-400 hover:border-zinc-700"
                   }`}
                 >
-                  <div className="text-xs font-semibold">Standard</div>
-                  <div className="text-[10px] text-zinc-500">PUDO workflow + safety gates</div>
+                  <div className="text-xs font-semibold">{t.standard}</div>
+                  <div className="text-[10px] text-zinc-500">{t.standardDesc}</div>
                 </button>
                 <button
                   onClick={() => setStrictness("strict")}
@@ -153,8 +153,8 @@ export function ConfigGenerator() {
                       : "border-white/[0.08] bg-zinc-950/60 text-zinc-400 hover:border-zinc-700"
                   }`}
                 >
-                  <div className="text-xs font-semibold">Strict</div>
-                  <div className="text-[10px] text-zinc-500">Mandatory approval on migrations & commands</div>
+                  <div className="text-xs font-semibold">{t.strict}</div>
+                  <div className="text-[10px] text-zinc-500">{t.strictDesc}</div>
                 </button>
               </div>
             </div>
@@ -164,14 +164,14 @@ export function ConfigGenerator() {
               <div className="flex items-center justify-between text-xs text-zinc-400">
                 <span className="flex items-center gap-1.5 font-mono">
                   <Terminal className="h-3.5 w-3.5 text-emerald-400" />
-                  <span>One-Liner CLI Equivalent</span>
+                  <span>{t.cliLabel}</span>
                 </span>
                 <button
                   onClick={handleCopyCli}
                   className="flex items-center gap-1 text-[11px] font-mono text-zinc-400 hover:text-white transition-colors"
                 >
                   {copiedCli ? <Check className="h-3 w-3 text-emerald-400" /> : <Copy className="h-3 w-3" />}
-                  <span>Copy</span>
+                  <span>{t.copy}</span>
                 </button>
               </div>
               <div className="font-mono text-xs text-emerald-300 bg-zinc-900/90 rounded p-2 overflow-x-auto whitespace-nowrap">
@@ -201,12 +201,12 @@ export function ConfigGenerator() {
                     {copiedFile ? (
                       <>
                         <Check className="h-3.5 w-3.5 text-emerald-400" />
-                        <span className="text-emerald-400">Copied!</span>
+                        <span className="text-emerald-400">{t.copied}</span>
                       </>
                     ) : (
                       <>
                         <Copy className="h-3.5 w-3.5" />
-                        <span>Copy Code</span>
+                        <span>{t.copyCode}</span>
                       </>
                     )}
                   </button>
@@ -214,10 +214,10 @@ export function ConfigGenerator() {
                   <button
                     onClick={handleDownload}
                     className="flex items-center gap-1.5 rounded border border-white/10 bg-zinc-900 px-2.5 py-1 text-xs font-mono text-zinc-300 hover:border-zinc-600 hover:text-white transition-colors"
-                    title="Download file directly"
+                    title={t.downloadTitle}
                   >
                     <Download className="h-3.5 w-3.5" />
-                    <span>Download</span>
+                    <span>{t.download}</span>
                   </button>
                 </div>
               </div>
@@ -230,7 +230,7 @@ export function ConfigGenerator() {
               {/* Footer Info */}
               <div className="border-t border-white/[0.08] bg-zinc-950 px-4 py-2 text-[11px] font-mono text-zinc-500 flex justify-between items-center">
                 <span>{ruleResult.description}</span>
-                <span className="text-emerald-400">Ready to save</span>
+                <span className="text-emerald-400">{t.ready}</span>
               </div>
             </div>
           </div>
