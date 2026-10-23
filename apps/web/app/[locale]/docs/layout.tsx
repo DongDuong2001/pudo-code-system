@@ -3,17 +3,34 @@ import { Footer } from "@/components/Footer";
 import Link from "next/link";
 import { BookOpen, Compass, Cpu, Database, ChevronRight } from "lucide-react";
 import { DOC_ARTICLES } from "@/lib/data/playbooks";
+import { SITE_URL, getDictionary, languageAlternates, localePath, type Locale } from "@/lib/i18n";
+import type { Metadata } from "next";
 
-export default function DocsLayout({
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const locale = (await params).locale as Locale;
+  const t = getDictionary(locale).meta;
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: t.docsTitle,
+    description: t.docsDescription,
+    alternates: { canonical: localePath(locale, "/docs"), languages: languageAlternates("/docs") },
+  };
+}
+
+export default async function DocsLayout({
   children,
+  params,
 }: {
   children: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }) {
+  const locale = (await params).locale as Locale;
+  const t = getDictionary(locale);
   const categories = ["Getting Started", "AI Engineering", "DevOS System Architecture"] as const;
 
   return (
     <div className="flex min-h-screen flex-col bg-[#09090b]">
-      <Navbar />
+      <Navbar locale={locale} t={t.nav} />
 
       <div className="flex-1 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 py-8 md:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
@@ -22,7 +39,7 @@ export default function DocsLayout({
             <div className="flex items-center gap-2 mb-4 pb-3 border-b border-white/[0.06]">
               <BookOpen className="h-4 w-4 text-emerald-400" />
               <span className="text-xs font-mono font-semibold uppercase tracking-wider text-white">
-                Documentation
+                {t.docs.sidebar}
               </span>
             </div>
 
@@ -32,13 +49,13 @@ export default function DocsLayout({
                 return (
                   <div key={cat}>
                     <div className="font-mono text-[11px] font-semibold text-zinc-400 uppercase tracking-wider mb-2">
-                      {cat}
+                      {t.docs.categories[cat]}
                     </div>
                     <ul className="space-y-1">
                       {articles.map((art) => (
                         <li key={art.slug}>
                           <Link
-                            href={`/docs/${art.slug}`}
+                            href={localePath(locale, `/docs/${art.slug}`)}
                             className="block rounded px-2.5 py-1.5 text-zinc-400 hover:bg-zinc-900 hover:text-white transition-colors"
                           >
                             {art.title}
@@ -59,7 +76,7 @@ export default function DocsLayout({
         </div>
       </div>
 
-      <Footer />
+      <Footer locale={locale} t={t.footer} />
     </div>
   );
 }
