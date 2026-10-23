@@ -55,7 +55,7 @@ export function createContextPack(input: {
     }
 
     const selected = bytes > remaining
-      ? Buffer.from(content).subarray(0, remaining).toString("utf8")
+      ? Buffer.from(content).subarray(0, remaining).toString("utf8").replace(/�+$/, "")
       : content;
     sections.push(`## ${relativePath}`, "", "```text", selected.trimEnd(), "```", "");
     included.push(relativePath);
