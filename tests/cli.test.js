@@ -191,6 +191,10 @@ test("writeFiles force overwrites existing files", () => withTempDir(() => {
   assert.equal(fs.readFileSync("AGENTS.md", "utf8"), "new\n");
 }));
 
+test("writeFiles refuses paths outside the project", () => withTempDir(() => {
+  assert.throws(() => writeFiles({ "../escape.md": "x\n" }, { dryRun: false, force: false }), /escapes/);
+}));
+
 test("init fixture creates expected project files", async () => withTempDir(async () => {
   const options = await resolveOptions(parseArgs([
     "init",
