@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { execFileSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
@@ -93,6 +94,18 @@ test("quality gate fails on an unfilled session template", () => withTempProject
     "utf8"
   );
   assert.equal(runQualityGate("plan").passed, true);
+}));
+
+test("develop gate needs tests to change alongside code", () => withTempProject((dir) => {
+  execFileSync("git", ["init", "-q"], { cwd: dir });
+  fs.mkdirSync("src");
+  fs.writeFileSync(path.join("src", "login.ts"), "export {};\n", "utf8");
+  const gitCheck = () => runQualityGate("develop").checks.find((check) => check.requirement.startsWith("tests changed"));
+  assert.equal(gitCheck()?.pass, false);
+
+  fs.mkdirSync("tests");
+  fs.writeFileSync(path.join("tests", "login.test.ts"), "export {};\n", "utf8");
+  assert.equal(gitCheck()?.pass, true);
 }));
 
 test("isSensitivePath matches whole path segments", () => {
