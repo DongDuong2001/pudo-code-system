@@ -702,6 +702,10 @@ function writeFiles(files, args) {
 
   for (const [relativePath, content] of Object.entries(files)) {
     const target = path.resolve(process.cwd(), relativePath);
+    const relative = path.relative(process.cwd(), target);
+    if (relative.startsWith("..") || path.isAbsolute(relative)) {
+      throw new Error(`Path escapes project root: ${relativePath}`);
+    }
     const exists = fs.existsSync(target);
 
     if (args.dryRun) {
