@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Terminal, Copy, Check, Sparkles, BookOpen, Layers, ShieldCheck, Box } from "lucide-react";
+import type { Dictionary } from "@/lib/i18n/en";
 
 type EditorTab = "claude" | "cursor" | "windsurf" | "stdio";
 
@@ -54,11 +55,13 @@ PUDO_PACKAGE_ROOT=/path/to/repo npx @dongduong2001/mcp-server`,
   },
 };
 
-export function McpHub() {
+export function McpHub({ t }: { t: Dictionary["mcp"] }) {
   const [activeEditor, setActiveEditor] = useState<EditorTab>("claude");
   const [copied, setCopied] = useState(false);
 
-  const current = CONFIGS[activeEditor];
+  const stdio = { title: t.stdioTitle, filename: t.stdioFile, path: t.stdioPath };
+  const configFor = (tab: EditorTab) => (tab === "stdio" ? { ...CONFIGS.stdio, ...stdio } : CONFIGS[tab]);
+  const current = configFor(activeEditor);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(current.json);
@@ -71,14 +74,13 @@ export function McpHub() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl">
           <h2 className="text-xs font-mono font-semibold uppercase tracking-wider text-emerald-400">
-            Model Context Protocol
+            {t.eyebrow}
           </h2>
           <p className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">
-            Plug PUDO Directly into Your AI Agent
+            {t.title}
           </p>
           <p className="mt-4 text-base text-zinc-400 leading-relaxed">
-            Give Claude Desktop, Cursor, and Windsurf access to your repository&apos;s architectural invariants,
-            playbook catalog, quality gate runners, and live context handoffs.
+            {t.intro}
           </p>
         </div>
 
@@ -100,7 +102,7 @@ export function McpHub() {
                           : "text-zinc-500 hover:text-zinc-300"
                       }`}
                     >
-                      {CONFIGS[tab].title}
+                      {configFor(tab).title}
                     </button>
                   ))}
                 </div>
@@ -112,12 +114,12 @@ export function McpHub() {
                   {copied ? (
                     <>
                       <Check className="h-3.5 w-3.5 text-emerald-400" />
-                      <span className="text-emerald-400">Copied</span>
+                      <span className="text-emerald-400">{t.copied}</span>
                     </>
                   ) : (
                     <>
                       <Copy className="h-3.5 w-3.5" />
-                      <span>Copy Config</span>
+                      <span>{t.copyConfig}</span>
                     </>
                   )}
                 </button>
@@ -126,13 +128,13 @@ export function McpHub() {
               {/* Code Box */}
               <div className="p-4 bg-zinc-950 font-mono text-xs leading-relaxed text-emerald-300">
                 <div className="text-[11px] text-zinc-500 mb-2 font-mono">
-                  # Target: {current.path}
+                  # {t.target}: {current.path}
                 </div>
                 <pre className="overflow-x-auto">{current.json}</pre>
               </div>
 
               <div className="border-t border-white/[0.08] bg-zinc-950/80 px-4 py-2.5 text-xs text-zinc-400 flex items-center justify-between">
-                <span>npm package: <code className="font-mono text-zinc-300">@dongduong2001/mcp-server</code></span>
+                <span>{t.npmPackage}: <code className="font-mono text-zinc-300">@dongduong2001/mcp-server</code></span>
                 <span className="text-emerald-400 font-mono text-[11px]">latest: 0.3.0-alpha.1</span>
               </div>
             </div>
@@ -144,20 +146,20 @@ export function McpHub() {
             <div className="rounded-xl border border-white/10 bg-zinc-950/80 p-4">
               <div className="flex items-center gap-2.5 text-white font-semibold text-sm">
                 <Sparkles className="h-4 w-4 text-emerald-400" />
-                <span>Interactive MCP Prompts</span>
+                <span>{t.promptsTitle}</span>
               </div>
               <p className="mt-1.5 text-xs text-zinc-400 leading-relaxed">
-                Slash commands in Claude or Cursor that guide developers through standardized workflows:
+                {t.promptsIntro}
               </p>
               <div className="mt-2.5 space-y-1.5 font-mono text-xs">
                 <div className="text-zinc-300 bg-zinc-900/60 rounded px-2 py-1">
-                  <span className="text-emerald-400">/pudo-init</span> — Interactive project rule setup
+                  <span className="text-emerald-400">/pudo-init</span> — {t.promptInit}
                 </div>
                 <div className="text-zinc-300 bg-zinc-900/60 rounded px-2 py-1">
-                  <span className="text-emerald-400">/pudo-plan</span> — Formulate scope & test strategies
+                  <span className="text-emerald-400">/pudo-plan</span> — {t.promptPlan}
                 </div>
                 <div className="text-zinc-300 bg-zinc-900/60 rounded px-2 py-1">
-                  <span className="text-emerald-400">/pudo-optimize</span> — Run quality gate checklists
+                  <span className="text-emerald-400">/pudo-optimize</span> — {t.promptOptimize}
                 </div>
               </div>
             </div>
@@ -166,20 +168,20 @@ export function McpHub() {
             <div className="rounded-xl border border-white/10 bg-zinc-950/80 p-4">
               <div className="flex items-center gap-2.5 text-white font-semibold text-sm">
                 <Box className="h-4 w-4 text-cyan-400" />
-                <span>MCP Protocol Resources</span>
+                <span>{t.resourcesTitle}</span>
               </div>
               <p className="mt-1.5 text-xs text-zinc-400 leading-relaxed">
-                Live context feeds for LLMs without flooding system prompt token limits:
+                {t.resourcesIntro}
               </p>
               <div className="mt-2.5 space-y-1.5 font-mono text-xs">
                 <div className="text-zinc-300 bg-zinc-900/60 rounded px-2 py-1 truncate">
-                  <span className="text-cyan-400">pudo://rules/current</span> — Active repo rule file
+                  <span className="text-cyan-400">pudo://rules/current</span> — {t.resourceRules}
                 </div>
                 <div className="text-zinc-300 bg-zinc-900/60 rounded px-2 py-1 truncate">
-                  <span className="text-cyan-400">pudo://session/handoff</span> — Active session state
+                  <span className="text-cyan-400">pudo://session/handoff</span> — {t.resourceSession}
                 </div>
                 <div className="text-zinc-300 bg-zinc-900/60 rounded px-2 py-1 truncate">
-                  <span className="text-cyan-400">pudo://playbooks/catalog</span> — Built-in playbooks
+                  <span className="text-cyan-400">pudo://playbooks/catalog</span> — {t.resourcePlaybooks}
                 </div>
               </div>
             </div>
