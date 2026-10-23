@@ -10,6 +10,7 @@ import { createContextPack } from "../tools/pudo_context_pack.js";
 import { initProject, getInitOptions, listPlaybooks, getPlaybook } from "../tools/pudo_init.js";
 import { runQualityGate } from "../tools/pudo_quality_gate.js";
 import { scoreRepoReadiness } from "../tools/pudo_score.js";
+import { findPudoPackageRoot, isSensitivePath } from "../tools/core.js";
 
 function findRepoRoot(start: string): string {
   let current = start;
@@ -60,6 +61,47 @@ test("initProject requires approval before writing", () => withTempProject(() =>
     /confirmWrite/
   );
 }));
+
+test("initProject without options does not write", () => withTempProject(() => {
+  const result = initProject({ tools: ["codex"] });
+
+  assert.equal(result.dry_run, true);
+  assert.equal(fs.existsSync("AGENTS.md"), false);
+}));
+
+test("bundled engine is found without PUDO_PACKAGE_ROOT", () => {
+  const previous = process.env.PUDO_PACKAGE_ROOT;
+  delete process.env.PUDO_PACKAGE_ROOT;
+
+  try {
+    const root = findPudoPackageRoot();
+    assert.ok(fs.existsSync(path.join(root, "src", "cli.js")));
+    assert.ok(fs.existsSync(path.join(root, "playbooks")));
+  } finally {
+    process.env.PUDO_PACKAGE_ROOT = previous;
+  }
+});
+
+test("quality gate fails on an unfilled session template", () => withTempProject(() => {
+  fs.mkdirSync(".pudo");
+  fs.copyFileSync(path.join(repoRoot, ".pudo", "session.md"), path.join(".pudo", "session.md"));
+  assert.equal(runQualityGate("plan").passed, false);
+
+  fs.writeFileSync(
+    path.join(".pudo", "session.md"),
+    "## Scope\n\nScope: add login. Success criteria: tests pass. Constraints: none. Out of scope: SSO.\n",
+    "utf8"
+  );
+  assert.equal(runQualityGate("plan").passed, true);
+}));
+
+test("isSensitivePath matches whole path segments", () => {
+  assert.equal(isSensitivePath(".env.local"), true);
+  assert.equal(isSensitivePath("config/secrets/key.txt"), true);
+  assert.equal(isSensitivePath("node_modules/x/index.js"), true);
+  assert.equal(isSensitivePath("src/rebuild/index.ts"), false);
+  assert.equal(isSensitivePath("docs/environment.md"), false);
+});
 
 test("context pack excludes sensitive paths", () => withTempProject(() => {
   fs.writeFileSync("README.md", "# Example\n", "utf8");
