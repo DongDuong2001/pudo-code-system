@@ -6,6 +6,25 @@ The format is inspired by Keep a Changelog and organized for practical repositor
 
 ## [Unreleased]
 
+## [1.4.1] - 2026-10-23 (MCP server 0.3.0-alpha.2)
+
+### Fixed
+
+- **MCP server works when installed from npm**: the build now bundles `src/cli.js` and `playbooks/` into `dist/pudo`. Before, every engine-backed tool failed with "Unable to locate the pudo-code-system package root".
+- **`pudo.initProject` previews by default again**: it writes only with `dryRun: false` and `confirmWrite: true`, as its description says. This reverts the auto-write default from 1.3.2.
+- **Quality gates check real evidence**: only `.pudo/session.md` (plus the release checklist for `release`) counts; headings, `...` placeholders and unticked boxes are ignored.
+- **Path safety**: `writeFiles` refuses paths outside the project, `resolveWithinRoot` follows symlinks, and the sensitive-path filter matches whole path segments.
+- Context pack no longer ends on a broken multi-byte character.
+- Prerelease publishes use the `alpha` dist-tag, so `npx @dongduong2001/mcp-server@alpha` gets the newest alpha.
+
+### Added
+
+- Claude Code plugin (`.claude-plugin/`) with a `/pudo` skill and the PUDO MCP server wired in.
+
+### Changed
+
+- The root npm package no longer ships the MCP server sources or `benchmarks/`; the MCP server is published separately.
+
 ## [1.4.0] - 2026-10-07
 
 ### Added
