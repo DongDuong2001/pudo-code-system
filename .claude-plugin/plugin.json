@@ -1,0 +1,17 @@
+{
+  "name": "pudo",
+  "version": "1.4.1",
+  "description": "PUDO workflow for Claude Code: Plan, Understand, Develop, Optimize with quality gates, session handoffs and the PUDO MCP tools.",
+  "author": {
+    "name": "Duong Phu Dong",
+    "url": "https://github.com/DongDuong2001"
+  },
+  "repository": "https://github.com/DongDuong2001/pudo-code-system",
+  "license": "MIT",
+  "mcpServers": {
+    "pudo": {
+      "command": "npx",
+      "args": ["-y", "@dongduong2001/mcp-server@latest"]
+    }
+  }
+}

@@ -30,7 +30,9 @@ export function resolveProjectRoot(): string {
 }
 
 export function resolveWithinRoot(root: string, relativePath: string): string {
-  const target = path.resolve(root, relativePath);
+  const resolved = path.resolve(root, relativePath);
+  // Resolve symlinks so a link inside the repo cannot point outside it.
+  const target = fs.existsSync(resolved) ? fs.realpathSync(resolved) : resolved;
   const relative = path.relative(root, target);
 
   if (relative.startsWith("..") || path.isAbsolute(relative)) {
@@ -51,24 +53,11 @@ export function findPudoPackageRoot(): string {
     return fs.realpathSync(path.resolve(process.env.PUDO_PACKAGE_ROOT));
   }
 
-  let current = path.dirname(fileURLToPath(import.meta.url));
-  while (true) {
-    const manifestPath = path.join(current, "package.json");
-    if (fs.existsSync(manifestPath)) {
-      try {
-        const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
-        if (manifest.name === "pudo-code-system") return current;
-      } catch {
-        // Continue walking until the root PUDO package is found.
-      }
-    }
+  // Written by scripts/bundle-engine.mjs at build time: dist/tools -> dist/pudo.
+  const bundled = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..", "pudo");
+  if (fs.existsSync(path.join(bundled, "src", "cli.js"))) return bundled;
 
-    const parent = path.dirname(current);
-    if (parent === current) break;
-    current = parent;
-  }
-
-  throw new Error("Unable to locate the pudo-code-system package root.");
+  throw new Error("Unable to locate the bundled PUDO engine. Rebuild with `npm run build`.");
 }
 
 export function loadPudoApi(): PudoApi {
@@ -85,14 +74,12 @@ export function jsonToolResult(data: Record<string, unknown>) {
 }
 
 export function isSensitivePath(relativePath: string): boolean {
-  const normalized = relativePath.replaceAll("\\", "/").toLowerCase();
-  return [
-    ".env",
-    "secrets",
-    "credentials",
-    ".git/",
-    "node_modules/",
-    "dist/",
-    "build/"
-  ].some((blocked) => normalized === blocked || normalized.includes(blocked));
+  const segments = relativePath.replaceAll("\\", "/").toLowerCase().split("/");
+  return segments.some((segment) =>
+    segment === ".env" ||
+    segment.startsWith(".env.") ||
+    segment.includes("secret") ||
+    segment.includes("credentials") ||
+    [".git", "node_modules", "dist", "build"].includes(segment)
+  );
 }
