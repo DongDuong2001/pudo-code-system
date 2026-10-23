@@ -1,13 +1,13 @@
 {
   "name": "@dongduong2001/mcp-server",
-  "version": "0.3.0-alpha.1",
+  "version": "0.3.0-alpha.2",
   "description": "Local stdio MCP server for PUDO project setup, quality gates, context packs, and readiness scoring.",
   "type": "module",
   "bin": {
     "pudo-mcp-server": "dist/src/server.js"
   },
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && node scripts/bundle-engine.mjs",
     "test": "npm run build && node --test dist/tests/*.test.js",
     "prepack": "npm run build"
   },
