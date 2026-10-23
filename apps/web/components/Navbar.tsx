@@ -2,9 +2,16 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Terminal, Copy, Check, Github, ExternalLink, BookOpen, Layers, ShieldCheck, Sparkles } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { Terminal, Copy, Check, Github, ExternalLink, BookOpen, Layers, ShieldCheck, Sparkles, Languages } from "lucide-react";
+import { LOCALES, LOCALE_NAMES, localePath, stripLocale, type Locale } from "@/lib/i18n/config";
+import type { Dictionary } from "@/lib/i18n/en";
 
-export function Navbar() {
+export function Navbar({ locale, t }: { locale: Locale; t: Dictionary["nav"] }) {
+  const pathname = usePathname();
+  const router = useRouter();
+  const home = localePath(locale, "/");
+  const docs = localePath(locale, "/docs");
   const [copied, setCopied] = useState(false);
   const command = "npx @dongduong2001/pudo-code-system init";
 
@@ -19,7 +26,7 @@ export function Navbar() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo & Version */}
         <div className="flex items-center gap-3">
-          <Link href="/" className="flex items-center gap-2 group">
+          <Link href={home} className="flex items-center gap-2 group">
             <div className="flex h-8 w-8 items-center justify-center rounded-md border border-white/10 bg-zinc-900 group-hover:border-zinc-700 transition-colors">
               <span className="font-mono text-sm font-bold text-white tracking-tighter">PD</span>
             </div>
@@ -36,21 +43,21 @@ export function Navbar() {
 
         {/* Desktop Nav Links */}
         <nav className="hidden md:flex items-center gap-6 text-sm text-zinc-400">
-          <Link href="#workflow" className="hover:text-white transition-colors">
-            Workflow
+          <Link href={`${home}#workflow`} className="hover:text-white transition-colors">
+            {t.workflow}
           </Link>
-          <Link href="#generator" className="hover:text-white transition-colors">
-            Rule Generator
+          <Link href={`${home}#generator`} className="hover:text-white transition-colors">
+            {t.generator}
           </Link>
-          <Link href="#mcp" className="hover:text-white transition-colors">
-            MCP Protocol
+          <Link href={`${home}#mcp`} className="hover:text-white transition-colors">
+            {t.mcp}
           </Link>
-          <Link href="#calculator" className="hover:text-white transition-colors">
-            Readiness Rubric
+          <Link href={`${home}#calculator`} className="hover:text-white transition-colors">
+            {t.calculator}
           </Link>
-          <Link href="/docs" className="flex items-center gap-1.5 text-zinc-200 hover:text-white transition-colors">
+          <Link href={docs} className="flex items-center gap-1.5 text-zinc-200 hover:text-white transition-colors">
             <BookOpen className="h-4 w-4 text-emerald-400" />
-            <span>Docs & Playbooks</span>
+            <span>{t.docs}</span>
           </Link>
         </nav>
 
@@ -59,7 +66,7 @@ export function Navbar() {
           <button
             onClick={handleCopy}
             className="hidden lg:flex items-center gap-2 rounded-md border border-white/10 bg-zinc-900/80 px-3 py-1.5 text-xs font-mono text-zinc-300 hover:border-zinc-700 hover:text-white transition-all"
-            title="Click to copy quickstart command"
+            title={t.copyTitle}
           >
             <Terminal className="h-3.5 w-3.5 text-emerald-400" />
             <span className="text-zinc-400">npx pudo init</span>
@@ -75,16 +82,32 @@ export function Navbar() {
             target="_blank"
             rel="noreferrer"
             className="flex items-center gap-1.5 rounded-md border border-white/10 bg-zinc-900 p-2 text-zinc-400 hover:border-zinc-700 hover:text-white transition-colors"
-            aria-label="GitHub Repository"
+            aria-label={t.github}
           >
             <Github className="h-4 w-4" />
           </a>
 
+          <label className="flex items-center gap-1.5 rounded-md border border-white/10 bg-zinc-900 px-2 py-1.5 text-xs text-zinc-300 hover:border-zinc-700">
+            <Languages className="h-3.5 w-3.5 text-emerald-400" aria-hidden />
+            <span className="sr-only">{t.language}</span>
+            <select
+              value={locale}
+              onChange={(e) => router.push(localePath(e.target.value as Locale, stripLocale(pathname)))}
+              className="bg-transparent text-xs text-zinc-300 focus:outline-none"
+            >
+              {LOCALES.map((l) => (
+                <option key={l} value={l} className="bg-zinc-900">
+                  {LOCALE_NAMES[l]}
+                </option>
+              ))}
+            </select>
+          </label>
+
           <Link
-            href="/docs"
+            href={docs}
             className="inline-flex items-center gap-1.5 rounded-md bg-white px-3 py-1.5 text-xs font-medium text-black hover:bg-zinc-200 transition-colors shadow-sm"
           >
-            Explore Docs
+            {t.exploreDocs}
           </Link>
         </div>
       </div>
