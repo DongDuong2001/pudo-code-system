@@ -6,6 +6,21 @@ The format is inspired by Keep a Changelog and organized for practical repositor
 
 ## [Unreleased]
 
+## [1.5.0] - 2026-10-23 (MCP server 0.4.0-alpha.1)
+
+### Added
+
+- **Enforced PUDO in Claude Code** via plugin hooks (`claude/plugin/hooks/`):
+  - SessionStart injects the PUDO core rules into every session.
+  - Stop blocks finishing once when code was edited after the last test or check command.
+  - PreCompact writes `.pudo/auto-handoff.md`; SessionStart reloads it after compaction.
+- Skills `/pudo:pudo-plan`, `/pudo:pudo-review` and `/pudo:pudo-handoff`.
+- `pudo.runQualityGate` `develop` gate checks git: code changes must come with test changes. Results include `changed_files`.
+
+### Changed
+
+- The Claude plugin moved to `claude/plugin/`, so it no longer loads `agents/README.md` or the older frontmatter-less skills.
+
 ## [1.4.1] - 2026-10-23 (MCP server 0.3.0-alpha.2)
 
 ### Fixed
