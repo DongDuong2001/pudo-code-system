@@ -17,14 +17,21 @@ function readIfExists(root: string, relativePath: string): string {
   return fs.existsSync(target) ? fs.readFileSync(target, "utf8") : "";
 }
 
+// Headings, "..." placeholders and unticked "- [ ]" boxes are template text, not evidence.
+function filledLines(text: string): string {
+  return text
+    .split("\n")
+    .map((line) => line.trim())
+    .filter((line) => !line.startsWith("#") && !/^(-\s*)?\.\.\.$/.test(line) && !line.startsWith("- [ ]"))
+    .join("\n");
+}
+
 export function runQualityGate(gate: keyof typeof gateRequirements) {
   const root = resolveProjectRoot();
-  const evidenceText = [
+  const evidenceText = filledLines([
     readIfExists(root, ".pudo/session.md"),
-    readIfExists(root, ".pudo/checklists/release.md"),
-    readIfExists(root, ".github/pull_request_template.md"),
-    readIfExists(root, "quality/quality-gates.md")
-  ].join("\n").toLowerCase();
+    gate === "release" ? readIfExists(root, ".pudo/checklists/release.md") : ""
+  ].join("\n")).toLowerCase();
   const checks = gateRequirements[gate].map((requirement) => ({
     requirement,
     pass: evidenceText.includes(requirement)
