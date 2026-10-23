@@ -10,7 +10,7 @@
     {
       "name": "pudo",
       "description": "Plan -> Understand -> Develop -> Optimize workflow with quality gates and session handoffs.",
-      "source": "./",
+      "source": "./claude/plugin",
       "category": "productivity"
     }
   ]

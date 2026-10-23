@@ -40,6 +40,8 @@ When the `pudo` MCP server is connected:
 - `pudo.createContextPack` to hand a bounded file set to another agent.
 - `pudo.initProject` previews by default; pass `dryRun: false, confirmWrite: true` only after the user agrees.
 
-## Reference
+## Enforcement
 
-Fuller guidance ships with this plugin: `claude/CLAUDE.md`, `quality/quality-gates.md`, `quality/qc-checklists.md`, `quality/edge-cases/general.md`.
+- A Stop hook blocks finishing once when code was edited after the last test or check run. Run the checks, or say plainly why they cannot run.
+- Before context compaction a hook writes `.pudo/auto-handoff.md` and reloads it after.
+- Focused skills: `/pudo:pudo-plan`, `/pudo:pudo-review`, `/pudo:pudo-handoff`.

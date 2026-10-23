@@ -1,7 +1,7 @@
 {
   "name": "pudo",
-  "version": "1.4.1",
-  "description": "PUDO workflow for Claude Code: Plan, Understand, Develop, Optimize with quality gates, session handoffs and the PUDO MCP tools.",
+  "version": "1.5.0",
+  "description": "PUDO workflow for Claude Code: Plan, Understand, Develop, Optimize, enforced by hooks (verification gate, auto handoff) plus the PUDO MCP tools.",
   "author": {
     "name": "Duong Phu Dong",
     "url": "https://github.com/DongDuong2001"
@@ -11,7 +11,10 @@
   "mcpServers": {
     "pudo": {
       "command": "npx",
-      "args": ["-y", "@dongduong2001/mcp-server@latest"]
+      "args": [
+        "-y",
+        "@dongduong2001/mcp-server@latest"
+      ]
     }
   }
 }
