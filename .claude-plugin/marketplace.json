@@ -1,10 +1,11 @@
 {
-  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "pudo-code-system",
-  "description": "PUDO operating layer for AI coding agents.",
   "owner": {
     "name": "Duong Phu Dong",
     "url": "https://github.com/DongDuong2001"
+  },
+  "metadata": {
+    "description": "PUDO operating layer for AI coding agents."
   },
   "plugins": [
     {
