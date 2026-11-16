@@ -59,6 +59,7 @@
 - [The MCP Server](#the-mcp-server)
 - [The 4 Phases](#the-4-phases)
 - [Architecture Overview](#architecture-overview)
+- [Install the Claude Plugin](#install-the-claude-plugin)
 - [Install Into a Project](#install-into-a-project)
 - [Quick Start](#quick-start)
 - [PUDO Modes](#pudo-modes)
@@ -192,6 +193,23 @@ PUDO has three product surfaces that work together:
 **Quality Layer** provides checklists, gates, and anti-patterns to validate AI output.
 **CLI** gives you executable workflow commands that produce machine-readable results.
 **MCP Server** exposes all of the above as callable tools for compatible agents.
+
+---
+
+## Install the Claude Plugin
+
+This repo is a Claude Code plugin marketplace. The `pudo` plugin bundles the hooks, the `/pudo` skills and the PUDO MCP server.
+
+**Claude desktop app (Code tab):** open **Plugins → Browse → Add marketplace**, enter `DongDuong2001/pudo-code-system`, then install **pudo**.
+
+**Claude Code CLI:**
+
+```bash
+/plugin marketplace add DongDuong2001/pudo-code-system
+/plugin install pudo@pudo-code-system
+```
+
+Restart the session, then run `/pudo` to start the workflow. Update later with `/plugin marketplace update pudo-code-system`.
 
 ---
 
